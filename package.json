@@ -1,0 +1,42 @@
+{
+  "name": "dashboard-o-45",
+  "version": "3.1.0",
+  "description": "TESTED INDPENDENT OF IOs",
+  "main": "index_5000.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tailwindcss build css/tailwind.css -o build/tailwind.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fulminetech/dashboard-o-45.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fulminetech/dashboard-o-45/issues"
+  },
+  "homepage": "https://github.com/fulminetech/dashboard-o-45#readme",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.14.0",
+    "chart.js": "^2.9.3",
+    "chartjs-plugin-zoom": "^0.7.7",
+    "cors": "^2.8.5",
+    "cron": "^1.8.2",
+    "cross-fetch": "^3.0.6",
+    "express": "^4.17.1",
+    "hammerjs": "^2.0.8",
+    "influxdb-nodejs": "^3.1.0",
+    "modbus-serial": "^8.0.1",
+    "node-key-sender": "^1.0.11",
+    "nodemon": "^2.0.7",
+    "print-js": "^1.6.0",
+    "puppeteer": "^5.3.1",
+    "sequelize": "^6.6.2",
+    "sqlite3": "^5.0.2",
+    "tailwindcss": "^1.4.6"
+  },
+  "devDependencies": {
+    "@tailwindcss/custom-forms": "^0.2.1"
+  }
+}

@@ -1,0 +1,1137 @@
+<!--This template is based on: https://dribbble.com/shots/6531694-Marketing-Dashboard by Gregoire Vella -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard - 45</title>
+    <meta name="description" content="description here">
+    <meta name="keywords" content="keywords,here">
+
+    <link href="/font/css/all.css" rel="stylesheet">
+    <link href="/css/tailwind.css" rel="stylesheet">
+    <script src="/charts/Chart.bundle.min.js"></script>
+    <script src="/env/env.js"></script>
+
+    <!-- sidebar -->
+    <style>
+        #sidebar {
+            transition: ease-in-out all .1s;
+            z-index: 9999;
+        }
+
+        #sidebar span {
+            opacity: 0;
+            position: absolute;
+            transition: ease-in-out all .1s;
+        }
+
+        #sidebar:hover {
+            width: 180px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            /*shadow-2xl*/
+        }
+
+        #sidebar:hover span {
+            opacity: 1;
+        }
+    </style>
+
+    <!-- Toggle Button CSS -->
+    <style>
+        .toggle__dot {
+            top: -.25rem;
+            left: -.25rem;
+            transition: all 0.3s ease-in-out;
+        }
+
+        input:checked~.toggle__dot {
+            transform: translateX(100%);
+            background-color: #48bb78;
+        }
+    </style>
+
+</head>
+
+<body class="flex bg-gray-100 select-none font-sans">
+
+    <!-- Side bar-->
+    <div id="sidebar" class="h-screen w-16 menu bg-white text-white px-4 flex items-center nunito static fixed shadow">
+
+        <ul class="list-reset">
+            <li class="my-2 md:my-0">
+                <a href="/dashboard"
+                    class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-home fa-fw mr-3 text-xl"></i><span class="w-full inline-block text-lg">Dashboard</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/settings_setup"
+                    class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fa fa-wrench fa-fw mr-3  text-xl"></i><span
+                        class="w-full inline-block text-lg">Adept Setup</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/settings_homing"
+                    class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fa fa-wrench fa-fw mr-3 text-indigo-400 text-xl"></i><span class="w-full inline-block text-lg">Servo Calib</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/settings"
+                    class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fa fa-wrench fa-fw mr-3  text-xl"></i><span class="w-full inline-block text-lg">Settings</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a id="alarm_icon" href="/io_alarm"
+                    class="block my-3 md:py-3 pl-1 uppercase hidden align-middle text-gray-900 no-underline hover:text-indigo-400">
+                    <i class="fa fa-exclamation-triangle mr-3 text-2xl text-red-500"></i>
+                </a>
+            </li>
+        
+        </ul>
+
+    </div>
+
+    <div class="flex flex-row flex-wrap flex-1 flex-grow content-start pl-16">
+
+        <!--Graph Content -->
+        <div id="main-content" class="w-full flex-1">
+
+            <div class="flex ">
+                <div class="w-full p-6 ">
+
+
+                    <div class="flex mb-64">
+
+                        <!-- BI LAYER SETTING-->
+                        <div
+                            class="p-5 mb-5 ml-5 w-full border bg-gray-200 border-gray-500 rounded shadowborder border-gray-400 rounded shadow">
+                            <h5 class="font-bold uppercase mb-5 text-center text-2xl text-gray-700">SERVO CALIBRATION
+                            </h5>
+                            <table class="w-full p-3 text-gray-700">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center text-blue-900">
+                                            <button id="CALIB"
+                                                class="bg-red-300 text-2xl uppercase text-gray-800 font-semibold  py-3 px-12 border border-blue-500 rounded"
+                                                onclick="CALIB()">
+                                                CALIBRATION MODE
+                                            </button>
+                                        </th>
+                                        <th class="text-center text-2xl pb-3 text-blue-900">RHS Discharge</th>
+                                        <th class="text-center text-2xl pb-3 text-blue-900">LHS Discharge</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center  py-2  text-xl uppercase text-blue-900">
+                                        </td>
+                                        <td id="mainRHS_upper" class="border-b text-center pb-5 px-3 ">
+                                            <button id="servoRHS"
+                                                class="bg-red-300 text-2xl uppercase  text-gray-800 font-semibold  py-3 px-12 border border-blue-500 hover:border-transparent rounded"
+                                                onclick="servoRHS()">
+                                                Servo ON
+                                            </button>
+                                        </td>
+                                        <td id="preRHS_upper" class="border-b  text-center pb-5 px-3 ">
+                                            <button id="servoLHS"
+                                                class="bg-red-300 text-2xl uppercase  text-gray-800 font-semibold  py-3 px-12 border border-blue-500 hover:border-transparent rounded"
+                                                onclick="servoLHS()">
+                                                Servo ON
+                                            </button>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center  py-2  text-xl uppercase text-blue-900">
+                                        </td>
+                                        <td id="preRHS_upper" class="border-b  text-center pb-5 px-3 ">
+                                            <!-- <h3 class="font-bold text-lg">ACTUAL: <a id="pressure_act_metric">0</a></h3> -->
+                                        
+                                            <button id="Rweight_dec"
+                                                class="bg-blue-600 uppercase mt-2 text-2xl text-white font-semibold py-3 px-16 mx-5 border border-blue-500 hover:border-transparent rounded"
+                                                onmousedown="Rweight_dec()" onmouseup="Rweight_decx()">
+                                                <i class="fas fa-chevron-up fa-fw text-3xl text-white"></i>
+                                            </button>
+                                            <button id="Rweight_inc"
+                                                class="bg-blue-600 uppercase mt-2 text-2xl text-white font-semibold  py-3 px-16 mx-5 border border-blue-500 hover:border-transparent rounded"
+                                                onmousedown="Rweight_inc()" onmouseup="Rweight_incx()">
+                                                <i class="fas fa-chevron-down  fa-fw text-3xl text-white"></i>
+                                            </button>
+                                        </td>
+                                        <td id="preRHS_upper" class="border-b  text-center pb-5 px-3 ">
+                                            <!-- <h3 class="font-bold text-lg">ACTUAL: <a id="pressure_act_metric">0</a></h3> -->
+                                            <button id="Lweight_dec"
+                                                class="bg-blue-600 uppercase text-2xl text-white font-semibold  py-3 px-16 mx-5 border border-blue-500 hover:border-transparent rounded"
+                                                onmousedown="Lweight_dec()" onmouseup="Lweight_decx()">
+                                                <i class="fas fa-chevron-up fa-fw text-3xl text-white"></i>
+                                            </button>
+                                            <button id="Lweight_inc"
+                                                class="bg-blue-600 uppercase text-2xl text-white font-semibold  py-3 px-16 mx-5 border border-blue-500 hover:border-transparent rounded"
+                                                onmousedown="Lweight_inc()" onmouseup="Lweight_incx()">
+                                                <i class="fas fa-chevron-down  fa-fw text-3xl text-white"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center py-2  text-xl uppercase text-blue-900">Single Turn</td>
+                                        <td id="mainLHS_fl" class=" pb-5 px-3 text-center">
+                                            <a id="single_RHS"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
+                                        </td>
+                                        <td id="preLHS_fl" class=" pb-5 px-3 text-center">
+                                            <a id="single_LHS"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
+                                        </td>
+                                        
+
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center py-2  text-xl uppercase text-blue-900">Multi Turn</td>
+                                        <td id="mainLHS_fl" class=" pb-5 px-3 text-center">
+                                            <a id="multi_RHS"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
+                                        </td>
+                                        <td id="preLHS_fl" class=" pb-5 px-3 text-center">
+                                            <a id="multi_LHS"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
+                                        </td>
+                                        
+
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center  py-2  text-xl uppercase text-blue-900">
+                                        </td>
+                                        <td id="mainRHS_upper" class="border-b text-center pb-5 px-3 ">
+                                            <button id="clearRHS"
+                                                class="bg-red-200 text-2xl uppercase  text-gray-800 font-semibold  py-3 px-12 border border-blue-500 hover:border-transparent rounded"
+                                                onmousedown="clearRHS()" onmouseup="clearRHSx()">
+                                                Clear
+                                            </button>
+                                        </td>
+                                        <td id="preRHS_upper" class="border-b  text-center pb-5 px-3 ">
+                                            <button id="clearLHS"
+                                                class="bg-red-200 text-2xl uppercase  text-gray-800 font-semibold  py-3 px-12 border border-blue-500 hover:border-transparent rounded"
+                                                onmousedown="clearLHS()" onmouseup="clearLHSx()">
+                                                Clear
+                                            </button>
+                                        </td>
+                                        
+                                    
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center  py-2 uppercase text-xl text-blue-900">Motor Encoder PPR</td>
+                                        <td id="mainLHS_fl" class=" pb-5 px-3 text-center">
+                                            <a id="encoder_RHS"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
+                                        </td>
+                                        <td id="preLHS_fl" class=" pb-5 px-3 text-center">
+                                            <a id="encoder_LHS"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
+                                        </td>
+                                        
+
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center  py-2 uppercase text-xl text-blue-900">Home Offset 1</td>
+                                        <td id="mainRHS_fl" class=" pb-5 px-3 text-center">
+                                            <div class="flex flex-row">
+                                                <input id="home1_RHS"
+                                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                    type="number" placeholder="Value" onkeydown="if (event.keyCode == 13) home1_RHS()">
+                                                <button id="home1_RHS_set"
+                                                    class="bg-blue-100 ml-3 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                                    onmousedown="home1_RHS_set()" onmouseup="home1_RHS_setx()">
+                                                    SET
+                                                </button>
+                                        
+                                            </div>
+                                        </td>
+                                        <td id="preRHS_fl" class=" pb-5 px-3 text-center">
+                                            <div class="flex flex-row">
+                                                <input id="home1_LHS"
+                                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                    type="number" placeholder="Value" onkeydown="if (event.keyCode == 13) home1_LHS()">
+                                                <button id="home1_LHS_set"
+                                                    class="bg-blue-100 ml-3 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                                    onmousedown="home1_LHS_set()" onmouseup="home1_LHS_setx()">
+                                                    SET
+                                                </button>
+                                            </div>
+                                        </td>
+                                        
+
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center  py-2  text-xl uppercase text-blue-900">
+                                        </td>
+                                        <td id="mainRHS_upper" class="border-b text-center pb-5 px-3 ">
+                                            <button id="EEPROM_RHS"
+                                                class="bg-green-200 text-2xl uppercase text-gray-800 font-semibold  py-3 px-12 border border-blue-500 rounded"
+                                                onmousedown="EEPROM_RHS()" onmouseup="EEPROM_RHSx()">
+                                                EEPROM
+                                            </button>
+                                        </td>
+                                        <td id="preRHS_upper" class="border-b  text-center pb-5 px-3 ">
+                                            <button id="EEPROM_LHS"
+                                                class="bg-green-200 text-2xl uppercase text-gray-800 font-semibold  py-3 px-12 border border-blue-500 rounded"
+                                                onmousedown="EEPROM_LHS()" onmouseup="EEPROM_LHSx()">
+                                                EEPROM
+                                            </button>
+                                        </td>
+                                        
+                                    
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center  py-2 uppercase text-xl text-blue-900">Home Offset 2</td>
+                                        <td id="mainRHS_fl" class=" pb-5 px-3 text-center">
+                                            <div class="flex flex-row">
+                                                <input id="home2_RHS"
+                                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                    type="number" placeholder="Value" onkeydown="if (event.keyCode == 13) home2_RHS()">
+                                                
+                                            </div>
+                                        </td>
+                                        <td id="preRHS_fl" class=" pb-5 px-3 text-center">
+                                            <div class="flex flex-row">
+                                                <input id="home2_LHS"
+                                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                    type="number" placeholder="Value" onkeydown="if (event.keyCode == 13) home2_LHS()">
+                                            </div>
+                                        </td>
+                                        
+
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center  py-2 uppercase text-xl text-blue-900">Upper LIMIT</td>
+                                        <td id="mainRHS_fl" class=" pb-5 px-3 text-center">
+                                            <div class="flex flex-row">
+                                                <input id="upper_RHS"
+                                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                    type="number" placeholder="Value" onkeydown="if (event.keyCode == 13) upper_RHS()">
+                                                
+                                            </div>
+                                        </td>
+                                        <td id="preRHS_fl" class=" pb-5 px-3 text-center">
+                                            <div class="flex flex-row">
+                                                <input id="upper_LHS"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="number" placeholder="Value" onkeydown="if (event.keyCode == 13) upper_LHS()">
+                                            </div>
+                                        </td>
+                                        
+
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center  py-2 uppercase text-xl text-blue-900">lower limit</td>
+                                        <td id="mainRHS_fl" class=" pb-5 px-3 text-center">
+                                            <div class="flex flex-row">
+                                                <input id="lower_RHS"
+                                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                    type="number" placeholder="Value" onkeydown="if (event.keyCode == 13) lower_RHS()">
+                                                
+                                            </div>
+                                        </td>
+                                        <td id="preRHS_fl" class=" pb-5 px-3 text-center">
+                                            <div class="flex flex-row">
+                                                <input id="lower_LHS"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="number" placeholder="Value" onkeydown="if (event.keyCode == 13) lower_LHS()">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center  py-2 uppercase text-xl text-blue-900">Max Depth (mm)</td>
+                                        <td id="preRHS_fl" class=" pb-5 px-3 text-center">
+                                            <div class="flex flex-row">
+                                                <input id="LHS_FILL_DEPTH_MAX"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="number" placeholder="Value" onkeydown="if (event.keyCode == 13) LHS_FILL_DEPTH_MAX()">
+                                            </div>
+                                        </td>
+                                        <td id="mainRHS_fl" class=" pb-5 px-3 text-center">
+                                            <div class="flex flex-row">
+                                                <input id="RHS_FILL_DEPTH_MAX"
+                                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                    type="number" placeholder="Value" onkeydown="if (event.keyCode == 13) RHS_FILL_DEPTH_MAX()">
+                                                
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center  py-2 uppercase text-xl text-blue-900">Min Depth (mm)</td>
+                                        <td id="preRHS_fl" class=" pb-5 px-3 text-center">
+                                            <div class="flex flex-row">
+                                                <input id="LHS_FILL_DEPTH_MIN"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="number" placeholder="Value" onkeydown="if (event.keyCode == 13) LHS_FILL_DEPTH_MIN()">
+                                            </div>
+                                        </td>
+                                        <td id="mainRHS_fl" class=" pb-5 px-3 text-center">
+                                            <div class="flex flex-row">
+                                                <input id="RHS_FILL_DEPTH_MIN"
+                                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                    type="number" placeholder="Value" onkeydown="if (event.keyCode == 13) RHS_FILL_DEPTH_MIN()">
+                                                
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="h-64">
+            </div>
+
+        </div>
+    </div>
+
+    <!-- alarm-icon check -->
+    <script>
+        async function fetchalarm() {
+            fetch(rawpayload)
+                .then((resp) => resp.json()) // Transform the data into json
+                .then(function (data) {
+                    payload = data
+                    if (payload.alarm[30] === true) {
+                        const div1 = document.getElementById("alarm_icon").classList.remove('hidden');
+                    } else if (payload.alarm[30] === false) {
+                        const div1 = document.getElementById("alarm_icon").classList.add('hidden');
+                    }
+                })
+                .catch(function (error) {
+                });
+        };
+
+        function checkalarm() {
+            setInterval(() => {
+                fetchalarm()
+            }, 400);
+        }
+        checkalarm()
+    </script>
+
+    <!-- Tolerance Values script -->
+    <script>
+
+        var servo_LHS 
+        var servo_RHS 
+        var calibrate
+
+        async function fetchpayloadapiHF1() {
+            fetch(statsurl)
+                .then((resp) => resp.json()) // Transform the data into json
+                .then(function (data) {
+                    // Here you get the data to modify as you please
+                    payload = data
+
+                    document.getElementById("home1_LHS").value = payload.stats.awc.LHS_HOME_OFFSET_1
+                    document.getElementById("home1_RHS").value = payload.stats.awc.RHS_HOME_OFFSET_1
+                    
+                    document.getElementById("home2_LHS").value = payload.stats.awc.LHS_HOME_OFFSET_2
+                    document.getElementById("home2_RHS").value = payload.stats.awc.RHS_HOME_OFFSET_2
+                    
+                    document.getElementById("upper_RHS").value = payload.stats.SERVO_RHS_UPPERLIMIT
+                    document.getElementById("upper_LHS").value = payload.stats.SERVO_LHS_UPPERLIMIT
+                    
+                    document.getElementById("lower_RHS").value = payload.stats.SERVO_RHS_LOWERLIMIT
+                    document.getElementById("lower_LHS").value = payload.stats.SERVO_LHS_LOWERLIMIT
+
+                    document.getElementById("RHS_FILL_DEPTH_MAX").value = payload.stats.RHSdepth.depth_max
+                    document.getElementById("RHS_FILL_DEPTH_MIN").value = payload.stats.RHSdepth.depth_min
+                    document.getElementById("LHS_FILL_DEPTH_MAX").value = payload.stats.LHSdepth.depth_max
+                    document.getElementById("LHS_FILL_DEPTH_MIN").value = payload.stats.LHSdepth.depth_min
+                })
+                .catch(function (error) {
+                    // If there is any error you will catch them here
+                    console.log("[ PAYLOAD FETCH ERROR ]", error)
+                });
+        };
+
+        async function fetchpayloadapiHF2() {
+            fetch(statsurl)
+                .then((resp) => resp.json()) // Transform the data into json
+                .then(function (data) {
+                    // Here you get the data to modify as you please
+                    payload = data
+
+                    servo_LHS = payload.button.LHS_SERVO_ON
+                    if (servo_LHS == true) {
+                        document.getElementById("servoLHS").innerHTML = "SERVO OFF"
+                        const div1 = document.getElementById("servoLHS").classList.remove('bg-red-300');
+                        const div2 = document.getElementById("servoLHS").classList.add('bg-green-300');
+                    } else {
+                        document.getElementById("servoLHS").innerHTML = "SERVO ON"
+                        const div2 = document.getElementById("servoLHS").classList.remove('bg-green-300');
+                        const div1 = document.getElementById("servoLHS").classList.add('bg-red-300');
+                    }
+                    
+                    servo_RHS = payload.button.RHS_SERVO_ON
+                    if (servo_RHS == true) {
+                        document.getElementById("servoRHS").innerHTML = "SERVO OFF"
+                        const div1 = document.getElementById("servoRHS").classList.remove('bg-red-300');
+                        const div2 = document.getElementById("servoRHS").classList.add('bg-green-300');
+                    } else {
+                        document.getElementById("servoRHS").innerHTML = "SERVO ON"
+                        const div2 = document.getElementById("servoRHS").classList.remove('bg-green-300');
+                        const div1 = document.getElementById("servoRHS").classList.add('bg-red-300');
+                    }
+                    
+                    calibrate = payload.button.SERVO_CALIBRATION_MODE
+                    if (calibrate == true) {
+                        const div1 = document.getElementById("CALIB").classList.remove('bg-red-300');
+                        const div2 = document.getElementById("CALIB").classList.add('bg-green-300');
+                    } else {
+                        const div2 = document.getElementById("CALIB").classList.remove('bg-green-300');
+                        const div1 = document.getElementById("CALIB").classList.add('bg-red-300');
+                    }
+                    
+                    document.getElementById("single_LHS").innerHTML = payload.stats.home.LHS.single_turn
+                    document.getElementById("single_RHS").innerHTML = payload.stats.home.RHS.single_turn
+
+                    document.getElementById("multi_LHS").innerHTML = payload.stats.home.LHS.multi_turn
+                    document.getElementById("multi_RHS").innerHTML = payload.stats.home.RHS.multi_turn
+
+                    document.getElementById("encoder_LHS").innerHTML = payload.stats.home.LHS.encoder_ppr
+                    document.getElementById("encoder_RHS").innerHTML = payload.stats.home.RHS.encoder_ppr
+                    
+                })
+                .catch(function (error) {
+                    // If there is any error you will catch them here
+                    console.log("[ PAYLOAD FETCH ERROR ]", error)
+                });
+        };
+
+        fetchpayloadapiHF1();
+        fetchpayloadapiHF2();
+
+
+        function check() {
+            setTimeout(() => {
+                fetchpayloadapiHF1()
+            }, 2000);
+        }
+
+        setInterval(() => {
+            fetchpayloadapiHF2();
+        }, 300);
+    </script>
+
+    <!-- touch events -->
+    <script>
+        var clearRHS_ = document.getElementById('clearRHS')
+        var clearLHS_ = document.getElementById('clearLHS')
+        var home1_RHS_set_ = document.getElementById('home1_RHS_set')
+        var home1_LHS_set_ = document.getElementById('home1_LHS_set')
+        var EEPROM_LHS_ = document.getElementById('EEPROM_LHS')
+        var EEPROM_RHS_ = document.getElementById('EEPROM_RHS')
+        
+        clearRHS_.addEventListener('touchstart', clearRHS_process_touchstart, false);
+        clearRHS_.addEventListener('touchend',   clearRHS_process_touchend, false);
+        
+        clearLHS_.addEventListener('touchstart', clearLHS_process_touchstart, false);
+        clearLHS_.addEventListener('touchend',   clearLHS_process_touchend, false);
+        
+        home1_RHS_set_.addEventListener('touchstart', home1_RHS_set_process_touchstart, false);
+        home1_RHS_set_.addEventListener('touchend',   home1_RHS_set_process_touchend, false);
+        
+        home1_LHS_set_.addEventListener('touchstart', home1_LHS_set_process_touchstart, false);
+        home1_LHS_set_.addEventListener('touchend',   home1_LHS_set_process_touchend, false);
+        
+        EEPROM_LHS_.addEventListener('touchstart', EEPROM_LHS_process_touchstart, false);
+        EEPROM_LHS_.addEventListener('touchend',   EEPROM_LHS_process_touchend, false);
+        
+        EEPROM_RHS_.addEventListener('touchstart', EEPROM_RHS_process_touchstart, false);
+        EEPROM_RHS_.addEventListener('touchend',   EEPROM_RHS_process_touchend, false);
+        
+        function clearRHS_process_touchstart(e) {
+            e.preventDefault();
+            clearRHS()
+        }
+
+        function clearRHS_process_touchend() {
+            clearRHSx()
+        }
+        
+        function clearLHS_process_touchstart(e) {
+            e.preventDefault();
+            clearLHS()
+        }
+
+        function clearLHS_process_touchend() {
+            clearLHSx()
+        }
+        
+        function home1_RHS_set_process_touchstart(e) {
+            e.preventDefault();
+            home1_RHS_set()
+        }
+
+        function home1_RHS_set_process_touchend() {
+            home1_RHS_setx()
+        }
+        
+        function home1_LHS_set_process_touchstart(e) {
+            e.preventDefault();
+            home1_LHS_set()
+        }
+
+        function home1_LHS_set_process_touchend() {
+            home1_LHS_setx()
+        }
+        
+        function EEPROM_RHS_process_touchstart(e) {
+            e.preventDefault();
+            EEPROM_RHS()
+        }
+
+        function EEPROM_RHS_process_touchend() {
+            EEPROM_RHSx()
+        }
+        
+        function EEPROM_LHS_process_touchstart(e) {
+            e.preventDefault();
+            EEPROM_LHS()
+        }
+
+        function EEPROM_LHS_process_touchend() {
+            EEPROM_LHSx()
+        }
+
+        async function Rweight_dec() {
+                const div1 = document.getElementById("Rweight_dec").classList.remove('bg-blue-600');
+                const div2 = document.getElementById("Rweight_dec").classList.add('bg-blue-900');
+                let submiturl = `${seturl}/RHS_WEIGHT_DEC/true`
+                await fetch(submiturl)
+                    .catch(console.error);
+            }
+
+
+            async function Rweight_decx() {
+                const div1 = document.getElementById("Rweight_dec").classList.remove('bg-blue-900');
+                const div2 = document.getElementById("Rweight_dec").classList.add('bg-blue-600');
+                let submiturl = `${seturl}/RHS_WEIGHT_DEC/false`
+                await fetch(submiturl)
+                    .catch(console.error);
+            }
+
+            async function Lweight_dec() {
+                const div1 = document.getElementById("Lweight_dec").classList.remove('bg-blue-600');
+                const div2 = document.getElementById("Lweight_dec").classList.add('bg-blue-900');
+                let submiturl = `${seturl}/LHS_WEIGHT_DEC/true`
+                await fetch(submiturl)
+                    .catch(console.error);
+            }
+
+
+            async function Lweight_decx() {
+                const div1 = document.getElementById("Lweight_dec").classList.remove('bg-blue-900');
+                const div2 = document.getElementById("Lweight_dec").classList.add('bg-blue-600');
+                let submiturl = `${seturl}/LHS_WEIGHT_DEC/false`
+                await fetch(submiturl)
+                    .catch(console.error);
+            }
+
+             async function Rweight_inc() {
+                    const div1 = document.getElementById("Rweight_inc").classList.remove('bg-blue-600');
+                    const div2 = document.getElementById("Rweight_inc").classList.add('bg-blue-900');
+                    let submiturl = `${seturl}/RHS_WEIGHT_INC/true`
+                    await fetch(submiturl)
+                        .catch(console.error);
+                }
+
+
+                async function Rweight_incx() {
+                    const div1 = document.getElementById("Rweight_inc").classList.remove('bg-blue-900');
+                    const div2 = document.getElementById("Rweight_inc").classList.add('bg-blue-600');
+                    let submiturl = `${seturl}/RHS_WEIGHT_INC/false`
+                    await fetch(submiturl)
+                        .catch(console.error);
+                }
+
+                async function Lweight_inc() {
+                    const div1 = document.getElementById("Lweight_inc").classList.remove('bg-blue-600');
+                    const div2 = document.getElementById("Lweight_inc").classList.add('bg-blue-900');
+                    let submiturl = `${seturl}/LHS_WEIGHT_INC/true`
+                    await fetch(submiturl)
+                        .catch(console.error);
+                }
+
+
+                async function Lweight_incx() {
+                    const div1 = document.getElementById("Lweight_inc").classList.remove('bg-blue-900');
+                    const div2 = document.getElementById("Lweight_inc").classList.add('bg-blue-600');
+                    let submiturl = `${seturl}/LHS_WEIGHT_INC/false`
+                    await fetch(submiturl)
+                        .catch(console.error);
+                }
+    </script>
+
+    <!-- Update Values -->
+    <script>
+
+        async function LHS_FILL_DEPTH_MAX() {
+            var a = document.getElementById("LHS_FILL_DEPTH_MAX").value;
+            // console.log(a)
+            let submiturl = `${seturl}/RHS_FILL_DEPTH_MAX/${a}`
+            if (a <= 25 && a >= 0) {
+                await fetch(submiturl)
+                    .then(console.log("[ UPDATED! ] "))
+                    .then(check())
+                    .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 25.")
+            }
+        }
+
+        async function LHS_FILL_DEPTH_MIN() {
+            var a = document.getElementById("LHS_FILL_DEPTH_MIN").value;
+            // console.log(a)
+            let submiturl = `${seturl}/RHS_FILL_DEPTH_MIN/${a}`
+            if (a <= 25 && a >= 0) {
+                await fetch(submiturl)
+                    .then(console.log("[ UPDATED! ] "))
+                    .then(check())
+                    .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 25.")
+            }
+        }
+        
+        async function RHS_FILL_DEPTH_MAX() {
+            var a = document.getElementById("RHS_FILL_DEPTH_MAX").value;
+            // console.log(a)
+            let submiturl = `${seturl}/LHS_FILL_DEPTH_MAX/${a}`
+            if (a <= 25 && a >= 0) {
+                await fetch(submiturl)
+                    .then(console.log("[ UPDATED! ] "))
+                    .then(check())
+                    .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 25.")
+            }
+        }
+
+        async function RHS_FILL_DEPTH_MIN() {
+            var a = document.getElementById("RHS_FILL_DEPTH_MIN").value;
+            // console.log(a)
+            let submiturl = `${seturl}/LHS_FILL_DEPTH_MIN/${a}`
+            if (a <= 25 && a >= 0) {
+                await fetch(submiturl)
+                    .then(console.log("[ UPDATED! ] "))
+                    .then(check())
+                    .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 25.")
+            }
+        }
+        function home1_LHS() {
+            var pressure = document.getElementById("home1_LHS").value;
+
+            submitt(parseFloat(pressure))
+
+            function submitt(pressure) {
+                if (pressure <= 100000000000 && pressure >= -200000000000) {
+                    let submiturl = `${seturl}/LHS_HOME_OFFSET_1/${pressure}`
+                    console.log(submiturl)
+                    fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ Request Sent // pending confirmation ] ")
+                        }, 100))
+                        .then(
+                            check()
+                        )
+                        .catch(console.error);
+                }
+                else {
+                    alert("Out of range.")
+                }
+            }
+
+        }
+
+        function home1_RHS() {
+            var pressure = document.getElementById("home1_RHS").value;
+
+            submitt(parseFloat(pressure))
+
+            function submitt(pressure) {
+                if (pressure <= 100000000000 && pressure >= -200000000000) {
+                    let submiturl = `${seturl}/RHS_HOME_OFFSET_1/${pressure}`
+                    console.log(submiturl)
+                    fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ Request Sent // pending confirmation ] ")
+                        }, 100))
+                        .then(
+                            check()
+                        )
+                        .catch(console.error);
+                }
+                else {
+                    alert("Out of range.")
+                }
+            }
+
+        }
+
+        function home2_LHS() {
+            var pressure = document.getElementById("home2_LHS").value;
+
+            submitt(parseFloat(pressure))
+
+            function submitt(pressure) {
+                if (pressure <= 1000000000 && pressure >= -200000000000) {
+                    let submiturl = `${seturl}/LHS_HOME_OFFSET_2/${pressure}`
+                    console.log(submiturl)
+                    fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ Request Sent // pending confirmation ] ")
+                        }, 100))
+                        .then(
+                            check()
+                        )
+                        .catch(console.error);
+                }
+                else {
+                    alert("Out of range.")
+                }
+            }
+
+        }
+
+        function home2_RHS() {
+            var pressure = document.getElementById("home2_RHS").value;
+
+            submitt(parseFloat(pressure))
+
+            function submitt(pressure) {
+                if (pressure <= 1000000000000 && pressure >= -200000000000) {
+                    let submiturl = `${seturl}/RHS_HOME_OFFSET_2/${pressure}`
+                    console.log(submiturl)
+                    fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ Request Sent // pending confirmation ] ")
+                        }, 100))
+                        .then(
+                            check()
+                        )
+                        .catch(console.error);
+                }
+                else {
+                    alert("Out of range.")
+                }
+            }
+
+        }
+
+        function upper_RHS() {
+            var pressure = document.getElementById("upper_RHS").value;
+
+            submitt(parseFloat(pressure))
+
+            function submitt(pressure) {
+                if (pressure <= 1000000000000 && pressure >= -200000000000) {
+                    let submiturl = `${seturl}/SERVO_RHS_UPPERLIMIT/${pressure}`
+                    console.log(submiturl)
+                    fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ Request Sent // pending confirmation ] ")
+                        }, 100))
+                        .then(
+                            check()
+                        )
+                        .catch(console.error);
+                }
+                else {
+                    alert("Out of range.")
+                }
+            }
+        }
+        
+        function upper_LHS() {
+            var pressure = document.getElementById("upper_LHS").value;
+
+            submitt(parseFloat(pressure))
+
+            function submitt(pressure) {
+                if (pressure <= 1000000000000 && pressure >= -200000000000) {
+                    // let submiturl = `${seturl}/L_HOMING_UPPERLIMIT/${pressure}`
+                    let submiturl = `${seturl}/SERVO_LHS_UPPERLIMIT/${pressure}`
+                    console.log(submiturl)
+                    fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ Request Sent // pending confirmation ] ")
+                        }, 100))
+                        .then(
+                            check()
+                        )
+                        .catch(console.error);
+                }
+                else {
+                    alert("Out of range.")
+                }
+            }
+        }
+        
+        function lower_RHS() {
+            var pressure = document.getElementById("lower_RHS").value;
+
+            submitt(parseFloat(pressure))
+
+            function submitt(pressure) {
+                if (pressure <= 1000000000000 && pressure >= -200000000000) {
+                    // let submiturl = `${seturl}/R_HOMING_LOWERLIMIT/${pressure}`
+                    let submiturl = `${seturl}/SERVO_RHS_LOWERLIMIT/${pressure}`
+                    console.log(submiturl)
+                    fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ Request Sent // pending confirmation ] ")
+                        }, 100))
+                        .then(
+                            check()
+                        )
+                        .catch(console.error);
+                }
+                else {
+                    alert("Out of range.")
+                }
+            }
+        }
+        
+        function lower_LHS() {
+            var pressure = document.getElementById("lower_LHS").value;
+
+            submitt(parseFloat(pressure))
+
+            function submitt(pressure) {
+                if (pressure <= 1000000000000 && pressure >= -200000000000) {
+                    // let submiturl = `${seturl}/L_HOMING_LOWERLIMIT/${pressure}`
+                    let submiturl = `${seturl}/SERVO_LHS_LOWERLIMIT/${pressure}`
+                    console.log(submiturl)
+                    fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ Request Sent // pending confirmation ] ")
+                        }, 100))
+                        .then(
+                            check()
+                        )
+                        .catch(console.error);
+                }
+                else {
+                    alert("Out of range.")
+                }
+            }
+        }
+
+    </script>
+
+    <!-- Update System info -->
+    <script>
+
+        async function servoLHS() {
+            if(servo_LHS == true){
+                let submiturl = `${seturl}/LHS_SERVO_ON/false`
+                await fetch(submiturl)
+                    .then(console.log("[ Machine Start ] "))
+                    .then(check())
+                    .catch(console.error);
+            }
+            else {
+                let submiturl = `${seturl}/LHS_SERVO_ON/true`
+                await fetch(submiturl)
+                    .then(console.log("[ Machine Start ] "))
+                    .then(check())
+                    .catch(console.error);
+            }
+        }
+
+        async function servoRHS() {
+            if (servo_RHS == true) {
+                let submiturl = `${seturl}/RHS_SERVO_ON/false`
+                await fetch(submiturl)
+                    .then(console.log("[ Machine Start ] "))
+                    .then(check())
+                    .catch(console.error);
+            }
+            else {
+                let submiturl = `${seturl}/RHS_SERVO_ON/true`
+                await fetch(submiturl)
+                    .then(console.log("[ Machine Start ] "))
+                    .then(check())
+                    .catch(console.error);
+            }
+            
+        }
+
+        async function CALIB() {
+            if (calibrate == true) {
+                let submiturl = `${seturl}/SERVO_CALIBRATION_MODE/false`
+                await fetch(submiturl)
+                    // .then(console.log("[ Machine Start ] "))
+                    .then(check())
+                    .catch(console.error);
+            }
+            else {
+                let submiturl = `${seturl}/SERVO_CALIBRATION_MODE/true`
+                await fetch(submiturl)
+                    // .then(console.log("[ Machine Start ] "))
+                    .then(check())
+                    .catch(console.error);
+            }
+            
+        }
+
+        async function clearLHS() {
+            const div1 = document.getElementById("clearLHS").classList.add('bg-red-500');
+            const div2 = document.getElementById("clearLHS").classList.remove('bg-red-200');
+            let submiturl = `${seturl}/LHS_MULTI_TURN_CLEAR/true`
+            await fetch(submiturl)
+                .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function clearLHSx() {
+            const div1 = document.getElementById("clearLHS").classList.add('bg-red-200');
+            const div2 = document.getElementById("clearLHS").classList.remove('bg-red-500');
+            let submiturl = `${seturl}/LHS_MULTI_TURN_CLEAR/false`
+            await fetch(submiturl)
+                .then(console.log("[ Machine Start ] "))
+                .then(check())
+                .catch(console.error);
+        }
+
+        async function clearRHS() {
+            const div1 = document.getElementById("clearRHS").classList.add('bg-red-500');
+            const div2 = document.getElementById("clearRHS").classList.remove('bg-red-200');
+            let submiturl = `${seturl}/RHS_MULTI_TURN_CLEAR/true`
+            await fetch(submiturl)
+                .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function clearRHSx() {
+            const div1 = document.getElementById("clearRHS").classList.add('bg-red-200');
+            const div2 = document.getElementById("clearRHS").classList.remove('bg-red-500');
+            let submiturl = `${seturl}/RHS_MULTI_TURN_CLEAR/false`
+            await fetch(submiturl)
+                .then(console.log("[ Machine Start ] "))
+                .then(check())
+                .catch(console.error);
+        }
+
+        async function EEPROM_LHS() {
+            const div1 = document.getElementById("EEPROM_LHS").classList.add('bg-green-500');
+            const div2 = document.getElementById("EEPROM_LHS").classList.remove('bg-green-200');
+            let submiturl = `${seturl}/LHS_EEPROM_WRITE/true`
+            await fetch(submiturl)
+                .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+
+        async function EEPROM_LHSx() {
+            const div1 = document.getElementById("EEPROM_LHS").classList.add('bg-green-200');
+            const div2 = document.getElementById("EEPROM_LHS").classList.remove('bg-green-500');
+            let submiturl = `${seturl}/LHS_EEPROM_WRITE/false`
+            await fetch(submiturl)
+                .then(console.log("[ Machine Start ] "))
+                .then(check())
+                .catch(console.error);
+        }
+
+        async function EEPROM_RHS() {
+            const div1 = document.getElementById("EEPROM_RHS").classList.add('bg-green-500');
+            const div2 = document.getElementById("EEPROM_RHS").classList.remove('bg-green-200');
+            let submiturl = `${seturl}/RHS_EEPROM_WRITE/true`
+            await fetch(submiturl)
+                .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+
+        async function EEPROM_RHSx() {
+            const div1 = document.getElementById("EEPROM_RHS").classList.add('bg-green-200');
+            const div2 = document.getElementById("EEPROM_RHS").classList.remove('bg-green-500');
+            let submiturl = `${seturl}/RHS_EEPROM_WRITE/false`
+            await fetch(submiturl)
+                .then(console.log("[ Machine Start ] "))
+                .then(check())
+                .catch(console.error);
+        }
+
+        async function home1_RHS_set() {
+            let submiturl = `${seturl}/RHS_HOME_OFFSET_WRITE/true`
+            await fetch(submiturl)
+                .then(console.log("[ Machine Start ] "))
+                .then(check())
+                .catch(console.error);
+        }
+
+
+        async function home1_RHS_setx() {
+            let submiturl = `${seturl}/RHS_HOME_OFFSET_WRITE/false`
+            await fetch(submiturl)
+                .then(console.log("[ Machine Start ] "))
+                .then(check())
+                .catch(console.error);
+        }
+
+        async function home1_LHS_set() {
+            let submiturl = `${seturl}/LHS_HOME_OFFSET_WRITE/true`
+            await fetch(submiturl)
+                .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+
+        async function home1_LHS_setx() {
+            let submiturl = `${seturl}/LHS_HOME_OFFSET_WRITE/false`
+            await fetch(submiturl)
+                .then(console.log("[ Machine Start ] "))
+                .then(check())
+                .catch(console.error);
+        }
+
+    </script>
+
+    <!-- Check PLC connection -->
+    <script>
+        async function fetchcompression() {
+            fetch(payloadURL)
+                .then((resp) => resp.json())
+                .then(function (data) {
+                    data.connection == false ? disconnect() : data.connection
+
+                    function disconnect() {
+                        setTimeout(() => {
+                            alert("[ PLC CONNECTION ERROR. RESTART SYSTEM. ]")
+                            location.href = "/"
+                        }, 200);
+                    }
+                })
+                .catch(function (error) {
+                    console.log("[ PAYLOAD FETCH ERROR ]", error)
+                });
+        };
+
+        setInterval(() => {
+            fetchcompression()
+        }, 2000);
+
+    </script>
+
+</body>
+
+</html>

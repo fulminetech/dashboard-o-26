@@ -1,0 +1,1531 @@
+<!--This template is based on: https://dribbble.com/shots/6531694-Marketing-Dashboard by Gregoire Vella -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard - 45</title>
+    <meta name="description" content="description here">
+    <meta name="keywords" content="keywords,here">
+
+    <link href="/font/css/all.css" rel="stylesheet">
+    <link href="/css/tailwind.css" rel="stylesheet">
+    <script src="/env/env.js"></script>
+    <script src="/printjs/dist/print.js"></script>
+    <link rel="stylesheet" type="text/css" href="/printjs/dist/print.css">
+    <!-- sidebar -->
+    <style>
+        #sidebar {
+            transition: ease-in-out all .1s;
+            z-index: 9999;
+        }
+
+        #sidebar span {
+            opacity: 0;
+            position: absolute;
+            transition: ease-in-out all .1s;
+        }
+
+        #sidebar:hover {
+            width: 180px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            /*shadow-2xl*/
+        }
+
+        #sidebar:hover span {
+            opacity: 1;
+        }
+    </style>
+
+</head>
+
+<body class="flex bg-gray-100 select-none font-sans">
+
+    <!-- Side bar-->
+    <div id="sidebar" class="h-screen w-16 menu bg-white text-white px-4 flex items-center static fixed shadow">
+
+        <ul class="list-reset">
+            <li class="my-2 md:my-0">
+                <a href="/dashboard"
+                    class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fa fa-chevron-left fa-fw mr-3 text-xl"></i><span class="w-full inline-block text-lg">Dashboard</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/analytics"
+                    class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-folder fa-fw mr-3 text-indigo-400 text-xl"></i><span class="w-full inline-block text-lg">Reports</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a id="alarm_icon" href="/io_alarm"
+                    class="block my-3 md:py-3 pl-1 uppercase hidden align-middle text-gray-900 no-underline hover:text-indigo-400">
+                    <i class="fa fa-exclamation-triangle mr-3 text-2xl text-red-500"></i>
+                </a>
+            </li>
+            
+        
+        </ul>
+    </div>
+
+    <div class="flex flex-1 max-h-full pl-16">
+
+        <!--Dash Content -->
+        <div id="dash-content" class="bg-blue-200 py-3 px-2 lg:py-0 w-full xl:w-80 lg:max-w-sm flex flex-wrap content-start">
+
+            <!-- Batch Report -->
+            <div class="w-1 w-full">
+                <div onclick="location.href='/analytics'"
+                    class="border-2 border-gray-900 border-dashed hover:border-transparent bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1 items-center">
+                            <h5 class="font-bold uppercase text-gray-900">Batch Report</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Audit Report -->
+            <div class="w-1 w-full">
+                <div onclick="location.href='/audit'"
+                    class="cursor-pointer border-2 border-gray-900 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1">
+                            <h5 class="font-bold uppercase text-gray-700">Audit Report</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Alarm Report -->
+            <div class="w-1 w-full">
+                <div onclick="location.href='/alarm'"
+                    class="cursor-pointer border-2 border-gray-900 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1">
+                            <h5 class="font-bold uppercase text-gray-700">Alarm Report</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Batch List -->
+            <div class="w-full overflow-y-auto select-text p-3" style="height:60vh;">
+                <div class="border border-gray-400 bg-white rounded shadow">
+                    <div class="border-b border-gray-400 p-3">
+                        <h5 class="font-bold uppercase text-center text-xl text-black">Total
+                            Batches:
+                            <a id="batchcount" class="font-bold text-xl text-black">0
+                            </a>
+                        </h5>
+                    </div>
+                    <div class="px-5 pb-3">
+                        <table class="table-fixed w-full text-center text-black" height="170rem">
+                            <thead>
+                                <tr>
+                                    <th class="text-center py-3" style="width:60px">Index</th>
+                                    <th class="text-center py-3">Batch Name</th>
+                                </tr>
+                            </thead>
+                        
+                            <tbody id="batchlist">
+                            
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!--Graph Content -->
+        <div id="main-content" class="w-full h-screen flex-1">
+
+            <div class="flex flex-1 flex-wrap">
+                <div class="w-full p-6 ">
+
+                    <!-- Search: Parameters -->
+                    <div class="border-b mt-2 p-3">
+                        <h5 class="font-bold text-black">Enter Batch Number:</h5>
+                    </div>
+                    
+                    <div class="flex grid grid-cols-3 p-3 ">
+                    
+                        <div class="flex flex-col">
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="text" placeholder="" onkeydown="if (event.keyCode == 13) searchBatch()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SEARCH
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+
+                    <!-- Search: Parameters -->
+                    <div class="border-b mt-2 p-3">
+                        <h5 class="font-bold text-black">Enter Rotation Number Range:</h5>
+                    </div>
+                    
+                    <div class="flex grid p-3">
+                        <h3 class="font-bold mt-2 text-lg">Total Data points: <a id="total_data">0</a></h3>
+                    
+                    </div>
+
+                    <div class="flex grid grid-cols-3 p-3 ">
+
+                        <div class="flex flex-col">
+                            <h3> From Data  </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="fromRotationNumber"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) filterbutton()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col">
+                            <h3> To Data </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="toRotationNumber"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) filterbutton()">
+                                </div>
+                                <div class="p-3">
+                                    <button
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="filterbutton()">
+                                        Filter
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+
+                    <!-- Export:  -->
+                    <div class="border-b mt-2 p-3">
+                        <h5 class="font-bold text-black">Export Average Compression:</h5>
+                    </div>
+                    
+                    <div class="flex   p-3 ">
+                    
+                        <div class="flex grid grid-cols-4 flex-wrap p-3">
+
+                            <!-- PDF report Button -->
+                            <div class="py-3 pr-5">
+                                <button id="generatepdfreport"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="generateReport()">
+                                    PDF report
+                                </button>
+                            </div>
+
+                            <!-- PDF report Button -->
+                            <div class="py-3 px-3">
+                                <button id="generateandprintavgReportid"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="generateandprintavgReport()">
+                                    Print report
+                                </button>
+                            </div>
+
+                            <!-- PDF report Button -->
+                            <div class="py-3 px-3">
+                                <button id="generateavggraphReportid"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="generateavggraphReport()">
+                                    PDF Avg Graph
+                                </button>
+                            </div>
+
+                            <!-- PDF report Button -->
+                            <div class="py-3 ">
+                                <button id="generateandprintavggraphReportid"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="generateandprintavggraphReport()">
+                                    Print Avg Graph
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Export:  -->
+                    <div class="border-b mt-2 p-3">
+                        <h5 class="font-bold text-black">Print Load Cell Data (PDF):</h5>
+                    </div>
+                    
+                    <div class="flex grid grid-cols-5 p-3 ">
+                    
+                        <div class="flex flex-wrap p-3">
+                            <div class="py-3">
+                                <button id="pdfexportandprintPreLHSid"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="pdfexportandprintPreLHS()">
+                                    Pre LHS
+                                </button>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-wrap p-3">
+                            <div class="py-3">
+                                <button id="pdfexportandprintPreRHSid"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="pdfexportandprintPreRHS()">
+                                    Pre RHS
+                                </button>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-wrap p-3">
+                            <div class="py-3">
+                                <button id="pdfexportandprintMainLHSid"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="pdfexportandprintMainLHS()">
+                                    Main LHS
+                                </button>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-wrap p-3">
+                            <div class="py-3">
+                                <button id="pdfexportandprintMainRHSid"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="pdfexportandprintMainRHS()">
+                                    Main RHS
+                                </button>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-wrap p-3">
+                            <div class="py-3">
+                                <button id="pdfexportandprintEjnLHSid"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="pdfexportandprintEjnLHS()">
+                                    Ejn LHS
+                                </button>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-wrap p-3">
+                            <div class="py-3">
+                                <button id="pdfexportandprintEjnRHSid"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="pdfexportandprintEjnRHS()">
+                                    Ejn RHS
+                                </button>
+                            </div>
+                        </div>
+                    
+                    </div>
+
+                    <!-- Export:  -->
+                    <div class="border-b mt-2 p-3">
+                        <h5 class="font-bold text-black">Export Load Cell Data (CSV):</h5>
+                    </div>
+                    
+                    <div class="flex grid grid-cols-5 p-3 ">
+                    
+                        <div class="flex flex-wrap p-3">
+                            <div class="py-3">
+                                <button
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="csvexportPreLHS()">
+                                    Pre LHS  
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap p-3">
+                            <div class="py-3">
+                                <button
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="csvexportPreRHS()">
+                                    Pre RHS  
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap p-3">
+                            <div class="py-3">
+                                <button
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="csvexportMainLHS()">
+                                    Main LHS  
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap p-3">
+                            <div class="py-3">
+                                <button
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="csvexportMainRHS()">
+                                    Main RHS  
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap p-3">
+                            <div class="py-3">
+                                <button
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="csvexportEjnLHS()">
+                                    Ejn LHS  
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap p-3">
+                            <div class="py-3">
+                                <button
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="csvexportEjnRHS()">
+                                    Ejn RHS  
+                                </button>
+                            </div>
+                        </div>
+
+                        
+                    
+                    </div>
+
+                    <!-- Export:  -->
+                    <div class="border-b mt-2 p-3">
+                        <h5 class="font-bold text-black">Download Load Cell Data (PDF):</h5>
+                    </div>
+                    
+                    <div class="flex grid grid-cols-5 p-3 ">
+                    
+                        <div class="flex flex-wrap p-3">
+                            <div class="py-3">
+                                <button id="generatepdfreport1"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="pdfexportPreLHS()">
+                                    Pre LHS  
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap p-3">
+                            <div class="py-3">
+                                <button id="generatepdfreport2"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="pdfexportPreRHS()">
+                                    Pre RHS  
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap p-3">
+                            <div class="py-3">
+                                <button id="generatepdfreport3"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="pdfexportMainLHS()">
+                                    Main LHS  
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap p-3">
+                            <div class="py-3">
+                                <button id="generatepdfreport4"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="pdfexportMainRHS()">
+                                    Main RHS  
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap p-3">
+                            <div class="py-3">
+                                <button id="generatepdfreport5"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="pdfexportEjnLHS()">
+                                    Ejn LHS  
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap p-3">
+                            <div class="py-3">
+                                <button id="generatepdfreport6"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="pdfexportEjnRHS()">
+                                    Ejn RHS  
+                                </button>
+                            </div>
+                        </div>
+
+                        
+                    
+                    </div>
+
+                    <!--"Container" for the graphs"-->
+                    <div class="max-w-full">
+
+                        <!--Steps for report export-->
+                        <!-- <div class="w-64 pl-5"> -->
+                            <!-- <div class="border-b p-3">
+                                <h5 class="font-bold text-black">Step 1: Enter Batch Number</h5>
+                            </div> -->
+                            <!-- Search Button -->
+                            <!-- <div class="flex flex-wrap p-3">
+                                <form id="batchname" class="">
+                                    <input
+                                        class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-60"
+                                        type="text" placeholder="">
+                                </form>
+                            </div> -->
+                        
+                            <!-- Search Button -->
+                            <!-- <div class="flex-wrap flex p-3">
+                                <button id="searchbatch"
+                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="searchBatch()">
+                                    SEARCH
+                                </button>
+                            </div> -->
+                        
+                            <!-- <div class="border-b p-3">
+                                <h5 class="font-bold text-black">Step 2: Enter Range</h5>
+                            </div> -->
+                            <!-- Search Button -->
+                            <!-- <div class="flex flex-wrap p-3">
+                                <form id="fromRotationNumber" class="py-3">
+                                    <input
+                                        class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-40"
+                                        type="number" placeholder="FROM">
+                                </form>
+                                
+                                <form id="toRotationNumber" class="py-3">
+                                    <input
+                                        class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-40"
+                                        type="number" placeholder="TO">
+                                </form>
+                        
+                            </div> -->
+                        
+                            <!-- Filter Button -->
+                            <!-- <div class="flex flex-wrap p-3">
+                                <div class="">
+                                    <button
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="filterbutton()">
+                                        Filter
+                                    </button>
+                                </div>
+                            </div> -->
+                        
+                            <!-- <div class="border-b p-3">
+                                <h5 class="font-bold text-black">Step 3: Export Report</h5>
+                            </div> -->
+                        
+                            <!-- PDF report Button -->
+                            <!-- <div class="flex flex-wrap p-3">
+                                <div class="py-3">
+                                    <button id="generatepdfreport"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="generateReport()">
+                                        PDF report
+                                    </button>
+                                </div>
+                            </div> -->
+                        
+                            <!-- <div class="border-b p-3">
+                                <h5 class="font-bold text-black">CSV / Excel:</h5>
+                            </div> -->
+                            
+                            <!-- CSV Button -->
+                            <!-- <div class="flex flex-wrap p-3">
+                                <div class="py-3">
+                                    <button
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="csvexport()">
+                                        CSV EXPORT
+                                    </button>
+                                </div>
+                            </div> -->
+                        
+                            <!--/Graph Card-->
+                        
+                        <!-- </div> -->
+
+                        <!-- Rotation Avg List -->
+                        <div class="w-full p-3">
+                            <div class="border border-gray-400 rounded shadow overflow-auto">
+                                <div class="border-b border-gray-400 p-3">
+                                    <h5 class="font-bold uppercase text-center text-3xl text-black">Total
+                                        Rotations:
+                                        <a id="totalrotations" class="font-bold text-3xl text-black">
+                                        </a>
+                                    </h5>
+                                </div>
+                                <div class="px-5 pb-5">
+                                    <table class="table-auto w-full text-center text-black" height="170rem">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center border-b py-3">Rotation</th>
+                                                <th class="text-center border-b py-3">PRE LHS AVG<br> (kN)</th>
+                                                <th class="text-center border-b py-3">MAIN LHS AVG<br> (kN)</th>
+                                                <th class="text-center border-b py-3">EJN LHS AVG<br> (kg)</th>
+                                                <th class="text-center border-b py-3">PRE RHS AVG<br> (kN)</th>
+                                                <th class="text-center border-b py-3">MAIN RHS AVG<br> (kN)</th>
+                                                <th class="text-center border-b py-3">EJN RHS AVG<br> (kg)</th>
+                                                <th class="text-center border-b py-3">Dwell Time</th>
+                                                <th class="text-center border-b py-3">Turret RPM</th>
+                                                <th class="text-center border-b py-3">Dozer Position LHS<br> (mm)</th>
+                                                <th class="text-center border-b py-3">Dozer Position RHS<br> (mm)</th>
+                                            
+                                            </tr>
+                                        </thead>
+
+                                        <tbody id="avgtable">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- alarm-icon check -->
+    <script>
+        async function fetchalarm() {
+            fetch(rawpayload)
+                .then((resp) => resp.json()) // Transform the data into json
+                .then(function (data) {
+                    payload = data
+                    if (payload.alarm[30] === true) {
+                        const div1 = document.getElementById("alarm_icon").classList.remove('hidden');
+                    } else if (payload.alarm[30] === false) {
+                        const div1 = document.getElementById("alarm_icon").classList.add('hidden');
+                    }
+                })
+                .catch(function (error) {
+                });
+        };
+
+        function checkalarm() {
+            setInterval(() => {
+                fetchalarm()
+            }, 400);
+        }
+        checkalarm()
+    </script>
+    
+    <!-- Update Batch details -->
+    <script>
+        batchtable()
+
+        async function batchtable() {
+            const batchResponse = await fetch(batchURL);
+            const batch = await batchResponse.json();
+
+            document.getElementById("batchcount").innerHTML = batch.batchcount;
+
+            console.log(batch.batchnames);
+
+            let batchlistt = batch.batchnames;
+
+            loadbatchlist();
+
+            function loadbatchlist() {
+                const batchListBody = document.getElementById('batchlist');
+                let batchHTML = '';
+
+                let i = -1;
+                let j = 0;
+                for (let batchh of batchlistt) {
+                    i++;
+                    j++;
+                    batchHTML += `<tr><td class="border border-gray-400 px-4 py-2">${j}</td><td class="border border-gray-400 px-4 py-2">${batchlistt[i]}</td></tr>`
+                }
+
+                batchListBody.innerHTML = batchHTML;
+            }
+        }
+    </script>
+    
+    <!-- Search Avg Data -->
+    <script>
+        
+        // addEventListener("keydown", function (event) {
+        //     if (event.keyCode === 13) {
+        //         event.preventDefault();
+
+        //         searchBatch();
+        //     }
+        // });
+
+        var element2 = document.getElementById("searchbatch");
+
+        async function searchBatch() {
+
+            var name = document.getElementById("batchname").value;
+            
+            console.log(name)
+
+            if (name == "") {
+
+            } else {
+
+                document.getElementById("searchbatch").innerText = "PLEASE WAIT";
+                element2.classList.add("cursor-not-allowed");
+
+                // dbsearchURL
+                var queryAvgURL = `${dbsearchURL}/${name}/average`
+                // var queryAvgURL = `${searchAvgURL}${name}`
+
+                const avgData = await fetch(queryAvgURL);
+                const avggbatch = await avgData.json();
+
+                
+                document.getElementById("totalrotations").innerHTML = avggbatch.count;
+                document.getElementById("total_data").innerHTML = avggbatch.count;
+
+                let avglistt = avggbatch.data;
+
+                function loadavglist() {
+                    const avgListBody = document.getElementById('avgtable');
+                    let avgHTML = '';
+
+                    let i = -1;
+                    for (let avgg of avglistt) {
+                        i++;
+                        let avgdataa = avggbatch.data[i]
+                        avgHTML += `<tr><td class="border border-gray-500 px-4 py-2">${avgdataa[10]}</td><td class="border border-gray-500 px-4 py-2">${avgdataa[8]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[6]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[4]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[9]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[7]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[5]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[3]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[11]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[2]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[1]}</td></tr>`
+                    }
+
+                    avgListBody.innerHTML = avgHTML;
+                }
+
+                loadavglist();
+
+                document.getElementById("searchbatch").innerText = "SEARCH";
+                element2.classList.remove("cursor-not-allowed");
+
+            }
+        }
+
+        async function filterbutton() {
+
+            const avgListBody = document.getElementById('avgtable');
+            let avgHTML = '';
+            avgListBody.innerHTML = avgHTML;
+
+            var fromname = document.getElementById("fromRotationNumber").value;
+            var toname = document.getElementById("toRotationNumber").value;
+            var bname = document.getElementById("batchname").value;
+            
+            const queryAvgURL = `${hostname}/api/search/average/csv/${bname}`
+
+            // console.log(bname);
+
+            const avgData = await fetch(queryAvgURL);
+            const avggbatch = await avgData.json();
+
+            // console.log(avggbatch)
+
+            let avglistt = avggbatch;
+
+            let from = fromname;
+            let to = toname;
+
+            function loadavglist() {
+                const avgListBody = document.getElementById('avgtable');
+                let avgHTML = '';
+
+                let i = -1;
+                let j = 0;
+
+                for (let avgg of avglistt) {
+                    i++;
+                    if (i >= from && i <= to) {
+                        j = i - 1;
+                        from++;
+                        let avgdataa = avggbatch[j]
+                        // avgHTML += `<tr><td class="border border-gray-500 px-4 py-2">${avgdataa[8]}</td><td class="border border-gray-500 px-4 py-2">${avgdataa[6]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[4]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[2]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[7]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[5]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[3]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[1]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[9]}</td></tr>`
+                        avgHTML += `<tr><td class="border border-gray-500 px-4 py-2">${avgdataa[10]}</td><td class="border border-gray-500 px-4 py-2">${avgdataa[8]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[6]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[4]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[9]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[7]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[5]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[3]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[11]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[2]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[1]}</td></tr>`
+                    } else if (i > to) {
+                        // await fetch(generatereportURL);
+                    }
+                }
+
+                avgListBody.innerHTML = avgHTML;
+            }
+
+            loadavglist();
+
+        }
+
+    </script>
+    
+    <!-- Generate PDF Report -->
+    <script>
+        var element = document.getElementById("generatepdfreport");
+        var element1 = document.getElementById("generatepdfreport1");
+        var element2 = document.getElementById("generatepdfreport2");
+        var element3 = document.getElementById("generatepdfreport3");
+        var element4 = document.getElementById("generatepdfreport4");
+        var element5 = document.getElementById("generatepdfreport5");
+        var element6 = document.getElementById("generatepdfreport6");
+        
+        var pdfgenerationtime = 20000;
+        // var pdfgenerationtime = 5000;
+
+        async function generateReport() {
+
+            var a = document.getElementById("fromRotationNumber").value;
+            var fromname = a;
+            
+            var b = document.getElementById("toRotationNumber").value;
+            var toname = b;
+
+            var c = document.getElementById("batchname").value;
+            var bname = c;
+            
+
+            if (fromname == "" || toname == "" || bname == "" || parseInt(fromname) > parseInt(toname)) {
+                window.alert("Enter valid Batch Name, Start and Stop Rotation Number ");
+            } else {
+                // document.getElementById("generatepdfreport").innerText = `PLEASE WAIT ${pdfgenerationtime/1000} secs`;
+                document.getElementById("generatepdfreport").innerText = `PLEASE WAIT`;
+                element.classList.add("cursor-not-allowed");
+
+                var queryAvgURL = `${reportAvgURL}/${bname}/${fromname}/${toname}`
+                await fetch(queryAvgURL);
+                await fetch(reportAvgGenURL);
+
+                setTimeout(() => {
+                    location.href = "/report/average/download"
+                    document.getElementById("generatepdfreport").innerText = "PDF REPORT";
+                    element.classList.remove("cursor-not-allowed");
+                }, pdfgenerationtime);
+            }
+        }
+
+        async function generateandprintavgReport() {
+            var a = document.getElementById("fromRotationNumber").value;
+            var fromname = a;
+            
+            var b = document.getElementById("toRotationNumber").value;
+            var toname = b;
+
+            var c = document.getElementById("batchname").value;
+            var bname = c;
+            
+
+            if (fromname == "" || toname == "" || bname == "" || parseInt(fromname) > parseInt(toname)) {
+                window.alert("Enter valid Batch Name, Start and Stop Rotation Number  ");
+            } else {
+                // document.getElementById("generatepdfreport").innerText = `PLEASE WAIT ${pdfgenerationtime/1000} secs`;
+                document.getElementById("generateandprintavgReportid").innerText = `PLEASE WAIT`;
+                element.classList.add("cursor-not-allowed");
+
+                var queryAvgURL = `${reportAvgURL}/${bname}/${fromname}/${toname}`
+                await fetch(queryAvgURL);
+                await fetch(reportAvgGenURL);
+
+                setTimeout(() => {
+                    var download = `${hostname}/path/average/download`
+                    printJS(download)
+                    fetch(download)
+                        .then((resp) => resp.json()) // Transform the data into json
+                        .then(function (data) {
+                            console.log(data.path);
+                            printJS({ printable:`${hostname}/base/${data.path}`, type: 'pdf'});
+                        })
+                        .catch(function (error) {
+                        });
+                    document.getElementById("generateandprintavgReportid").innerText = "PRINT REPORT";
+                    element.classList.remove("cursor-not-allowed");
+                }, pdfgenerationtime);
+            }
+        }
+        
+
+        async function generateavggraphReport() {
+
+            var a = document.getElementById("fromRotationNumber").value;
+            var fromname = a;
+            
+            var b = document.getElementById("toRotationNumber").value;
+            var toname = b;
+
+            var c = document.getElementById("batchname").value;
+            var bname = c;
+            
+            var totalrtns = document.getElementById("totalrotations").innerHTML 
+
+            if (fromname == "" || toname == "" || bname == "" || parseInt(fromname) > parseInt(toname)) {
+                window.alert("Enter valid Batch Name, Start and Stop Rotation Number  ");
+            } else {
+                // document.getElementById("generatepdfreport").innerText = `PLEASE WAIT ${pdfgenerationtime/1000} secs`;
+                document.getElementById("generateavggraphReportid").innerText = `PLEASE WAIT`;
+                element.classList.add("cursor-not-allowed");
+                var queryAvgURL = `${reportAvgURL}/${bname}/${fromname}/${toname}`
+                await fetch(queryAvgURL);
+                await fetch(reportAvgGraphGenURL);
+
+                setTimeout(() => {
+                    location.href = "/report/averagegraph/download"
+                    document.getElementById("generateavggraphReportid").innerText = "PDF AVG GRAPH";
+                    element.classList.remove("cursor-not-allowed");
+                }, pdfgenerationtime);
+            }
+        }
+
+        async function generateandprintavggraphReport() {
+            var a = document.getElementById("fromRotationNumber").value;
+            var fromname = a;
+            
+            var b = document.getElementById("toRotationNumber").value;
+            var toname = b;
+
+            var c = document.getElementById("batchname").value;
+            var bname = c;
+            
+             if (fromname == "" || toname == "" || bname == "" || parseInt(fromname) > parseInt(toname)) {
+                window.alert("Enter valid Batch Name, Start and Stop Rotation Number  ");
+            } else {
+                // document.getElementById("generatepdfreport").innerText = `PLEASE WAIT ${pdfgenerationtime/1000} secs`;
+                document.getElementById("generateandprintavggraphReportid").innerText = `PLEASE WAIT`;
+                element.classList.add("cursor-not-allowed");
+
+                var queryAvgURL = `${reportAvgURL}/${bname}/${fromname}/${toname}`
+                await fetch(queryAvgURL);
+                await fetch(reportAvgGraphGenURL);
+
+                setTimeout(() => {
+                    var download = `${hostname}/path/averagegraph/download`
+                    printJS(download)
+                    fetch(download)
+                        .then((resp) => resp.json()) // Transform the data into json
+                        .then(function (data) {
+                            console.log(data.path);
+                            printJS({ printable:`${hostname}/base/${data.path}`, type: 'pdf'});
+                        })
+                        .catch(function (error) {
+                        });
+                    document.getElementById("generateandprintavggraphReportid").innerText = "PRINT AVG GRAPH";
+                    element.classList.remove("cursor-not-allowed");
+                }, pdfgenerationtime);
+            }
+        }
+        
+        async function pdfexportandprintPreLHS() {
+
+            var a = document.getElementById("fromRotationNumber").value;
+            var fromname = a;
+            
+            var b = document.getElementById("toRotationNumber").value;
+            var toname = b;
+
+            var c = document.getElementById("batchname").value;
+            var bname = c;
+
+            if (fromname == "" || toname == "" || bname == "" || parseInt(fromname) > parseInt(toname)) {
+                window.alert("Enter valid Batch Name, Start and Stop Rotation Number  ");
+            } else {
+                // document.getElementById("generatepdfreport1").innerText = `PLEASE WAIT ${pdfgenerationtime/1000} secs`;
+                document.getElementById("pdfexportandprintPreLHSid").innerText = `PLEASE WAIT`;
+                element1.classList.add("cursor-not-allowed");
+
+                var queryAvgURL = `${reportAvgURL}/${bname}/${fromname}/${toname}`
+                await fetch(queryAvgURL);
+                await fetch(reportpreLHSGenURL);
+
+                setTimeout(() => {
+                    var download = `${hostname}/path/preLHS/download`
+                    fetch(download)
+                        .then((resp) => resp.json()) // Transform the data into json
+                        .then(function (data) {
+                            console.log(data.path);
+                            printJS({ printable: `${hostname}/base/${data.path}`, type: 'pdf' });
+                        })
+                        .catch(function (error) {
+                        });
+                    // location.href = "/report/preLHS/download"
+                    document.getElementById("pdfexportandprintPreLHSid").innerText = "Pre LHS";
+                    element1.classList.remove("cursor-not-allowed");
+                }, pdfgenerationtime);
+            }
+        }
+    
+        async function pdfexportandprintPreRHS() {
+
+            var a = document.getElementById("fromRotationNumber").value;
+            var fromname = a;
+            
+            var b = document.getElementById("toRotationNumber").value;
+            var toname = b;
+
+            var c = document.getElementById("batchname").value;
+            var bname = c;
+            
+
+            if (fromname == "" || toname == "" || bname == "" || parseInt(fromname) > parseInt(toname)) {
+                window.alert("Enter valid Batch Name, Start and Stop Rotation Number  ");
+            } else {
+                // document.getElementById("generatepdfreport2").innerText = `PLEASE WAIT ${pdfgenerationtime/1000} secs`;
+                document.getElementById("pdfexportandprintPreRHSid").innerText = `PLEASE WAIT`;
+                element2.classList.add("cursor-not-allowed");
+
+                var queryAvgURL = `${reportAvgURL}/${bname}/${fromname}/${toname}`
+                await fetch(queryAvgURL);
+                await fetch(reportpreRHSGenURL);
+
+                setTimeout(() => {
+                    var download = `${hostname}/path/preRHS/download`
+                    fetch(download)
+                        .then((resp) => resp.json()) // Transform the data into json
+                        .then(function (data) {
+                            console.log(data.path);
+                            printJS({ printable: `${hostname}/base/${data.path}`, type: 'pdf' });
+                        })
+                        .catch(function (error) {
+                        });
+                    // location.href = "/report/preRHS/download"
+                    document.getElementById("pdfexportandprintPreRHSid").innerText = "Pre RHS";
+                    element2.classList.remove("cursor-not-allowed");
+                }, pdfgenerationtime);
+            }
+        }
+        
+        async function pdfexportandprintMainLHS() {
+
+            var a = document.getElementById("fromRotationNumber").value;
+            var fromname = a;
+            
+            var b = document.getElementById("toRotationNumber").value;
+            var toname = b;
+
+            var c = document.getElementById("batchname").value;
+            var bname = c;
+            
+
+            if (fromname == "" || toname == "" || bname == "" || parseInt(fromname) > parseInt(toname)) {
+                window.alert("Enter valid Batch Name, Start and Stop Rotation Number  ");
+            } else {
+                // document.getElementById("generatepdfreport3").innerText = `PLEASE WAIT ${pdfgenerationtime/1000} secs`;
+                document.getElementById("pdfexportandprintMainLHSid").innerText = `PLEASE WAIT`;
+                element3.classList.add("cursor-not-allowed");
+
+                var queryAvgURL = `${reportAvgURL}/${bname}/${fromname}/${toname}`
+                await fetch(queryAvgURL);
+                await fetch(reportmainLHSGenURL);
+
+                setTimeout(() => {
+                    var download = `${hostname}/path/mainLHS/download`
+                    fetch(download)
+                        .then((resp) => resp.json()) // Transform the data into json
+                        .then(function (data) {
+                            console.log(data.path);
+                            printJS({ printable: `${hostname}/base/${data.path}`, type: 'pdf' });
+                        })
+                        .catch(function (error) {
+                        });
+                    // location.href = "/report/mainLHS/download"
+                    document.getElementById("pdfexportandprintMainLHSid").innerText = "Main LHS";
+                    element3.classList.remove("cursor-not-allowed");
+                }, pdfgenerationtime);
+            }
+        }
+
+        async function pdfexportandprintMainRHS() {
+
+            var a = document.getElementById("fromRotationNumber").value;
+            var fromname = a;
+            
+            var b = document.getElementById("toRotationNumber").value;
+            var toname = b;
+
+            var c = document.getElementById("batchname").value;
+            var bname = c;
+            
+
+            if (fromname == "" || toname == "" || bname == "" || parseInt(fromname) > parseInt(toname)) {
+                window.alert("Enter valid Batch Name, Start and Stop Rotation Number  ");
+            } else {
+                // document.getElementById("generatepdfreport4").innerText = `PLEASE WAIT ${pdfgenerationtime/1000} secs`;
+                document.getElementById("pdfexportandprintMainRHSid").innerText = `PLEASE WAIT`;
+                element4.classList.add("cursor-not-allowed");
+
+                var queryAvgURL = `${reportAvgURL}/${bname}/${fromname}/${toname}`
+                await fetch(queryAvgURL);
+                await fetch(reportmainRHSGenURL);
+
+                setTimeout(() => {
+                    var download = `${hostname}/path/mainRHS/download`
+                    fetch(download)
+                        .then((resp) => resp.json()) // Transform the data into json
+                        .then(function (data) {
+                            console.log(data.path);
+                            printJS({ printable: `${hostname}/base/${data.path}`, type: 'pdf' });
+                        })
+                        .catch(function (error) {
+                        });
+                    // location.href = "/report/mainRHS/download"
+                    document.getElementById("pdfexportandprintMainRHSid").innerText = "Main RHS";
+                    element4.classList.remove("cursor-not-allowed");
+                }, pdfgenerationtime);
+            }
+        }
+
+        async function pdfexportandprintEjnLHS() {
+
+            var a = document.getElementById("fromRotationNumber").value;
+            var fromname = a;
+            
+            var b = document.getElementById("toRotationNumber").value;
+            var toname = b;
+
+            var c = document.getElementById("batchname").value;
+            var bname = c;
+            
+
+            if (fromname == "" || toname == "" || bname == "" || parseInt(fromname) > parseInt(toname)) {
+                window.alert("Enter valid Batch Name, Start and Stop Rotation Number  ");
+            } else {
+                // document.getElementById("generatepdfreport5").innerText = `PLEASE WAIT ${pdfgenerationtime/1000} secs`;
+                document.getElementById("pdfexportandprintEjnLHSid").innerText = `PLEASE WAIT`;
+                element5.classList.add("cursor-not-allowed");
+
+                var queryAvgURL = `${reportAvgURL}/${bname}/${fromname}/${toname}`
+                await fetch(queryAvgURL);
+                await fetch(reportejnLHSGenURL);
+
+                setTimeout(() => {
+                    var download = `${hostname}/path/ejnLHS/download`
+                    fetch(download)
+                        .then((resp) => resp.json()) // Transform the data into json
+                        .then(function (data) {
+                            console.log(data.path);
+                            printJS({ printable: `${hostname}/base/${data.path}`, type: 'pdf' });
+                        })
+                        .catch(function (error) {
+                        });
+                    // location.href = "/report/ejnLHS/download"
+                    document.getElementById("pdfexportandprintEjnLHSid").innerText = "Ejn LHS";
+                    element5.classList.remove("cursor-not-allowed");
+                }, pdfgenerationtime);
+            }
+        }
+
+        async function pdfexportandprintEjnRHS() {
+
+            var a = document.getElementById("fromRotationNumber").value;
+            var fromname = a;
+            
+            var b = document.getElementById("toRotationNumber").value;
+            var toname = b;
+
+            var c = document.getElementById("batchname").value;
+            var bname = c;
+            
+
+            if (fromname == "" || toname == "" || bname == "" || parseInt(fromname) > parseInt(toname)) {
+                window.alert("Enter valid Batch Name, Start and Stop Rotation Number  ");
+            } else {
+                // document.getElementById("generatepdfreport6").innerText = `PLEASE WAIT ${pdfgenerationtime/1000} secs`;
+                document.getElementById("pdfexportandprintEjnRHSid").innerText = `PLEASE WAIT`;
+                element6.classList.add("cursor-not-allowed");
+
+                var queryAvgURL = `${reportAvgURL}/${bname}/${fromname}/${toname}`
+                await fetch(queryAvgURL);
+                await fetch(reportejnRHSGenURL);
+
+                setTimeout(() => {
+                    var download = `${hostname}/path/ejnRHS/download`
+                    fetch(download)
+                        .then((resp) => resp.json()) // Transform the data into json
+                        .then(function (data) {
+                            console.log(data.path);
+                            printJS({ printable: `${hostname}/base/${data.path}`, type: 'pdf' });
+                        })
+                        .catch(function (error) {
+                        });
+                    // location.href = "/report/ejnRHS/download"
+                    document.getElementById("pdfexportandprintEjnRHSid").innerText = "Ejn RHS";
+                    element6.classList.remove("cursor-not-allowed");
+                }, pdfgenerationtime);
+            }
+        }
+        
+        async function pdfexportPreLHS() {
+
+            var a = document.getElementById("fromRotationNumber").value;
+            var fromname = a;
+            
+            var b = document.getElementById("toRotationNumber").value;
+            var toname = b;
+
+            var c = document.getElementById("batchname").value;
+            var bname = c;
+            
+
+            if (fromname == "" || toname == "" || bname == "" || parseInt(fromname) > parseInt(toname)) {
+                window.alert("Enter valid Batch Name, Start and Stop Rotation Number  ");
+            } else {
+                // document.getElementById("generatepdfreport1").innerText = `PLEASE WAIT ${pdfgenerationtime/1000} secs`;
+                document.getElementById("generatepdfreport1").innerText = `PLEASE WAIT`;
+                element1.classList.add("cursor-not-allowed");
+
+                var queryAvgURL = `${reportAvgURL}/${bname}/${fromname}/${toname}`
+                await fetch(queryAvgURL);
+                await fetch(reportpreLHSGenURL);
+
+                setTimeout(() => {
+                    location.href = "/report/preLHS/download"
+                    document.getElementById("generatepdfreport1").innerText = "Pre LHS";
+                    element1.classList.remove("cursor-not-allowed");
+                }, pdfgenerationtime);
+            }
+        }
+    
+        async function pdfexportPreRHS() {
+
+            var a = document.getElementById("fromRotationNumber").value;
+            var fromname = a;
+            
+            var b = document.getElementById("toRotationNumber").value;
+            var toname = b;
+
+            var c = document.getElementById("batchname").value;
+            var bname = c;
+            
+
+            if (fromname == "" || toname == "" || bname == "" || parseInt(fromname) > parseInt(toname)) {
+                window.alert("Enter valid Batch Name, Start and Stop Rotation Number  ");
+            } else {
+                // document.getElementById("generatepdfreport2").innerText = `PLEASE WAIT ${pdfgenerationtime/1000} secs`;
+                document.getElementById("generatepdfreport2").innerText = `PLEASE WAIT`;
+                element2.classList.add("cursor-not-allowed");
+
+                var queryAvgURL = `${reportAvgURL}/${bname}/${fromname}/${toname}`
+                await fetch(queryAvgURL);
+                await fetch(reportpreRHSGenURL);
+
+                setTimeout(() => {
+                    location.href = "/report/preRHS/download"
+                    document.getElementById("generatepdfreport2").innerText = "Pre RHS";
+                    element2.classList.remove("cursor-not-allowed");
+                }, pdfgenerationtime);
+            }
+        }
+        
+        async function pdfexportMainLHS() {
+
+            var a = document.getElementById("fromRotationNumber").value;
+            var fromname = a;
+            
+            var b = document.getElementById("toRotationNumber").value;
+            var toname = b;
+
+            var c = document.getElementById("batchname").value;
+            var bname = c;
+            
+
+            if (fromname == "" || toname == "" || bname == "" || parseInt(fromname) > parseInt(toname)) {
+                window.alert("Enter valid Batch Name, Start and Stop Rotation Number  ");
+            } else {
+                // document.getElementById("generatepdfreport3").innerText = `PLEASE WAIT ${pdfgenerationtime/1000} secs`;
+                document.getElementById("generatepdfreport3").innerText = `PLEASE WAIT`;
+                element3.classList.add("cursor-not-allowed");
+
+                var queryAvgURL = `${reportAvgURL}/${bname}/${fromname}/${toname}`
+                await fetch(queryAvgURL);
+                await fetch(reportmainLHSGenURL);
+
+                setTimeout(() => {
+                    location.href = "/report/mainLHS/download"
+                    document.getElementById("generatepdfreport3").innerText = "Main LHS";
+                    element3.classList.remove("cursor-not-allowed");
+                }, pdfgenerationtime);
+            }
+        }
+
+        async function pdfexportMainRHS() {
+
+            var a = document.getElementById("fromRotationNumber").value;
+            var fromname = a;
+            
+            var b = document.getElementById("toRotationNumber").value;
+            var toname = b;
+
+            var c = document.getElementById("batchname").value;
+            var bname = c;
+            
+
+            if (fromname == "" || toname == "" || bname == "" || parseInt(fromname) > parseInt(toname)) {
+                window.alert("Enter valid Batch Name, Start and Stop Rotation Number  ");
+            } else {
+                // document.getElementById("generatepdfreport4").innerText = `PLEASE WAIT ${pdfgenerationtime/1000} secs`;
+                document.getElementById("generatepdfreport4").innerText = `PLEASE WAIT`;
+                element4.classList.add("cursor-not-allowed");
+
+                var queryAvgURL = `${reportAvgURL}/${bname}/${fromname}/${toname}`
+                await fetch(queryAvgURL);
+                await fetch(reportmainRHSGenURL);
+
+                setTimeout(() => {
+                    location.href = "/report/mainRHS/download"
+                    document.getElementById("generatepdfreport4").innerText = "Main RHS";
+                    element4.classList.remove("cursor-not-allowed");
+                }, pdfgenerationtime);
+            }
+        }
+
+        async function pdfexportEjnLHS() {
+
+            var a = document.getElementById("fromRotationNumber").value;
+            var fromname = a;
+            
+            var b = document.getElementById("toRotationNumber").value;
+            var toname = b;
+
+            var c = document.getElementById("batchname").value;
+            var bname = c;
+            
+
+            if (fromname == "" || toname == "" || bname == "" || parseInt(fromname) > parseInt(toname)) {
+                window.alert("Enter valid Batch Name, Start and Stop Rotation Number  ");
+            } else {
+                // document.getElementById("generatepdfreport5").innerText = `PLEASE WAIT ${pdfgenerationtime/1000} secs`;
+                document.getElementById("generatepdfreport5").innerText = `PLEASE WAIT`;
+                element5.classList.add("cursor-not-allowed");
+
+                var queryAvgURL = `${reportAvgURL}/${bname}/${fromname}/${toname}`
+                await fetch(queryAvgURL);
+                await fetch(reportejnLHSGenURL);
+
+                setTimeout(() => {
+                    location.href = "/report/ejnLHS/download"
+                    document.getElementById("generatepdfreport5").innerText = "Ejn LHS";
+                    element5.classList.remove("cursor-not-allowed");
+                }, pdfgenerationtime);
+            }
+        }
+
+        async function pdfexportEjnRHS() {
+
+            var a = document.getElementById("fromRotationNumber").value;
+            var fromname = a;
+            
+            var b = document.getElementById("toRotationNumber").value;
+            var toname = b;
+
+            var c = document.getElementById("batchname").value;
+            var bname = c;
+            
+
+            if (fromname == "" || toname == "" || bname == "" || parseInt(fromname) > parseInt(toname)) {
+                window.alert("Enter valid Batch Name, Start and Stop Rotation Number  ");
+            } else {
+                // document.getElementById("generatepdfreport6").innerText = `PLEASE WAIT ${pdfgenerationtime/1000} secs`;
+                document.getElementById("generatepdfreport6").innerText = `PLEASE WAIT`;
+                element6.classList.add("cursor-not-allowed");
+
+                var queryAvgURL = `${reportAvgURL}/${bname}/${fromname}/${toname}`
+                await fetch(queryAvgURL);
+                await fetch(reportejnRHSGenURL);
+
+                setTimeout(() => {
+                    location.href = "/report/ejnRHS/download"
+                    document.getElementById("generatepdfreport6").innerText = "Ejn RHS";
+                    element6.classList.remove("cursor-not-allowed");
+                }, pdfgenerationtime);
+            }
+        }
+    
+    </script>
+    
+    <!-- CSV Export -->
+    <script>
+        function exportToCsv(filename, rows) {
+            var processRow = function (row) {
+                var finalVal = '';
+                for (var j = 0; j < row.length; j++) {
+                    var innerValue = row[j] === null ? '' : row[j].toString();
+                    if (row[j] instanceof Date) {
+                        innerValue = row[j].toLocaleString();
+                    };
+                    var result = innerValue.replace(/"/g, '""');
+                    if (result.search(/("|,|\n)/g) >= 0)
+                        result = '"' + result + '"';
+                    if (j > 0)
+                        finalVal += ',';
+                    finalVal += result;
+                }
+                return finalVal + '\n';
+            };
+
+            var csvFile = '';
+            for (var i = 0; i < rows.length; i++) {
+                csvFile += processRow(rows[i]);
+            }
+
+            var blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
+            if (navigator.msSaveBlob) { // IE 10+
+                navigator.msSaveBlob(blob, filename);
+            } else {
+                var link = document.createElement("a");
+                if (link.download !== undefined) { // feature detection
+                    // Browsers that support HTML5 download attribute
+                    var url = URL.createObjectURL(blob);
+                    link.setAttribute("href", url);
+                    link.setAttribute("download", filename);
+                    link.style.visibility = 'hidden';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }
+            }
+        }
+
+        async function csvexportPreLHS() {
+
+            var bname = document.getElementById("batchname").value;
+            var from = document.getElementById("fromRotationNumber").value;
+            var to = document.getElementById("toRotationNumber").value;
+            var t = "preLHS"
+
+            var csvAvgURL = `${reportcsvURL}/${t}/${bname}/${from-1}/${to}`;
+
+            const batchResponse = await fetch(csvAvgURL);
+            const csvdata = await batchResponse.json();
+
+            csvdata.data[0] = ["time", "rotation", "p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8", "p9", "p10", "p11", "p12", "p13", "p14", "p15", "p16", "p17", "p18", "p19", "p20", "p21", "p22", "p23", "p24", "p25", "p26", "p27", "p28", "p29", "p30", "p31", "p32", "p33", "p34", "p35", "p36", "p37", "p38", "p39", "p40", "p41", "p42", "p43", "p44", "p45", "Dwell Time (sec)", "RPM", "Dozer Position (mm)"]
+
+            if (typeof csvdata !== 'undefined') {
+                exportToCsv(`csv_${bname}_${t}.csv`, csvdata.data)
+            }
+
+        }
+
+        async function csvexportPreRHS() {
+
+            var bname = document.getElementById("batchname").value;
+            var from = document.getElementById("fromRotationNumber").value;
+            var to = document.getElementById("toRotationNumber").value;
+            var t = "preRHS"
+
+            var csvAvgURL = `${reportcsvURL}/${t}/${bname}/${from-1}/${to}`;
+
+            const batchResponse = await fetch(csvAvgURL);
+            const csvdata = await batchResponse.json();
+
+            csvdata.data[0] = ["time", "rotation", "p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8", "p9", "p10", "p11", "p12", "p13", "p14", "p15", "p16", "p17", "p18", "p19", "p20", "p21", "p22", "p23", "p24", "p25", "p26", "p27", "p28", "p29", "p30", "p31", "p32", "p33", "p34", "p35", "p36", "p37", "p38", "p39", "p40", "p41", "p42", "p43", "p44", "p45", "Dwell Time (sec)", "RPM", "Dozer Position (mm)"]
+
+            if (typeof csvdata !== 'undefined') {
+                exportToCsv(`csv_${bname}_${t}.csv`, csvdata.data)
+            }
+
+        }
+
+        async function csvexportMainLHS() {
+
+            var bname = document.getElementById("batchname").value;
+            var from = document.getElementById("fromRotationNumber").value;
+            var to = document.getElementById("toRotationNumber").value;
+            var t = "mainLHS"
+
+            var csvAvgURL = `${reportcsvURL}/${t}/${bname}/${from-1}/${to}`;
+
+            const batchResponse = await fetch(csvAvgURL);
+            const csvdata = await batchResponse.json();
+
+            csvdata.data[0] = ["time", "rotation", "p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8", "p9", "p10", "p11", "p12", "p13", "p14", "p15", "p16", "p17", "p18", "p19", "p20", "p21", "p22", "p23", "p24", "p25", "p26", "p27", "p28", "p29", "p30", "p31", "p32", "p33", "p34", "p35", "p36", "p37", "p38", "p39", "p40", "p41", "p42", "p43", "p44", "p45", "Dwell Time (sec)", "RPM", "Dozer Position (mm)"]
+
+            if (typeof csvdata !== 'undefined') {
+                exportToCsv(`csv_${bname}_${t}.csv`, csvdata.data)
+            }
+
+        }
+
+        async function csvexportMainRHS() {
+
+            var bname = document.getElementById("batchname").value;
+            var from = document.getElementById("fromRotationNumber").value;
+            var to = document.getElementById("toRotationNumber").value;
+            var t = "mainRHS"
+
+            var csvAvgURL = `${reportcsvURL}/${t}/${bname}/${from-1}/${to}`;
+
+            const batchResponse = await fetch(csvAvgURL);
+            const csvdata = await batchResponse.json();
+
+            csvdata.data[0] = ["time", "rotation", "p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8", "p9", "p10", "p11", "p12", "p13", "p14", "p15", "p16", "p17", "p18", "p19", "p20", "p21", "p22", "p23", "p24", "p25", "p26", "p27", "p28", "p29", "p30", "p31", "p32", "p33", "p34", "p35", "p36", "p37", "p38", "p39", "p40", "p41", "p42", "p43", "p44", "p45", "Dwell Time (sec)", "RPM", "Dozer Position (mm)"]
+
+            if (typeof csvdata !== 'undefined') {
+                exportToCsv(`csv_${bname}_${t}.csv`, csvdata.data)
+            }
+        }
+
+        async function csvexportEjnLHS() {
+
+            var bname = document.getElementById("batchname").value;
+            var from = document.getElementById("fromRotationNumber").value;
+            var to = document.getElementById("toRotationNumber").value;
+            var t = "ejnLHS"
+
+            var csvAvgURL = `${reportcsvURL}/${t}/${bname}/${from-1}/${to}`;
+
+            const batchResponse = await fetch(csvAvgURL);
+            const csvdata = await batchResponse.json();
+
+            csvdata.data[0] = ["time", "rotation", "p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8", "p9", "p10", "p11", "p12", "p13", "p14", "p15", "p16", "p17", "p18", "p19", "p20", "p21", "p22", "p23", "p24", "p25", "p26", "p27", "p28", "p29", "p30", "p31", "p32", "p33", "p34", "p35", "p36", "p37", "p38", "p39", "p40", "p41", "p42", "p43", "p44", "p45", "Dwell Time (sec)", "RPM", "Dozer Position (mm)"]
+
+            if (typeof csvdata !== 'undefined') {
+                exportToCsv(`csv_${bname}_${t}.csv`, csvdata.data)
+            }
+
+        }
+
+        async function csvexportEjnRHS() {
+
+            var bname = document.getElementById("batchname").value;
+            var from = document.getElementById("fromRotationNumber").value;
+            var to = document.getElementById("toRotationNumber").value;
+            var t = "ejnRHS"
+
+            var csvAvgURL = `${reportcsvURL}/${t}/${bname}/${from-1}/${to}`;
+
+            const batchResponse = await fetch(csvAvgURL);
+            const csvdata = await batchResponse.json();
+
+            csvdata.data[0] = ["time", "rotation", "p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8", "p9", "p10", "p11", "p12", "p13", "p14", "p15", "p16", "p17", "p18", "p19", "p20", "p21", "p22", "p23", "p24", "p25", "p26", "p27", "p28", "p29", "p30", "p31", "p32", "p33", "p34", "p35", "p36", "p37", "p38", "p39", "p40", "p41", "p42", "p43", "p44", "p45", "Dwell Time (sec)", "RPM", "Dozer Position (mm)"]
+
+            if (typeof csvdata !== 'undefined') {
+                exportToCsv(`csv_${bname}_${t}.csv`, csvdata.data)
+            }
+
+        }
+
+    </script>
+    
+</body>
+
+</html>

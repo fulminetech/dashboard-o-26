@@ -1,0 +1,1707 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard - 45</title>
+    <meta name="description" content="description here">
+    <meta name="keywords" content="keywords,here">
+
+    <link href="/font/css/all.css" rel="stylesheet">
+    <link href="/css/tailwind.css" rel="stylesheet">
+    <script src="/charts/Chart.bundle.min.js"></script>
+    <script src="/charts/plugin/chartjs-plugin-zoom.min.js"></script>
+    <script src="/env/env.js"></script>
+
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+        }
+
+        .bg {
+            /* The image used */
+            background-image: url("/image/bg");
+
+            /* Full height */
+            height: 100%;
+
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+
+    <!-- sidebar -->
+    <style>
+        #sidebar {
+            transition: ease-in-out all .1s;
+            z-index: 9999;
+        }
+
+        #sidebar span {
+            opacity: 0;
+            position: absolute;
+            transition: ease-in-out all .1s;
+        }
+
+        #sidebar:hover {
+            width: 180px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            /*shadow-2xl*/
+        }
+
+        #sidebar:hover span {
+            opacity: 1;
+        }
+    </style>
+
+</head>
+
+<body class="flex bg select-none font-sans">
+
+    <!-- <div class="flex" -->
+    <!-- Side bar-->
+    <div id="sidebar" class="h-screen w-16 menu bg-white text-white px-4 flex items-center static fixed shadow">
+
+        <ul class="list-reset">
+            <li class="my-2 md:my-0">
+                <a href="/dashboard"
+                    class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fa fa-chevron-left fa-fw mr-3 text-xl"></i><span
+                        class="w-full inline-block text-lg">Dashboard</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/overview"
+                    class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-heartbeat fa-fw mr-3 text-indigo-400 text-xl"></i><span
+                        class="w-full inline-block text-lg">Overview</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a id="alarm_icon" href="/io_alarm"
+                    class="block my-3 md:py-3 pl-1 uppercase hidden align-middle text-gray-900 no-underline hover:text-indigo-400">
+                    <i class="fa fa-exclamation-triangle mr-3 text-2xl text-red-500"></i>
+                </a>
+            </li>
+
+
+        </ul>
+
+    </div>
+
+    <div class="flex flex-row flex-wrap flex-1 flex-grow content-start pl-16 ">
+
+        <div class="w-11/12">
+
+            <!--Graph Content -->
+            <div id="main-content" class="w-full flex-1">
+
+                <div class="flex flex-1 flex-wrap">
+                    <div class="w-full ">
+
+                        <div class="flex grid grid-cols-6 uppercase py-5 px-5 mx-3 bg-gray-300 rounded-md">
+                        
+                            <a id="" class="pt-2 text-center text-xl font-bold"> Date and time </a>
+                            <a id="" class="pt-2 text-center text-xl font-bold"> Batch Number </a>
+                            <a id="" class="pt-2 text-center text-xl font-bold"> Rotation Number </a>
+                            <a id="" class="pt-2 text-center text-xl font-bold"> Dwell Time </a>
+                            <a id="" class="pt-2 text-center text-xl font-bold"> Tablet Count </a>
+                            <a id="" class="pt-2 text-center text-xl font-bold"> Tablet per hour </a>
+                            <a id="time" class="pt-3 text-center text-lg"></a>
+                            <a id="batch_number_metric" class="pt-2 text-center text-2xl"></a>
+                            <a id="rotation_number_metric" class="pt-2 text-center text-2xl"></a>
+                            <a id="dwell_metric" class="pt-2 text-center text-2xl"></a>
+                            <a id="count_metric" class="pt-2 text-center text-2xl"></a>
+                            <a id="production_per_hour_metric" class="pt-2 text-center text-2xl"></a>
+                            
+                        </div>
+
+                        <div class="flex grid grid-cols-1 uppercase">
+
+                            <div class="pt-2 text-center">
+                                <a id="select" class="text-4xl bg-purple-700 text-white px-5 py-1 rounded-md" onclick="switchh()">LHS</a>
+                            </div>
+                            <div class="flex flex-row flex-wrap flex-1 flex-grow text center pt-10">
+
+                                <a id="pre_kn" class="w-1/2 text-2xl pl-90">0</a>
+                                <a id="main_kn" class="w-1/2 text-2xl pl-52">0</a>
+
+                            </div>
+                            <div class="pt-2 text-center">
+                                <a id="" class="text-2xl "> Turret RPM</a>
+                            </div>
+                            <div class="pt-2 text-center">
+                                <a id="rpm_metric" class="text-4xl bg-gray-700 text-white px-5 py-1 rounded-md">0</a>
+                            </div>
+                            <div class="pt-2 text-center">
+                                <a id="" class="text-2xl "> FEEDER LHS</a>
+                                <a id="" class="text-2xl pl-10"> FEEDER RHS</a>
+                                
+                            </div>
+                            <div class="pt-2 text-center">
+                                <a id="feederRHS_metric" class="text-4xl bg-gray-700 text-white px-5 py-1 rounded-md">0</a>
+                                <a id="feederLHS_metric" class="ml-20 text-4xl bg-gray-700 text-white px-5 py-1 rounded-md">0</a>
+                            </div>
+                            <div class="flex flex-row flex-wrap flex-1 flex-grow pt-6">
+                                <a id="fill_d" class="w-1/2 text-2xl pl-44">0</a>
+                                <a id="ejn_kg" class="w-1/2 text-2xl pl-112">0</a>
+
+                            </div>
+                            <div class="flex flex-row flex-wrap flex-1 flex-grow pt-36">
+                                <a id="pre_mm" class="w-1/2 text-2xl pl-92">0</a>
+                                <a id="main_mm" class="w-1/2 text-2xl pl-54">0</a>
+
+                            </div>
+                        </div>
+
+                        <div class="max-w-full">
+                        
+                            <div class="flex mt-5 grid grid-cols-4 gap-2">
+                        
+                                <div class="px-3">
+                        
+                                    <!-- PDF report Button -->
+                                    <div class="py-1">
+                                        <button id="graph_pL"
+                                            class="bg-green-200 uppercase text-xl text-gray-800 font-semibold w-full py-1 border border-blue-500 rounded"
+                                            onclick="graph_pL()">
+                                            Pre Compression LHS
+                                        </button>
+                                    </div>
+                                </div>
+                        
+                                <div class=" px-3">
+                        
+                                    <!-- PDF report Button -->
+                                    <div class="py-1">
+                                        <button id="graph_mL"
+                                            class="bg-red-200 uppercase text-xl text-gray-800 font-semibold w-full py-1 border border-blue-500 rounded"
+                                            onclick="graph_mL()">
+                                            Main Compression LHS
+                                        </button>
+                                    </div>
+                                </div>
+                        
+                                <div class="px-3">
+                        
+                                    <!-- PDF report Button -->
+                                    <div class="py-1">
+                                        <button id="graph_pR"
+                                            class="bg-red-200 uppercase text-xl text-gray-800 font-semibold w-full py-1 border border-blue-500 rounded"
+                                            onclick="graph_pR()">
+                                            Pre Compression RHS
+                                        </button>
+                                    </div>
+                                </div>
+                        
+                                <div class=" px-3">
+                        
+                                    <!-- PDF report Button -->
+                                    <div class="py-1">
+                                        <button id="graph_mR"
+                                            class="bg-red-200 uppercase text-xl text-gray-800 font-semibold w-full py-1 border border-blue-500 rounded"
+                                            onclick="graph_mR()">
+                                            Main Compression RHS
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            
+                            <div id="precompression_graph1" class="p-3 ">
+                                <canvas id="precompression_graph" class="chartjs" height="64rem"></canvas>
+                            </div>
+                        
+                            <!--Main Compression Graph LHS-->
+                            <!-- <div class="border-b p-3">
+                                                        <h5 class="font-bold text-black">Main Compression LHS:</h5>
+                                                    </div> -->
+                            <div id="maincompression_graph1" class="p-3 hidden">
+                                <canvas id="maincompression_graph" class="chartjs" height="64rem"></canvas>
+                            </div>
+                        
+                            <!--Ejection Compression Graph LHS-->
+                            <!-- <div class="border-b p-3">
+                                                        <h5 class="font-bold text-black">Ejection Compression LHS:</h5>
+                                                    </div> -->
+                            <div id="ejncompression_graph1" class="p-3 hidden">
+                                <canvas id="ejncompression_graph" class="chartjs" height="64rem"></canvas>
+                            </div>
+                        
+                            <!--Pre Compression Graph RHS-->
+                            <!-- <div class="border-b p-3">
+                                                        <h5 class="font-bold text-black">Pre Compression RHS:</h5>
+                                                    </div> -->
+                            <div id="precompression_graph_R1" class="p-1 hidden">
+                                <canvas id="precompression_graph_R" class="chartjs" height="64rem"></canvas>
+                            </div>
+                        
+                            <!--Main Compression Graph RHS-->
+                            <!-- <div class="border-b p-3">
+                                                        <h5 class="font-bold text-black">Main Compression RHS:</h5>
+                                                    </div> -->
+                            <div id="maincompression_graph_R1" class="p-3 hidden">
+                                <canvas id="maincompression_graph_R" class="chartjs" height="64rem"></canvas>
+                            </div>
+                        
+                            <!--Ejection Compression Graph RHS-->
+                            <!-- <div class="border-b p-3">
+                                                        <h5 class="font-bold text-black">Ejection Compression RHS:</h5>
+                                                    </div> -->
+                            <div id="ejncompression_graph_R1" class="p-1 hidden">
+                                <canvas id="ejncompression_graph_R" class="chartjs" height="64rem"></canvas>
+                            </div>
+                        
+                        </div>
+
+                        <!-- <div class="p-5 pt-16">
+                            <h5 class="font-bold text-black py-5">Average Compression Trend:</h5>
+                            <canvas id="avg_his_compression_graph" class="chartjs" height="64rem"></canvas>
+                        </div> -->
+
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="w-1/12">
+
+            <!--Graph Content -->
+            <div id="main-content" class="w-full flex-1">
+
+                <div class="flex flex-1 flex-wrap">
+                    <div class="w-full p-2 ">
+
+                        <div class="max-w-full">
+                            <div class="flex grid grid-cols-1 uppercase">
+                                <a href="/dashboard" class="mt-24 py-12 bg-transparent"></a> 
+                                <a href="/processsetup" class="mt-16 py-12 bg-transparent"> </a> 
+                                <a href="/graphLHS" class="mt-16 py-12 bg-transparent"> </a> 
+                                <a href="/analytics" class="mt-20 py-12 bg-transparent"> </a> 
+                                <a href="/io_alarm" class="mt-16 py-12 bg-transparent"> </a> 
+                            </div>
+
+                            <!-- </a> Dashboard</a>
+                            </a>Process </a>
+                            </a>Compression </a>
+                            </a>Average </a>
+                            </a>Fault </a> -->
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toggle Graphs -->
+    <script>
+        function graph_pL() {
+            const div1 = document.getElementById("graph_pL").classList.replace('bg-red-200', 'bg-green-200');
+            const div2 = document.getElementById("graph_mL").classList.replace('bg-green-200', 'bg-red-200');
+            const div3 = document.getElementById("graph_pR").classList.replace('bg-green-200', 'bg-red-200');
+            const div4 = document.getElementById("graph_mR").classList.replace('bg-green-200', 'bg-red-200');
+
+            const div5 = document.getElementById("precompression_graph1").classList.remove('hidden');
+            const div6 = document.getElementById("maincompression_graph1").classList.add('hidden');
+            const div7 = document.getElementById("precompression_graph_R1").classList.add('hidden');
+            const div8 = document.getElementById("maincompression_graph_R1").classList.add('hidden');
+        }
+        function graph_mL() {
+            const div1 = document.getElementById("graph_pL").classList.replace('bg-green-200', 'bg-red-200');
+            const div2 = document.getElementById("graph_mL").classList.replace('bg-red-200', 'bg-green-200');
+            const div3 = document.getElementById("graph_pR").classList.replace('bg-green-200', 'bg-red-200');
+            const div4 = document.getElementById("graph_mR").classList.replace('bg-green-200', 'bg-red-200');
+
+            const div5 = document.getElementById("precompression_graph1").classList.add('hidden');
+            const div6 = document.getElementById("maincompression_graph1").classList.remove('hidden');
+            const div7 = document.getElementById("precompression_graph_R1").classList.add('hidden');
+            const div8 = document.getElementById("maincompression_graph_R1").classList.add('hidden');
+        }
+        function graph_pR() {
+            const div1 = document.getElementById("graph_pL").classList.replace('bg-green-200', 'bg-red-200');
+            const div2 = document.getElementById("graph_mL").classList.replace('bg-green-200', 'bg-red-200');
+            const div3 = document.getElementById("graph_pR").classList.replace('bg-red-200', 'bg-green-200');
+            const div4 = document.getElementById("graph_mR").classList.replace('bg-green-200', 'bg-red-200');
+
+            const div5 = document.getElementById("precompression_graph1").classList.add('hidden');
+            const div6 = document.getElementById("maincompression_graph1").classList.add('hidden');
+            const div7 = document.getElementById("precompression_graph_R1").classList.remove('hidden');
+            const div8 = document.getElementById("maincompression_graph_R1").classList.add('hidden');
+        }
+        function graph_mR() {
+            const div1 = document.getElementById("graph_pL").classList.replace('bg-green-200', 'bg-red-200');
+            const div2 = document.getElementById("graph_mL").classList.replace('bg-green-200', 'bg-red-200');
+            const div3 = document.getElementById("graph_pR").classList.replace('bg-green-200', 'bg-red-200');
+            const div4 = document.getElementById("graph_mR").classList.replace('bg-red-200', 'bg-green-200');
+
+            const div5 = document.getElementById("precompression_graph1").classList.add('hidden');
+            const div6 = document.getElementById("maincompression_graph1").classList.add('hidden');
+            const div7 = document.getElementById("precompression_graph_R1").classList.add('hidden');
+            const div8 = document.getElementById("maincompression_graph_R1").classList.remove('hidden');
+        }
+    </script>
+
+    <!-- Average Compression Graph -->
+    <!-- <script>
+        var avg_his_graphcanvas = document.getElementById("avg_his_compression_graph");        
+        var avg_his_graphdata = {
+            labels: [],
+            datasets: [
+                {
+                    label: "Pre Compression LHS",
+                    yAxisID: 'A',
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "palegreen",
+                    borderColor: "palegreen",
+                    data: [],
+                },
+                {
+                    label: "Pre Compression RHS",
+                    yAxisID: 'A',
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "olivedrab",
+                    borderColor: "olivedrab",
+                    data: [],
+                },
+                {
+                    label: "Main Compression LHS",
+                    yAxisID: 'A',
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "plum",
+                    borderColor: "plum",
+                    data: [],
+                },
+                {
+                    label: "Main Compression RHS",
+                    yAxisID: 'A',
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "RebeccaPurple",
+                    borderColor: "RebeccaPurple",
+                    data: [],
+                },
+                {
+                    label: "Ejn Compression LHS",
+                    yAxisID: 'A',
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "lightblue",
+                    borderColor: "lightblue",
+                    data: [],
+                },
+                {
+                    label: "Ejn Compression RHS",
+                    yAxisID: 'A',
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "darkblue",
+                    borderColor: "darkblue",
+                    data: [],
+                },
+            ],
+        };
+        var avg_his_graphoptions = {
+            animation: false,
+            responsive: true,
+            showTooltips: true,
+            showLines: true,
+            scales: {
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 18,
+                        labelString: 'COMPRESSION'
+                    },
+                    id: 'A',
+                    type: 'linear',
+                    position: 'left',
+                    ticks: {
+                        beginAtZero: true,
+                        fontSize: 20,
+                        max: 100
+                    }
+                }],
+                xAxes: [{
+                    // offset: true,
+                    // type: 'time',
+                    // display: true,
+                    // time: {
+                    //     displayFormats: {
+                    //         millisecond: 'YYYY-MM-DDTHH:mm:ss'
+                    //     }
+                    // }
+                    barPercentage: 0.5,
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 20,
+                        labelString: 'ROTATION NUMBER'
+                    },
+                    ticks: {
+                        fontSize: 14,
+                        // max: 5,
+                        // autoSkip: true,
+                        // maxTicksLimit: 10
+                    }
+                }],
+            },
+            plugins: {
+                zoom: {
+                    // Container for pan options
+                    pan: {
+                        // Boolean to enable panning
+                        enabled: true,
+
+                        // Panning directions. Remove the appropriate direction to disable
+                        // Eg. 'y' would only allow panning in the y direction
+                        // A function that is called as the user is panning and returns the
+                        // available directions can also be used:
+                        //   mode: function({ chart }) {
+                        //     return 'xy';
+                        //   },
+                        mode: 'x',
+
+                        // On category scale, factor of pan velocity
+                        speed: 20,
+
+                        // Minimal pan distance required before actually applying pan
+                        threshold: 10,
+
+                    },
+
+                    // Container for zoom options
+                    zoom: {
+                        // Boolean to enable zooming
+                        enabled: true,
+
+                        // Zooming directions. Remove the appropriate direction to disable 
+                        // Eg. 'y' would only allow zooming in the y direction
+                        mode: 'x',
+
+                        // Speed of zoom via mouse wheel
+                        // (percentage of zoom on a wheel event)
+                        speed: 0.1,
+
+                        // On category scale, minimal zoom level before actually applying zoom
+                        sensitivity: 3,
+                    }
+                }
+            },
+            legend: {
+                onClick: function (e, legendItem) {
+                    var index = legendItem.datasetIndex;
+                    var ci = this.chart;
+                    var alreadyHidden = (ci.getDatasetMeta(index).hidden === null) ? false : ci.getDatasetMeta(index).hidden;
+
+                    console.log(index)
+
+                    ci.data.datasets.forEach(function (e, i) {
+                        var meta = ci.getDatasetMeta(i);
+
+                        if (i !== index) {
+                            if (!alreadyHidden) {
+                                meta.hidden = meta.hidden === null ? !meta.hidden : null;
+                            } else if (meta.hidden === null) {
+                                meta.hidden = true;
+                            }
+                        } else if (i === index) {
+                            meta.hidden = null;
+                        }
+
+                    });
+
+                    ci.update();
+                },
+                display: true,
+                position: 'bottom',
+                labels: {
+                    fontSize: 20,
+                }
+            },
+        };
+        var avg_his_compression_graph = Chart.Bar(avg_his_graphcanvas, {
+            data: avg_his_graphdata,
+            options: avg_his_graphoptions,
+        });
+
+    </script> -->
+
+    <script>
+
+        
+
+    </script>
+
+    <!-- alarm-icon check -->
+    <script>
+        async function fetchalarm() {
+            fetch(rawpayload)
+                .then((resp) => resp.json()) // Transform the data into json
+                .then(function (data) {
+                    payload = data
+                    if (payload.alarm[30] === true) {
+                        const div1 = document.getElementById("alarm_icon").classList.remove('hidden');
+                    } else if (payload.alarm[30] === false) {
+                        const div1 = document.getElementById("alarm_icon").classList.add('hidden');
+                    }
+                })
+                .catch(function (error) {
+                });
+        };
+
+        function checkalarm() {
+            setInterval(() => {
+                fetchalarm()
+            }, 400);
+        }
+        checkalarm()
+    </script>
+
+    <!-- Check PLC connection -->
+    <script>
+        async function fetchcompression1() {
+            fetch(payloadURL)
+                .then((resp) => resp.json())
+                .then(function (data) {
+                    data.connection == false ? disconnect() : data.connection
+
+                    function disconnect() {
+                        setTimeout(() => {
+                            alert("[ PLC CONNECTION ERROR. RESTART SYSTEM. ]")
+                            location.href = "/"
+                        }, 200);
+                    }
+                })
+                .catch(function (error) {
+                    console.log("[ PAYLOAD FETCH ERROR ]", error)
+                });
+        };
+
+        setInterval(() => {
+            // fetchcompression1()
+        }, 2000);
+
+    </script>
+
+    <!-- Graphs -->
+    <script>
+        var punch = new Array("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45")
+
+        var pregraphcanvas = document.getElementById('precompression_graph');
+        var pregraphdata = {
+            labels: punch,
+            datasets: [
+                {
+                    label: "Pre Compression LHS",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: [
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue"
+                    ],
+                    borderColor: "blue",
+                    data: 0,
+                },
+                {
+                    label: "Upper Tolerance",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "red",
+                    borderColor: "red",
+                    data: [],
+                    type: 'line',
+                },
+                {
+                    label: "Lowerlimit",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "red",
+                    borderColor: "red",
+                    data: [],
+                    type: 'line',
+                },
+                {
+                    label: "Force Line",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "black",
+                    borderColor: "black",
+                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHitRadius: 10,
+                    data: [],
+                    type: 'line',
+                },
+                {
+                    label: 'AWC High',
+                    fill: false,
+                    backgroundColor: "orange",
+                    borderColor: "orange",
+                    type: 'line',
+                    borderDash: [5, 5],
+                    data: [],
+                },
+                {
+                    label: 'AWC Low',
+                    fill: false,
+                    backgroundColor: "yellow",
+                    borderColor: "yellow",
+                    type: 'line',
+                    borderDash: [5, 5],
+                    data: [],
+                },
+            ],
+        };
+        var pregraphoptions = {
+            animation: false,
+            legend: {
+                display: false,
+                labels: {
+                    fontSize: 18,
+                },
+                position: 'top',
+            },
+            tooltips: { enabled: false },
+            hover: { mode: null },
+            showTooltips: false,
+            showLines: true,
+            scales: {
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 20,
+                        labelString: 'Compression (kN)'
+                    }
+                    , ticks: {
+                        beginAtZero: true,
+                        fontSize: 20,
+                        max: 100,
+                    }
+                }],
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 20,
+                        labelString: 'Punch Number'
+                    },
+                    ticks: {
+                        fontSize: 14,
+                    }
+                }],
+            },
+        };
+        var pregraph = Chart.Bar(pregraphcanvas, {
+            data: pregraphdata,
+            options: pregraphoptions,
+        });
+
+        var maingraphcanvas = document.getElementById('maincompression_graph');
+        var maingraphdata = {
+            labels: punch,
+            datasets: [
+                {
+                    label: "Main Compression LHS",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: [
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue"
+                    ],
+                    borderColor: "blue",
+                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHitRadius: 10,
+                    data: [],
+                },
+                {
+                    label: "Upper Tolerance",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "red",
+                    borderColor: "red",
+                    data: [],
+                    type: 'line',
+                },
+                {
+                    label: "Lower Tolerance",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "#B7950B",
+                    borderColor: "#B7950B",
+                    data: [],
+                    type: 'line',
+                },
+                {
+                    label: "Force Line",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "black",
+                    borderColor: "black",
+                    data: [],
+                    type: 'line',
+                },
+                {
+                    label: 'AWC High',
+                    fill: false,
+                    backgroundColor: "purple",
+                    borderColor: "purple",
+                    type: 'line',
+                    borderDash: [5, 5],
+                    data: [],
+                },
+                {
+                    label: 'AWC Low',
+                    fill: false,
+                    backgroundColor: "blue",
+                    borderColor: "blue",
+                    type: 'line',
+                    borderDash: [5, 5],
+                    data: [],
+                },
+            ],
+        };
+        var maingraphoptions = {
+            animation: false,
+            legend: {
+                display: false,
+                labels: {
+                    fontSize: 18,
+                },
+                position: 'top',
+            },
+            tooltips: { enabled: false },
+            hover: { mode: null },
+            showTooltips: false,
+            showLines: true,
+            scales: {
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 20,
+                        labelString: 'Compression (kN)'
+                    },
+                    ticks: {
+                        beginAtZero: true,
+                        fontSize: 20,
+                        max: 100,
+                    }
+                }],
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 20,
+                        labelString: 'Punch Number'
+                    },
+                    ticks: {
+                        fontSize: 14,
+                    }
+                }],
+            },
+        };
+        var maingraph = Chart.Bar(maingraphcanvas, {
+            data: maingraphdata,
+            options: maingraphoptions,
+        });
+
+        var ejngraphcanvas = document.getElementById('ejncompression_graph');
+        var ejngraphdata = {
+            labels: punch,
+            datasets: [
+                {
+                    label: "Ejn Compression LHS",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: [
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue"
+                    ],
+                    borderColor: "blue",
+                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHitRadius: 10,
+                    data: [],
+                },
+                {
+                    label: "Upper Tolerance",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "red",
+                    borderColor: "red",
+                    data: [],
+                    type: 'line',
+                },
+                {
+                    label: "Lower Tolerance",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "red",
+                    borderColor: "red",
+                    data: [],
+                    type: 'line',
+                },
+                {
+                    label: "Force Line",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "black",
+                    borderColor: "black",
+                    data: [],
+                    type: 'line',
+                },
+            ],
+        };
+        var ejngraphoptions = {
+            animation: false,
+            legend: {
+                display: false,
+                labels: {
+                    fontSize: 18,
+                },
+                position: 'top',
+            },
+            tooltips: { enabled: false },
+            hover: { mode: null },
+            showTooltips: false,
+            showLines: true,
+            scales: {
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 20,
+                        labelString: 'Compression (kg)'
+                    },
+                    ticks: {
+                        beginAtZero: true,
+                        fontSize: 20,
+                        max: 30,
+                    }
+                }],
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 20,
+                        labelString: 'Punch Number'
+                    },
+                    ticks: {
+                        fontSize: 14,
+                    }
+                }],
+            },
+        };
+        var ejngraph = Chart.Bar(ejngraphcanvas, {
+            data: ejngraphdata,
+            options: ejngraphoptions,
+        });
+
+    </script>
+    
+    <!-- Graphs -->
+    <script>
+        var punch = new Array("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45")
+
+        var data_LHS_index = 0;
+        var data_RHS_index = 1;
+        var upper_LHS_index = 2;
+        var upper_RHS_index = 3;
+        var lower_LHS_index = 4;
+        var lower_RHS_index = 5;
+        var forceline_index = 6;
+
+
+        var pregraphcanvas_R = document.getElementById('precompression_graph_R');
+        var pregraphdata_R = {
+            labels: punch,
+            datasets: [
+                {
+                    label: "Pre Compression",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: [
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue"
+                    ],
+                    borderColor: "blue",
+                    data: [],
+                },
+                {
+                    label: "Upper Tolerance",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "red",
+                    borderColor: "red",
+                    data: [],
+                    type: 'line',
+                },
+                {
+                    label: "Lower Tolerance",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "red",
+                    borderColor: "red",
+                    data: [],
+                    type: 'line',
+                },
+                {
+                    label: "Force Line",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "black",
+                    borderColor: "black",
+                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHitRadius: 10,
+                    data: [],
+                    type: 'line',
+                },
+                {
+                    label: 'AWC High',
+                    fill: false,
+                    backgroundColor: "red",
+                    borderColor: "red",
+                    type: 'line',
+                    borderDash: [5, 5],
+                    data: [],
+                },
+                {
+                    label: 'AWC Low',
+                    fill: false,
+                    backgroundColor: "yellow",
+                    borderColor: "yellow",
+                    type: 'line',
+                    borderDash: [5, 5],
+                    data: [],
+                },
+            ],
+        };
+        var pregraphoptions_R = {
+            animation: false,
+            legend: {
+                display: false,
+                labels: {
+                    fontSize: 18,
+                },
+                position: 'top',
+            },
+            tooltips: { enabled: false },
+            hover: { mode: null },
+            showTooltips: false,
+            showLines: true,
+            scales: {
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 20,
+                        labelString: 'Compression (kN)'
+                    }
+                    , ticks: {
+                        beginAtZero: true,
+                        fontSize: 20,
+                        max: 100,
+                    }
+                }],
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 20,
+                        labelString: 'Punch Number'
+                    },
+                    ticks: {
+                        fontSize: 14,
+                    }
+                }],
+            },
+        };
+        var pregraph_R = Chart.Bar(pregraphcanvas_R, {
+            data: pregraphdata_R,
+            options: pregraphoptions_R,
+        });
+
+        var maingraphcanvas_R = document.getElementById('maincompression_graph_R');
+        var maingraphdata_R = {
+            labels: punch,
+            datasets: [
+                {
+                    label: "Main Compression",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: [
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue"
+                    ],
+                    borderColor: "blue",
+                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHitRadius: 10,
+                    data: [],
+                },
+                {
+                    label: "Upper Tolerance",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "red",
+                    borderColor: "red",
+                    data: [],
+                    type: 'line',
+                },
+                {
+                    label: "Lower Tolerance",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "red",
+                    borderColor: "red",
+                    data: [],
+                    type: 'line',
+                },
+                {
+                    label: "Force Line",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "black",
+                    borderColor: "black",
+                    data: [],
+                    type: 'line',
+                },
+                {
+                    label: 'AWC High',
+                    fill: false,
+                    backgroundColor: "red",
+                    borderColor: "red",
+                    type: 'line',
+                    borderDash: [5, 5],
+                    data: [],
+                },
+                {
+                    label: 'AWC Low',
+                    fill: false,
+                    backgroundColor: "yellow",
+                    borderColor: "yellow",
+                    type: 'line',
+                    borderDash: [5, 5],
+                    data: [],
+                },
+            ],
+        };
+        var maingraphoptions_R = {
+            animation: false,
+            legend: {
+                display: false,
+                labels: {
+                    fontSize: 18,
+                },
+                position: 'top',
+            },
+            tooltips: { enabled: false },
+            hover: { mode: null },
+            showTooltips: false,
+            showLines: true,
+            scales: {
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 20,
+                        labelString: 'Compression (kN)'
+                    },
+                    ticks: {
+                        beginAtZero: true,
+                        fontSize: 20,
+                        max: 100,
+                    }
+                }],
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 20,
+                        labelString: 'Punch Number'
+                    },
+                    ticks: {
+                        fontSize: 14,
+                    }
+                }],
+            },
+        };
+        var maingraph_R = Chart.Bar(maingraphcanvas_R, {
+            data: maingraphdata_R,
+            options: maingraphoptions_R,
+        });
+
+        var ejngraphcanvas_R = document.getElementById('ejncompression_graph_R');
+        var ejngraphdata_R = {
+            labels: punch,
+            datasets: [
+                {
+                    label: "Ejn Compression",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: [
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue"
+                    ],
+                    borderColor: "blue",
+                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHitRadius: 10,
+                    data: [],
+                },
+                {
+                    label: "Upper Tolerance",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "red",
+                    borderColor: "red",
+                    data: [],
+                    type: 'line',
+                },
+                {
+                    label: "Lower Tolerance",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "red",
+                    borderColor: "red",
+                    data: [],
+                    type: 'line',
+                },
+                {
+                    label: "Force Line",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "black",
+                    borderColor: "black",
+                    data: [],
+                    type: 'line',
+                },
+            ],
+        };
+        var ejngraphoptions_R = {
+            animation: false,
+            legend: {
+                display: false,
+                labels: {
+                    fontSize: 18,
+                },
+                position: 'top',
+            },
+            tooltips: { enabled: false },
+            hover: { mode: null },
+            showTooltips: false,
+            showLines: true,
+            scales: {
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 20,
+                        labelString: 'Compression (kg)'
+                    },
+                    ticks: {
+                        beginAtZero: true,
+                        fontSize: 20,
+                        max: 30,
+                    }
+                }],
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 20,
+                        labelString: 'Punch Number'
+                    },
+                    ticks: {
+                        fontSize: 14,
+                    }
+                }],
+            },
+        };
+        var ejngraph_R = Chart.Bar(ejngraphcanvas_R, {
+            data: ejngraphdata_R,
+            options: ejngraphoptions_R,
+        });
+
+    </script>
+
+    <!-- Graph RHS  -->
+    <script>
+
+        time = new Date().toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'medium', hour12: true, timeZone: 'Asia/Kolkata' });
+            setInterval(() => {
+                document.getElementById("time").innerHTML = new Date().toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'medium', hour12: true, timeZone: 'Asia/Kolkata' });
+                // document.getElementById("feeder_activity_metric").innerHTML = time;
+                //  document.getElementById("machine_activity_metric").innerHTML = time;
+            }, 1000);
+            function switchh() {
+                var val = document.getElementById("select").innerHTML
+                if (val == 'LHS') {
+                    document.getElementById("select").innerHTML = 'RHS'
+                } else {
+                    document.getElementById("select").innerHTML = 'LHS'
+                }
+            }
+
+            var mode1;
+            async function fetchstats() {
+                fetch(statsurl)
+                    .then((resp) => resp.json()) // Transform the data into json
+                    .then(function (data) {
+                        // Here you get the data to modify as you please
+                        payload = data
+                        mode1 = payload.button.MONO_BI
+                        // alert(`MODE: ${payload.button.MONO_BI}`)
+                        maindata = data
+                        document.getElementById("rotation_number_metric").innerHTML = payload.rotation_no;
+                        document.getElementById("count_metric").innerHTML = payload.production;
+                        document.getElementById("production_per_hour_metric").innerHTML = payload.stats.tablets_per_hour;
+                        document.getElementById("rpm_metric").innerHTML = payload.stats.turret.RPM;
+                        document.getElementById("dwell_metric").innerHTML = payload.stats.dwell;
+                        document.getElementById("feederLHS_metric").innerHTML = payload.stats.LHS_FF.RPM;
+                        document.getElementById("feederRHS_metric").innerHTML = payload.stats.RHS_FF.RPM;
+
+                        var selection = document.getElementById("select").innerHTML
+                        // console.log(selection)
+
+                        if (selection == 'RHS') {
+                            document.getElementById("fill_d").innerHTML = payload.stats.awc.actual_RHS
+                            document.getElementById("pre_mm").innerHTML = payload.stats.RHSweight.value
+                            document.getElementById("main_mm").innerHTML = payload.stats.RHSthickness.value
+                        } else {
+                            document.getElementById("fill_d").innerHTML = payload.stats.awc.actual_LHS
+                            document.getElementById("pre_mm").innerHTML = payload.stats.LHSweight.value
+                            document.getElementById("main_mm").innerHTML = payload.stats.LHSthickness.value
+                        }
+                    })
+                    .catch(function (error) {
+                        // console.log("[ PAYLOAD FETCH ERROR ]", error)
+                    });
+            };
+
+            var currentBatch;
+            var currentrotation;
+            var i = 0
+
+            async function fetchcompression() {
+                fetch(payloadURL)
+                    .then((resp) => resp.json())
+                    .then(function (data) {
+                        payload = data
+
+                        document.getElementById("batch_number_metric").innerHTML = payload.batch;
+                        currentBatch = payload.batch;
+                        // console.log(payload.rotation_no)
+                        var selection = document.getElementById("select").innerHTML
+                        if (selection == 'RHS') {
+                            document.getElementById("pre_kn").innerHTML = payload.precompressionRHS_avg;
+                            document.getElementById("main_kn").innerHTML = payload.maincompressionRHS_avg;
+                            document.getElementById("ejn_kg").innerHTML = payload.ejectionRHS_avg;
+                        } else {
+                            document.getElementById("pre_kn").innerHTML = payload.precompressionLHS_avg;
+                            document.getElementById("main_kn").innerHTML = payload.maincompressionLHS_avg;
+                            document.getElementById("ejn_kg").innerHTML = payload.ejectionLHS_avg;
+                        }
+
+                        currentrotation = payload.rotation_no
+
+                    })
+                    .catch(function (error) {
+                        console.log("[ PAYLOAD FETCH ERROR ]", error)
+                    });
+            };
+
+
+            async function fetchmain() {
+                fetch(rawpayload)
+                    .then((resp) => resp.json()) // Transform the data into json
+                    .then(function (data) {
+                        // Here you get the data to modify as you please
+                        // data.connection == false ? alert("[ CHECK PLC CONNECTION ]") : 
+
+                        payload = data
+                        // console.log(payload.alarm[0])
+
+                        if (payload.output[0] === true) {
+                            const div = document.getElementById("0").classList.add('bg-orangeish');
+                        } else {
+                            const div = document.getElementById("0").classList.remove('bg-orangeish');
+                        }
+
+                        if (payload.output[1] === true) {
+                            const div = document.getElementById("0").classList.add('bg-orangeish');
+                        } else {
+                            const div = document.getElementById("0").classList.remove('bg-orangeish');
+                        }
+
+                        if (payload.output[2] === true) {
+                            const div = document.getElementById("0").classList.add('bg-orangeish');
+                        } else {
+                            const div = document.getElementById("0").classList.remove('bg-orangeish');
+                        }
+
+                    })
+                    .catch(function (error) {
+                        // console.log("[ PAYLOAD FETCH ERROR ]", error)
+                    });
+            };
+
+
+            function updatedata() {
+                // fetchstats()
+                setInterval(() => {
+                    fetchcompression()
+                    fetchstats()
+                }, 400);
+            }
+
+
+            updatedata()
+
+        async function fetchpayloadapiHF() {
+            fetch(processedurl)
+                .then((resp) => resp.json()) // Transform the data into json
+                .then(function (data) {
+                    // Here you get the data to modify as you please
+                    payload = data
+
+                    MRHS_LL = Array(45).fill(payload.limit[2])
+                    MRHS_UL = Array(45).fill(payload.limit[3])
+                    PRHS_LL = Array(45).fill(payload.limit[6])
+                    PRHS_UL = Array(45).fill(payload.limit[7])
+                    ERHS_LL = Array(45).fill(payload.limit[10])
+                    ERHS_UL = Array(45).fill(payload.limit[11])
+
+                    PRHS_FL = Array(45).fill(payload.limit[15])
+                    MRHS_FL = Array(45).fill(payload.limit[16])
+                    ERHS_FL = Array(45).fill(payload.limit[17])
+
+                    AWC_PRHS_UL = Array(45).fill(payload.limit[22])
+                    AWC_PRHS_LL = Array(45).fill(payload.limit[23])
+                    AWC_MRHS_UL = Array(45).fill(payload.limit[24])
+                    AWC_MRHS_LL = Array(45).fill(payload.limit[25])
+
+                    MLHS_LL = Array(45).fill(payload.limit[0])
+                    MLHS_UL = Array(45).fill(payload.limit[1])
+                    PLHS_LL = Array(45).fill(payload.limit[4])
+                    PLHS_UL = Array(45).fill(payload.limit[5])
+                    ELHS_LL = Array(45).fill(payload.limit[8])
+                    ELHS_UL = Array(45).fill(payload.limit[9])
+
+                    PLHS_FL = Array(45).fill(payload.limit[12])
+                    MLHS_FL = Array(45).fill(payload.limit[13])
+                    ELHS_FL = Array(45).fill(payload.limit[14])
+
+                    AWC_PLHS_UL = Array(45).fill(payload.limit[18])
+                    AWC_PLHS_LL = Array(45).fill(payload.limit[19])
+                    AWC_MLHS_UL = Array(45).fill(payload.limit[20])
+                    AWC_MLHS_LL = Array(45).fill(payload.limit[21])
+
+
+                    if (mode1 == true) {
+                        // alert("Bilayer")
+                        pregraph.data.datasets[0].backgroundColor = payload.pLHS_processed
+
+                        pregraph.data.datasets[1].data = PLHS_UL // payload.limit[0] // Upper 
+                        pregraph.data.datasets[2].data = PLHS_LL // payload.limit[0] // Lower
+
+                        pregraph.data.datasets[3].data = PLHS_FL
+ 
+                        pregraph.data.datasets[4].data = AWC_PLHS_UL
+                        pregraph.data.datasets[5].data = AWC_PLHS_LL
+
+                        // maingraph.data.datasets[0].backgroundColor = payload.mLHS_processed
+
+                        // maingraph.data.datasets[1].data = MLHS_UL  //  // Upper 
+                        // maingraph.data.datasets[2].data = MLHS_LL //  // Lower
+
+                        // maingraph.data.datasets[3].data = MLHS_FL
+
+                        // maingraph.data.datasets[4].data = AWC_MLHS_UL
+                        // maingraph.data.datasets[5].data = AWC_MLHS_LL
+
+                        maingraph_R.data.datasets[0].backgroundColor = payload.pRHS_processed
+
+                        maingraph_R.data.datasets[1].data = PRHS_UL // payload.limit[0] // Upper 
+                        maingraph_R.data.datasets[2].data = PRHS_LL // payload.limit[0] // Lower
+
+                        maingraph_R.data.datasets[3].data = PRHS_FL
+
+                        maingraph_R.data.datasets[4].data = AWC_PRHS_UL
+                        maingraph_R.data.datasets[5].data = AWC_PRHS_LL
+                    } else {
+                        // alert("Mono")
+                        maingraph.data.datasets[0].backgroundColor = payload.mLHS_processed
+
+                        maingraph.data.datasets[1].data = MLHS_UL  //  // Upper 
+                        maingraph.data.datasets[2].data = MLHS_LL //  // Lower
+
+                        maingraph.data.datasets[3].data = MLHS_FL
+
+                        maingraph.data.datasets[4].data = AWC_MLHS_UL
+                        maingraph.data.datasets[5].data = AWC_MLHS_LL
+
+                        maingraph_R.data.datasets[0].backgroundColor = payload.mRHS_processed
+
+                        maingraph_R.data.datasets[1].data = MRHS_UL // payload.limit[0] // Upper 
+                        maingraph_R.data.datasets[2].data = MRHS_LL // payload.limit[0] // Lower
+
+                        maingraph_R.data.datasets[3].data = MRHS_FL
+
+                        maingraph_R.data.datasets[4].data = AWC_MRHS_UL
+                        maingraph_R.data.datasets[5].data = AWC_MRHS_LL
+                    }
+
+                    pregraph.data.datasets[0].data = payload.pLHS_data
+                    maingraph.data.datasets[0].data = payload.mLHS_data
+                    // ejngraph.data.datasets[0].data = payload.eLHS_data
+                    // ejngraph.data.datasets[0].backgroundColor = payload.eLHS_processed
+
+                    pregraph_R.data.datasets[0].data = payload.pRHS_data
+                    maingraph_R.data.datasets[0].data = payload.mRHS_data
+                    // ejngraph_R.data.datasets[0].data = payload.eRHS_data
+                    // ejngraph_R.data.datasets[0].backgroundColor = payload.eRHS_processed
+
+                    // ejngraph.data.datasets[1].data = ERHS_UL // payload.limit[0] // Upper 
+                    // ejngraph.data.datasets[2].data = ERHS_LL // payload.limit[0] // Lower
+                    // ejngraph.data.datasets[3].data = ERHS_FL 
+
+                    pregraph.update();
+                    maingraph.update();
+                    // ejngraph.update();
+                    pregraph_R.update();
+                    maingraph_R.update();
+                    // ejngraph_R.update();
+                })
+                .catch(function (error) {
+                    // If there is any error you will catch them here
+                    console.log("[ PAYLOAD FETCH ERROR ]", error)
+                });
+        };
+
+                // fetchpayloadapiHF();
+
+        setTimeout(() => {
+            // fetchpayloadapiHF();
+            setInterval(() => {
+                fetchpayloadapiHF();
+            }, 100);
+        }, 1000);
+
+    </script>
+
+</body>
+
+</html>

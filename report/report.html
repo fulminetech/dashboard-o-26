@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report</title>
+
+    <link href="/css/tailwind.css" rel="stylesheet">
+    <script src="/env/env.js"></script>
+
+</head>
+
+<body onload="searchBatch()">
+
+    <h3 class="px-10 py-2 text-gray-700 text-left">Batch Number:
+        <a id="batch_number_metric" class="font-bold text-gray-900">
+        </a>
+    </h3>
+    <h3 class="px-10 py-2 text-gray-700 text-left">From (rotation number):
+        <a id="from" class="font-bold text-gray-900">
+        </a>
+    </h3>
+    <h3 class="px-10 py-2 text-gray-700 text-left">To (rotation number):
+        <a id="to" class="font-bold text-gray-900">
+        </a>
+    </h3>
+    
+    <div class="px-10 pt-2 pb-5 text-sm">
+        <table class="table-fixed w-full text-center text-gray-900" height="170rem">
+            <thead>
+                <tr>
+                    <th class="text-center border-b py-3">Rotation</th>
+                    <th class="text-center border-b py-3">PRE LHS AVG<br> (kN)</th>
+                    <th class="text-center border-b py-3">MAIN LHS AVG<br> (kN)</th>
+                    <th class="text-center border-b py-3">EJN LHS AVG<br> (kg)</th>
+                    <th class="text-center border-b py-3">PRE RHS AVG<br> (kN)</th>
+                    <th class="text-center border-b py-3">MAIN RHS AVG<br> (kN)</th>
+                    <th class="text-center border-b py-3">EJN RHS AVG<br> (kg)</th>
+                    <th class="text-center border-b py-3">Dwell Time</th>
+                    <th class="text-center border-b py-3">Turret RPM</th>
+                    <th class="text-center border-b py-3">Dozer LHS (mm)</th>
+                    <th class="text-center border-b py-3">Dozer RHS (mm)</th>
+                </tr>
+            </thead>
+            <tbody id="avgtable">
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Time -->
+    <script>
+        time = new Date().toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'medium', hour12: true, timeZone: 'Asia/Kolkata' });
+        document.getElementById("time").innerHTML = new Date().toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'medium', hour12: true, timeZone: 'Asia/Kolkata' });
+    </script>
+
+    <!-- Generate report -->
+    <script>
+        
+        async function searchBatch() {
+
+            const reportData1 = await fetch(reportdetailsURL);
+            const report = await reportData1.json();
+
+            let from = report.from;
+            let to = report.to;
+
+            document.getElementById("from").innerHTML = from;
+            document.getElementById("to").innerHTML = to;
+
+            document.getElementById("batch_number_metric").innerHTML = report.batch;
+
+            // const queryAvgURL = `${hostname}/api/search/average/csv/${report.batch}`
+            var queryAvgURL = `${dbsearchURL}/${report.batch}/average`
+
+            const avgData = await fetch(queryAvgURL);
+            const avggbatch = await avgData.json();
+
+            // console.log(avggbatch)
+
+            let avglistt = avggbatch.data;
+
+            function loadavglist() {
+                const avgListBody = document.getElementById('avgtable');
+                let avgHTML = '';
+
+                let i = -1;
+                let j = 0;
+
+                for (let avgg of avglistt) {
+                    i++;
+                    
+                    if (i >= from && i <= to) {
+                        from++;
+                        j = i -1;
+                        let avgdataa = avggbatch.data[j]
+                        // avgHTML += `<tr><td class="border border-gray-500 px-1">${avgdataa[8]}</td><td class="border border-gray-500 px-1">${avgdataa[6]}</td><td class="border border-gray-500 px-1">${avgdataa[4]}</td><td class="border border-gray-500 px-1">${avgdataa[2]}</td><td class="border border-gray-500 px-1">${avgdataa[7]}</td><td class="border border-gray-500 px-1">${avgdataa[5]}</td><td class="border border-gray-500 px-1">${avgdataa[3]}</td><td class="border border-gray-500 px-1">${avgdataa[1]}</td><td class="border border-gray-500 px-1">${avgdataa[9]}</td><td class="border border-gray-500 px-1">${avgdataa[9]}</td></tr>`
+                        avgHTML += `<tr><td class="border border-gray-500 px-1 ">${avgdataa[10]}</td><td class="border border-gray-500 px-1 ">${avgdataa[8]}</td><td id="p1-ejn" class="border border-gray-500 px-1 ">${avgdataa[6]}</td><td id="p1-ejn" class="border border-gray-500 px-1 ">${avgdataa[4]}</td><td id="p1-ejn" class="border border-gray-500 px-1 ">${avgdataa[9]}</td><td id="p1-ejn" class="border border-gray-500 px-1 ">${avgdataa[7]}</td><td id="p1-ejn" class="border border-gray-500 px-1 ">${avgdataa[5]}</td><td id="p1-ejn" class="border border-gray-500 px-1 ">${avgdataa[3]}</td><td id="p1-ejn" class="border border-gray-500 px-1 ">${avgdataa[11]}</td><td id="p1-ejn" class="border border-gray-500 px-1 ">${avgdataa[2]}</td><td id="p1-ejn" class="border border-gray-500 px-1 ">${avgdataa[1]}</td></tr>`
+                    } else if (i > to) {
+                        // await fetch(generatereportURL);
+                    }
+                }
+
+                avgListBody.innerHTML = avgHTML;
+            }
+
+            loadavglist();
+        }
+
+
+    </script>
+</body>
+
+</html>
