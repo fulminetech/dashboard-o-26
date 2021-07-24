@@ -22,7 +22,7 @@ SERVER_HOST = "192.168.1.5"
 SERVER_PORT = 502
 # Scan time in seconds
 # MBSCAN = 3
-MBSCAN =30
+MBSCAN =5
 
 # define modbus server host, port
 c = ModbusClient()
@@ -32,35 +32,42 @@ c.port(SERVER_PORT)
 #c.debug(True)
 
 # Modbus Read addresses 
-PREC_L_ADDR = 2000
-MAIN_L_ADDR = 2200
-EJNC_L_ADDR = 2800
-
-PREC_R_ADDR = 2400
-MAIN_R_ADDR = 2600
-EJNC_R_ADDR = 3000
-
 TIME_ADDR = 100
 
-#ML. PL, EJ, MR, PR, ER 
-AVGC_ADDR = 3204
-STUS_ADDR = 540
+PREC_L_ADDR = 2000
+MAIN_L_ADDR = 2200
+EJNC_L_ADDR = 2400
+AVGC_ADDR = 3204 # LPRE-3204, LMAIN-3208, LEJN-3212
 
-# PLHS_UL, PLHS_LL, MLHS_UL, MLHS_LL, ELHS_UL, ELHS_LL, PRHS_UL, PRHS_LL, MRHS_UL, MRHS_LL, ERHS_UL, ERHS_LL + Force line LHS PME, RHS PME + AWC LHS: UP-LP, UM-LM 
-LIMIT_ADDR = 6010
+LIMIT_ADDR = 6010 # PREUP-6010 PRELOW-6011 MAINUP-6012 MAINLOW-6013 EJNUP-6014 EJNLOW-6015
+REG5000_ADDR = 5000
+REG6000_ADDR = 6000
+SETUP_ADDR = 7000
+
+STUS_ADDR = 540
+BUTTON_ADDR = 410 
+MAINTAINENCE_ADDR = 7900
+INPUT_ADDR = 24576
+OUTPUT_ADDR = 40960
+ALARM_ADDR = 469
 
 # Data format: Dictonary
 payload = {
     'connection': False,
-    'pstatus': [],
     'pLHS_data': [],
-    'pRHS_data': [],
     'mLHS_data': [],
-    'mRHS_data': [],
     'eLHS_data': [],
-    'eRHS_data': [],
     'avg': [],
-    'limit': []
+    'limit': [],
+    'register_5000': [],
+    'register_6000': [],
+    'setup': [],
+    'pstatus': [],
+    'button': [],
+    'maintainence': [],
+    'input': [],
+    'output': [],
+    'alarms': []
 }
 
 global x
@@ -81,7 +88,6 @@ def connect():
                 x = threading.Thread(target=xyz, args=(1,), daemon=True)
                 x.start()
                 
-
 def ptime():
     regs = c.read_holding_registers(TIME_ADDR, 6)
     global x
@@ -93,125 +99,183 @@ def ptime():
         x = 'pLHS'
 
 def pLHS():
-    regs = c.read_holding_registers(PREC_L_ADDR, 45)
+    regs = c.read_holding_registers(PREC_L_ADDR, 26)
     global x
     if regs:
         # pLHS = [ x/100 for x in regs]
         # payload['pLHS_data'] = pLHS
         # logging.debug('Success!: pre L')
         payload['pLHS_data'] = regs
-        x = 'pRHS'
-    else:
-        logging.error("pLHS Read Failed")
-        x = 'pRHS'
-
-def pRHS():
-    regs = c.read_holding_registers(PREC_R_ADDR, 45)
-    global x
-    if regs:
-        # pRHS = [ x/100 for x in regs]
-        # payload['pRHS_data'] = pRHS
-        # logging.debug('Success!: pre R')
-        payload['pRHS_data'] = regs
         x = 'mLHS'
     else:
-        logging.error("pRHS Read Failed")
+        logging.error("pLHS Read Failed")
         x = 'mLHS'
 
 def mLHS():
-    regs = c.read_holding_registers(MAIN_L_ADDR, 45)
+    regs = c.read_holding_registers(MAIN_L_ADDR, 26)
     global x
     if regs:
         # mLHS = [ x/100 for x in regs]
         # payload['mLHS_data'] = mLHS
         # logging.debug('Success!: main L')
         payload['mLHS_data'] = regs
-        x = 'mRHS'
-    else:
-        logging.error("mLHS Read Failed")
-        x = 'mRHS'
-
-def mRHS():
-    regs = c.read_holding_registers(MAIN_R_ADDR, 45)
-    global x
-    if regs:
-        # mRHS = [ x/100 for x in regs]
-        # payload['mRHS_data'] = mRHS
-        # logging.debug('Success!: main R')
-        payload['mRHS_data'] = regs
         x = 'eLHS'
     else:
-        logging.error("mRHS Read Failed")
+        logging.error("mLHS Read Failed")
         x = 'eLHS'
 
 def eLHS():
-    regs = c.read_holding_registers(EJNC_L_ADDR, 45)
+    regs = c.read_holding_registers(EJNC_L_ADDR, 26)
     global x
     if regs:
         # eLHS = [ x/100 for x in regs]
         # payload['eLHS_data'] = eLHS
         # logging.debug('Success!: ejn L')
         payload['eLHS_data'] = regs
-        x = 'eRHS'
-    else:
-        logging.error("eLHS Read Failed")
-        x = 'eRHS'
-
-def eRHS():
-    regs = c.read_holding_registers(EJNC_R_ADDR, 45)
-    global x
-    if regs:
-        # eLHS = [ x/100 for x in regs]
-        # payload['eRHS_data'] = eLHS
-        # logging.debug('Success!: ejn R')
-        payload['eRHS_data'] = regs
         x = 'avg'
     else:
-        logging.error("eRHS Read Failed")
+        logging.error("eLHS Read Failed")
         x = 'avg'
 
 def avg():
-    regs = c.read_holding_registers(AVGC_ADDR, 20)
+    regs = c.read_holding_registers(AVGC_ADDR, 10)
     global x
     if regs:
         # avg = [ x/100 for x in regs]
         # payload['avg'] = avg
         # logging.debug('Success!: avg')
         payload['avg'] = regs
-        x = 'pstatus'
+        x = 'limit'
     else:
         logging.error("avg Read Failed")
-        x = 'pstatus'
+        x = 'limit'
 
 def limit():
     # PLHS_UL, PLHS_LL, MLHS_UL, MLHS_LL, ELHS_UL, ELHS_LL, PRHS_UL, PRHS_LL, MRHS_UL, MRHS_LL, ERHS_UL, ERHS_LL + Force line LHS PME, RHS PME + AWC LHS: UP-LP, UM-LM 
-    regs = c.read_holding_registers(LIMIT_ADDR, 26)
+    regs = c.read_holding_registers(LIMIT_ADDR, 6)
     global x
     if regs:
         # limit = [ x/100 for x in regs]
         # payload['limit'] = limit
         # logging.debug('Success!: limit')
         payload['limit'] = regs
-        x = 'limit'
+        x = 'register_5000'
     else:
         logging.error("limit Read Failed")
-        x = 'limit' 
+        x = 'register_5000'
+
+def register_5000():
+    # PLHS_UL, PLHS_LL, MLHS_UL, MLHS_LL, ELHS_UL, ELHS_LL, PRHS_UL, PRHS_LL, MRHS_UL, MRHS_LL, ERHS_UL, ERHS_LL + Force line LHS PME, RHS PME + AWC LHS: UP-LP, UM-LM
+    regs = c.read_holding_registers(REG5000_ADDR, 6)
+    global x
+    if regs:
+        # limit = [ x/100 for x in regs]
+        # payload['limit'] = limit
+        # logging.debug('Success!: limit')
+        payload['register_5000'] = regs
+        x = 'register_6000'
+    else:
+        logging.error("register_5000 Read Failed")
+        x = 'register_6000'
+
+def register_6000():
+    # PLHS_UL, PLHS_LL, MLHS_UL, MLHS_LL, ELHS_UL, ELHS_LL, PRHS_UL, PRHS_LL, MRHS_UL, MRHS_LL, ERHS_UL, ERHS_LL + Force line LHS PME, RHS PME + AWC LHS: UP-LP, UM-LM
+    regs = c.read_holding_registers(REG6000_ADDR, 6)
+    global x
+    if regs:
+        # limit = [ x/100 for x in regs]
+        # payload['limit'] = limit
+        # logging.debug('Success!: limit')
+        payload['register_6000'] = regs
+        x = 'setup'
+    else:
+        logging.error("register_6000 Read Failed")
+        x = 'setup'
+
+def setup():
+    # PLHS_UL, PLHS_LL, MLHS_UL, MLHS_LL, ELHS_UL, ELHS_LL, PRHS_UL, PRHS_LL, MRHS_UL, MRHS_LL, ERHS_UL, ERHS_LL + Force line LHS PME, RHS PME + AWC LHS: UP-LP, UM-LM 
+    regs = c.read_holding_registers(SETUP_ADDR, 50)
+    global x
+    if regs:
+        # limit = [ x/100 for x in regs]
+        # payload['limit'] = limit
+        # logging.debug('Success!: limit')
+        payload['setup'] = regs
+        x = 'pstatus'
+    else:
+        logging.error("setup Read Failed")
+        x = 'pstatus'
 
 def pstatus():
-    regs = c.read_coils(STUS_ADDR, 44)
+    regs = c.read_coils(STUS_ADDR, 26)
     global x
     if regs:
         # logging.debug('Success!: pstatus')
         payload['pstatus'] = regs
-        x = 'stats'
+        x = 'button'
     else:
         logging.error("pstatus Read Failed")
-        x = 'stats'
- 
+        x = 'button'
+
+def button():
+    regs = c.read_coils(BUTTON_ADDR, 26)
+    global x
+    if regs:
+        # logging.debug('Success!: pstatus')
+        payload['button'] = regs
+        x = 'maintainence'
+    else:
+        logging.error("button Read Failed")
+        x = 'maintainence'
+
+def maintainence():
+    regs = c.read_coils(MAINTAINENCE_ADDR, 26)
+    global x
+    if regs:
+        # logging.debug('Success!: pstatus')
+        payload['maintainence'] = regs
+        x = 'input'
+    else:
+        logging.error("maintainence Read Failed")
+        x = 'input'
+
+def input():
+    regs = c.read_coils(INPUT_ADDR, 26)
+    global x
+    if regs:
+        # logging.debug('Success!: pstatus')
+        payload['input'] = regs
+        x = 'output'
+    else:
+        logging.error("input Read Failed")
+        x = 'output'
+
+def output():
+    regs = c.read_coils(OUTPUT_ADDR, 26)
+    global x
+    if regs:
+        # logging.debug('Success!: pstatus')
+        payload['output'] = regs
+        x = 'alarms'
+    else:
+        logging.error("button Read Failed")
+        x = 'alarms'
+
+def alarms():
+    regs = c.read_coils(ALARM_ADDR, 26)
+    global x
+    if regs:
+        # logging.debug('Success!: pstatus')
+        payload['alarms'] = regs
+        x = 'pLHS'
+    else:
+        logging.error("alarms Read Failed")
+        x = 'pLHS'
+
 def end():
     print("End")
     # print("End: ",+int(time.time_ns() // 1000000 - ms))
- 
+
 def start():
     print("Start")
     # print("Start: ",+int(time.time_ns() // 1000000 - ms))
@@ -221,14 +285,19 @@ def xyz(name):
     while True: 
         # start()
         pLHS()
-        pRHS()
         mLHS()
-        mRHS()
         eLHS()
-        eRHS()
-        pstatus()
         avg()
         limit()
+        register_5000()
+        register_6000()
+        setup()
+        pstatus()
+        button()
+        maintainence()
+        input()
+        output()
+        alarms()
         time.sleep(0.1)
         # end()
 
