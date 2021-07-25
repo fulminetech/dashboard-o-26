@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Dashboard - 45</title>
+    <title>Dashboard - 26</title>
     <meta name="description" content="description here">
     <meta name="keywords" content="keywords,here">
 
@@ -73,14 +73,14 @@
                 <a href="/dashboard"
                     class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
                     <i class="fa fa-chevron-left fa-fw mr-3 text-xl"></i><span
-                        class="w-full inline-block text-lg">Dashboard</span>
+                        class="w-full inline-block uppercase text-lg">Dashboard</span>
                 </a>
             </li>
             <li class="my-2 md:my-0">
                 <a href="/overview"
                     class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
                     <i class="fas fa-heartbeat fa-fw mr-3 text-indigo-400 text-xl"></i><span
-                        class="w-full inline-block text-lg">Overview</span>
+                        class="w-full inline-block uppercase text-lg">Overview</span>
                 </a>
             </li>
             <li class="my-2 md:my-0">
@@ -124,7 +124,7 @@
 
                         <div class="flex grid grid-cols-1 uppercase">
 
-                            <div class="pt-2 text-center">
+                            <div class="pt-2 text-center hidden">
                                 <a id="select" class="text-4xl bg-purple-700 text-white px-5 py-1 rounded-md" onclick="switchh()">LHS</a>
                             </div>
                             <div class="flex flex-row flex-wrap flex-1 flex-grow text center pt-10">
@@ -140,13 +140,13 @@
                                 <a id="rpm_metric" class="text-4xl bg-gray-700 text-white px-5 py-1 rounded-md">0</a>
                             </div>
                             <div class="pt-2 text-center">
-                                <a id="" class="text-2xl "> FEEDER LHS</a>
-                                <a id="" class="text-2xl pl-10"> FEEDER RHS</a>
+                                <a id="" class="text-2xl "> FEEDER </a>
+                                <!-- <a id="" class="text-2xl pl-10"> FEEDER RHS</a> -->
                                 
                             </div>
                             <div class="pt-2 text-center">
                                 <a id="feederRHS_metric" class="text-4xl bg-gray-700 text-white px-5 py-1 rounded-md">0</a>
-                                <a id="feederLHS_metric" class="ml-20 text-4xl bg-gray-700 text-white px-5 py-1 rounded-md">0</a>
+                                <!-- <a id="feederLHS_metric" class="ml-20 text-4xl bg-gray-700 text-white px-5 py-1 rounded-md">0</a> -->
                             </div>
                             <div class="flex flex-row flex-wrap flex-1 flex-grow pt-6">
                                 <a id="fill_d" class="w-1/2 text-2xl pl-44">0</a>
@@ -162,7 +162,7 @@
 
                         <div class="max-w-full">
                         
-                            <div class="flex mt-5 grid grid-cols-4 gap-2">
+                            <div class="flex mt-5 grid grid-cols-2 gap-2">
                         
                                 <div class="px-3">
                         
@@ -171,7 +171,7 @@
                                         <button id="graph_pL"
                                             class="bg-green-200 uppercase text-xl text-gray-800 font-semibold w-full py-1 border border-blue-500 rounded"
                                             onclick="graph_pL()">
-                                            Pre Compression LHS
+                                            Pre Compression 
                                         </button>
                                     </div>
                                 </div>
@@ -183,7 +183,7 @@
                                         <button id="graph_mL"
                                             class="bg-red-200 uppercase text-xl text-gray-800 font-semibold w-full py-1 border border-blue-500 rounded"
                                             onclick="graph_mL()">
-                                            Main Compression LHS
+                                            Main Compression 
                                         </button>
                                     </div>
                                 </div>
@@ -191,7 +191,7 @@
                                 <div class="px-3">
                         
                                     <!-- PDF report Button -->
-                                    <div class="py-1">
+                                    <div class="py-1 hidden">
                                         <button id="graph_pR"
                                             class="bg-red-200 uppercase text-xl text-gray-800 font-semibold w-full py-1 border border-blue-500 rounded"
                                             onclick="graph_pR()">
@@ -203,7 +203,7 @@
                                 <div class=" px-3">
                         
                                     <!-- PDF report Button -->
-                                    <div class="py-1">
+                                    <div class="py-1 hidden">
                                         <button id="graph_mR"
                                             class="bg-red-200 uppercase text-xl text-gray-800 font-semibold w-full py-1 border border-blue-500 rounded"
                                             onclick="graph_mR()">
@@ -598,7 +598,7 @@
 
     <!-- Graphs -->
     <script>
-        var punch = new Array("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45")
+        var punch = new Array("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26")
 
         var pregraphcanvas = document.getElementById('precompression_graph');
         var pregraphdata = {
@@ -1014,7 +1014,7 @@
     
     <!-- Graphs -->
     <script>
-        var punch = new Array("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45")
+        var punch = new Array("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26")
 
         var data_LHS_index = 0;
         var data_RHS_index = 1;
@@ -1446,6 +1446,7 @@
                 // document.getElementById("feeder_activity_metric").innerHTML = time;
                 //  document.getElementById("machine_activity_metric").innerHTML = time;
             }, 1000);
+            
             function switchh() {
                 var val = document.getElementById("select").innerHTML
                 if (val == 'LHS') {
@@ -1577,37 +1578,37 @@
                     // Here you get the data to modify as you please
                     payload = data
 
-                    MRHS_LL = Array(45).fill(payload.limit[2])
-                    MRHS_UL = Array(45).fill(payload.limit[3])
-                    PRHS_LL = Array(45).fill(payload.limit[6])
-                    PRHS_UL = Array(45).fill(payload.limit[7])
-                    ERHS_LL = Array(45).fill(payload.limit[10])
-                    ERHS_UL = Array(45).fill(payload.limit[11])
+                    MRHS_LL = Array(26).fill(payload.limit[2])
+                    MRHS_UL = Array(26).fill(payload.limit[3])
+                    PRHS_LL = Array(26).fill(payload.limit[6])
+                    PRHS_UL = Array(26).fill(payload.limit[7])
+                    ERHS_LL = Array(26).fill(payload.limit[10])
+                    ERHS_UL = Array(26).fill(payload.limit[11])
 
-                    PRHS_FL = Array(45).fill(payload.limit[15])
-                    MRHS_FL = Array(45).fill(payload.limit[16])
-                    ERHS_FL = Array(45).fill(payload.limit[17])
+                    PRHS_FL = Array(26).fill(payload.limit[15])
+                    MRHS_FL = Array(26).fill(payload.limit[16])
+                    ERHS_FL = Array(26).fill(payload.limit[17])
 
-                    AWC_PRHS_UL = Array(45).fill(payload.limit[22])
-                    AWC_PRHS_LL = Array(45).fill(payload.limit[23])
-                    AWC_MRHS_UL = Array(45).fill(payload.limit[24])
-                    AWC_MRHS_LL = Array(45).fill(payload.limit[25])
+                    AWC_PRHS_UL = Array(26).fill(payload.limit[22])
+                    AWC_PRHS_LL = Array(26).fill(payload.limit[23])
+                    AWC_MRHS_UL = Array(26).fill(payload.limit[24])
+                    AWC_MRHS_LL = Array(26).fill(payload.limit[25])
 
-                    MLHS_LL = Array(45).fill(payload.limit[0])
-                    MLHS_UL = Array(45).fill(payload.limit[1])
-                    PLHS_LL = Array(45).fill(payload.limit[4])
-                    PLHS_UL = Array(45).fill(payload.limit[5])
-                    ELHS_LL = Array(45).fill(payload.limit[8])
-                    ELHS_UL = Array(45).fill(payload.limit[9])
+                    MLHS_LL = Array(26).fill(payload.limit[0])
+                    MLHS_UL = Array(26).fill(payload.limit[1])
+                    PLHS_LL = Array(26).fill(payload.limit[4])
+                    PLHS_UL = Array(26).fill(payload.limit[5])
+                    ELHS_LL = Array(26).fill(payload.limit[8])
+                    ELHS_UL = Array(26).fill(payload.limit[9])
 
-                    PLHS_FL = Array(45).fill(payload.limit[12])
-                    MLHS_FL = Array(45).fill(payload.limit[13])
-                    ELHS_FL = Array(45).fill(payload.limit[14])
+                    PLHS_FL = Array(26).fill(payload.limit[12])
+                    MLHS_FL = Array(26).fill(payload.limit[13])
+                    ELHS_FL = Array(26).fill(payload.limit[14])
 
-                    AWC_PLHS_UL = Array(45).fill(payload.limit[18])
-                    AWC_PLHS_LL = Array(45).fill(payload.limit[19])
-                    AWC_MLHS_UL = Array(45).fill(payload.limit[20])
-                    AWC_MLHS_LL = Array(45).fill(payload.limit[21])
+                    AWC_PLHS_UL = Array(26).fill(payload.limit[18])
+                    AWC_PLHS_LL = Array(26).fill(payload.limit[19])
+                    AWC_MLHS_UL = Array(26).fill(payload.limit[20])
+                    AWC_MLHS_LL = Array(26).fill(payload.limit[21])
 
 
                     if (mode1 == true) {
