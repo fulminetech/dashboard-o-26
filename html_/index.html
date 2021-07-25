@@ -445,7 +445,7 @@
     
                                 <!-- Lubrication time -->
                                 <div class="px-1 flex items-center">
-                                    <div class="border border-gray-500 bg-yellow-300 shadow-xl hover:shadow-2xl rounded p-3 my-auto mx-auto">
+                                    <div class="border border-gray-500 bg-yellow-300 shadow-xl hover:shadow-2xl rounded p-3 my-auto w-full block">
                                         <div class="flex flex-col">
                                             <div class="flex-1 items-left text-gray-700">
                                                 <h5 class="font-bold uppercase text-md">Lubrication time (mins)</h5>
@@ -472,7 +472,7 @@
                                                     Turret RPM / Amps</h3>
                                                 <!-- <h3 class="font-bold mt-2 text-lg">RPM: 
                                                     <a id="rpm_metric">0</a></h3> -->
-                                                    <div class="py-1 flex grid grid-cols-2">
+                                                    <div class="py-1 flex grid grid-cols-2 gap-2">
                                                         <input id="rpm_metric"
                                                             class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
                                                             type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) updaterpmT()">
@@ -493,7 +493,7 @@
                                             <div class="flex-1 items-left text-gray-700">
                                                 <h3 class="font-bold text-md">
                                                     Feeder RPM / Amps
-                                                    <div class="py-1 flex grid grid-cols-2">
+                                                    <div class="py-1 flex grid grid-cols-2 gap-2">
                                                         <input id="feederRHS_metric"
                                                             class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
                                                             type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) updaterpmFR()">
@@ -539,7 +539,7 @@
                                     <!-- PDF report Button -->
                                     <div class="">
                                         <button id="disable_awc"
-                                            class="bg-indigo-200 uppercase text-xl text-gray-800 font-semibold w-full h-30 py-8 border border-blue-500 rounded"
+                                            class="bg-indigo-200 uppercase text-lg text-gray-800 font-semibold w-full h-30 py-8 border border-blue-500 rounded"
                                             onclick="awc()">
                                             AWC OFF
                                         </button>
@@ -551,7 +551,7 @@
                                     <!-- Excel Button -->
                                     <div class="">
                                         <button id="samp"
-                                            class="bg-indigo-200 uppercase text-xl text-gray-800 font-semibold w-full h-30 py-2 border border-blue-500 rounded"
+                                            class="bg-indigo-200 uppercase text-lg text-gray-800 font-semibold w-full h-30 py-2 border border-blue-500 rounded"
                                             onclick="samp()">
                                             AUTO SAMPLING OFF
                                         </button>
@@ -563,7 +563,7 @@
                                     <!-- Excel Button -->
                                     <div class="">
                                         <button id="man_samp"
-                                            class="bg-red-300 uppercase text-xl text-gray-800 font-semibold w-full h-30 py-2 border border-blue-500 rounded"
+                                            class="bg-red-300 uppercase text-lg text-gray-800 font-semibold w-full h-30 py-2 border border-blue-500 rounded"
                                             onmousedown="button13()" onmouseup="button13x()">
                                             Manual Sampling
                                         </button>
@@ -575,7 +575,7 @@
                                     <!-- Excel Button -->
                                     <div class="">
                                         <button id="rejn_air"
-                                            class="bg-gray-600 uppercase text-xl text-gray-800 font-semibold w-full h-30 py-2 border border-blue-500 rounded"
+                                            class="bg-gray-600 uppercase text-lg text-gray-800 font-semibold w-full h-30 py-2 border border-blue-500 rounded"
                                             onmousedown="button2x()">
                                             Rejection By Air
                                         </button>
@@ -587,7 +587,7 @@
                                     <!-- Excel Button -->
                                     <div class="">
                                         <button id="rejn_flap"
-                                            class="bg-gray-600 uppercase text-xl text-gray-800 font-semibold w-full  h-30 py-2 border border-blue-500 rounded"
+                                            class="bg-gray-600 uppercase text-lg text-gray-800 font-semibold w-full  h-30 py-2 border border-blue-500 rounded"
                                             onmousedown="button2()">
                                             Rejection By Flap
                                         </button>
@@ -620,7 +620,7 @@
                                     <!-- PDF report Button -->
                                     <div class="">
                                         <button id="feeder_start"
-                                            class="bg-green-300 uppercase text-xl text-gray-800 font-semibold w-full h-30 py-5 border border-blue-500 rounded"
+                                            class="bg-green-300 uppercase text-lg text-gray-800 font-semibold w-full h-30 py-5 border border-blue-500 rounded"
                                             onclick="feeder()">
                                             Feeder Run
                                         </button>
@@ -631,7 +631,7 @@
                                 
                                     <div class="">
                                         <button id="rejn_dsbl"
-                                            class="bg-indigo-200 uppercase text-xl text-gray-800 font-semibold w-full h-30 py-5 border border-blue-500 rounded"
+                                            class="bg-indigo-200 uppercase text-lg text-gray-800 font-semibold w-full h-30 py-5 border border-blue-500 rounded"
                                             onmousedown="rejnbutton()">
                                             Rejection OFF
                                         </button>
@@ -643,7 +643,7 @@
                                     <!-- Excel Button -->
                                     <div class="">
                                         <button id="rejn_init"
-                                            class="bg-indigo-200 uppercase text-xl text-gray-800 font-semibold w-full  h-30 py-5 border border-blue-500 rounded"
+                                            class="bg-indigo-200 uppercase text-lg text-gray-800 font-semibold w-full  h-30 py-5 border border-blue-500 rounded"
                                             onclick="initrejnbutton()">
                                             Initial Rejection
                                         </button>
@@ -655,7 +655,7 @@
                                     <!-- PDF report Button -->
                                     <div class="">
                                         <button id="feeder_g"
-                                            class="bg-gray-600 uppercase text-xl text-gray-800 font-semibold w-full py-5 h-30 border border-blue-500 rounded"
+                                            class="bg-gray-600 uppercase text-lg text-gray-800 font-semibold w-full py-5 h-30 border border-blue-500 rounded"
                                             onclick="gravity()">
                                             Feeder Gravity
                                         </button>
@@ -667,7 +667,7 @@
                                     <!-- PDF report Button -->
                                     <div class="">
                                         <button id="feeder_f"
-                                            class="bg-gray-600 uppercase text-xl text-gray-800 font-semibold w-full py-5 h-30 border border-blue-500 rounded"
+                                            class="bg-gray-600 uppercase text-lg text-gray-800 font-semibold w-full py-5 h-30 border border-blue-500 rounded"
                                             onclick="force()">
                                             Feeder Force
                                         </button>
@@ -755,17 +755,17 @@
                                     <h5 class="font-bold w-1/2 text-center uppercase text-xl ext-black">LHS Discharge</h5>
                                     <h5 class="font-bold w-1/2 text-center uppercase text-xl ext-black">RHS Discharge</h5>
                                 </div> -->
-                                <table class="w-full table-fixed p-5">
+                                <table class="w-full table-fixed p-5 ">
                                     <thead>
                                         <tr>
                                             <!-- <th class="text-center w-1/6 ">(kN)</th> -->
-                                            <th class="text-center w-1/6 align-top uppercase ">Safety High</th>
-                                            <th class="text-center w-1/6 align-top uppercase ">Rejection High</th>
-                                            <th class="text-center w-1/6 align-top uppercase ">AWC High</th>
-                                            <th class="text-center w-1/6 align-top uppercase ">Set Force</th>
-                                            <th class="text-center w-1/6 align-top uppercase ">AWC Low</th>
-                                            <th class="text-center w-1/6 align-top uppercase ">Rejection Low</th>
-                                            <th class="text-center w-1/6 align-top uppercase ">Safety Low</th>
+                                            <th class="text-center w-1/6 py-3 align-top uppercase ">Safety High</th>
+                                            <th class="text-center w-1/6 py-3 align-top uppercase ">Rejection High</th>
+                                            <th class="text-center w-1/6 py-3 align-top uppercase ">AWC High</th>
+                                            <th class="text-center w-1/6 py-3 align-top uppercase ">Set Force</th>
+                                            <th class="text-center w-1/6 py-3 align-top uppercase ">AWC Low</th>
+                                            <th class="text-center w-1/6 py-3 align-top uppercase ">Rejection Low</th>
+                                            <th class="text-center w-1/6 py-3 align-top uppercase ">Safety Low</th>
                             
                                         </tr>
                                     </thead>
@@ -773,13 +773,13 @@
                                     <tbody>
                                         <tr>
                                             <!-- <td class="text-center border  text-xl border-gray-700">LHS</td> -->
-                                            <td id="safety_high_LHS" class="text-center border bg-white text-xl border-gray-700">0</td>
-                                            <td id="rejn_high_LHS" class="text-center border bg-white text-xl border-gray-700">0</td>
-                                            <td id="awc_high_LHS" class="text-center border bg-white text-xl border-gray-700">0</td>
-                                            <td id="set_force_LHS" class="text-center border bg-white text-xl border-gray-700">0</td>
-                                            <td id="awc_low_LHS" class="text-center border bg-white text-xl border-gray-700">0</td>
-                                            <td id="rej_low_LHS" class="text-center border bg-white text-xl border-gray-700">0</td>
-                                            <td id="safety_low_LHS" class="text-center border bg-white text-xl border-gray-700">0</td>
+                                            <td id="safety_high_LHS" class="text-center border py-3 bg-white text-xl border-gray-700">0</td>
+                                            <td id="rejn_high_LHS" class="text-center border   py-3 bg-white text-xl border-gray-700">0</td>
+                                            <td id="awc_high_LHS" class="text-center border    py-3 bg-white text-xl border-gray-700">0</td>
+                                            <td id="set_force_LHS" class="text-center border   py-3 bg-white text-xl border-gray-700">0</td>
+                                            <td id="awc_low_LHS" class="text-center border     py-3 bg-white text-xl border-gray-700">0</td>
+                                            <td id="rej_low_LHS" class="text-center border     py-3 bg-white text-xl border-gray-700">0</td>
+                                            <td id="safety_low_LHS" class="text-center border  py-3 bg-white text-xl border-gray-700">0</td>
                                             
                                         </tr>
                                         <!-- <tr>
@@ -810,11 +810,11 @@
                                 <h5 class="font-bold w-1/4 text-center uppercase text-xl text-black">Main Roller</h5>
                                 <h5 class="font-bold w-1/4 text-center uppercase text-xl text-black">Pre Roller</h5>
                             </div> -->
-                            <table class="w-full table-fixed p-5">
+                            <table class="w-full table-fixed pt-5 p-5">
                                 <thead>
                                     <tr>
                                         <!-- <th class="text-center w-1/4">(mm)</th>                                     -->
-                                        <th class="text-right w-1/4 uppercase "><a href="/settings_awc">Dozer</a> </th>                                    
+                                        <th class="text-right w-1/4 text-xl uppercase "><a href="/settings_awc">Dozer</a> </th>                                    
                                         <th class="text-left w-1/4 pl-2 uppercase ">Position </th>                                    
                                                                      
                                     </tr>
@@ -823,20 +823,20 @@
                                 <tbody>
                                     <tr>
                                         <!-- <td class="text-center  text-2xl border-gray-700"><a href="/settings_awc">LHS</a></td> -->
-                                        <td id="RHS_depth_metric" class="text-center  text-2xl border  border-gray-700">0
+                                        <td id="RHS_depth_metric" class="text-center  text-3xl border  border-gray-700">0
                                             <div id="RHS_depth_metric_l"  class="flex-shrink p-3">
-                                                <div id="dozer_lhs" class="rounded  p-2"></div>
+                                                <div id="dozer_lhs" class="rounded p-2"></div>
                                             </div>
                                         </td>
                                         <td class="text-center text-2xl  border-gray-700">
                                             <!-- <h3 class="font-bold text-lg">ACTUAL: <a id="pressure_act_metric">0</a></h3> -->
                                             <button id="Lweight_dec"
-                                                class="bg-blue-600 uppercase text-2xl text-white font-semibold  px-6 border border-blue-500 hover:border-transparent rounded"
+                                                class="bg-blue-600 uppercase text-2xl text-white font-semibold  px-6  py-5 border border-blue-500 hover:border-transparent rounded"
                                                 onmousedown="Lweight_dec()" onmouseup="Lweight_decx()">
                                                 <i class="fas fa-chevron-up fa-fw text-3xl text-white"></i>
                                             </button>
                                             <button id="Lweight_inc"
-                                                class="bg-blue-600 uppercase mt-2 text-2xl text-white font-semibold  px-6 border border-blue-500 hover:border-transparent rounded"
+                                                class="bg-blue-600 uppercase mt-2 text-2xl text-white font-semibold  px-6 py-5 border border-blue-500 hover:border-transparent rounded"
                                                 onmousedown="Lweight_inc()" onmouseup="Lweight_incx()">
                                                 <i class="fas fa-chevron-down  fa-fw text-3xl text-white"></i>
                                             </button>
@@ -1128,7 +1128,7 @@
                                 <h5 class="font-bold text-black">Pre Compression LHS:</h5>
                             </div> -->
                             <div id="precompression_graph1" class="">
-                                <canvas id="precompression_graph" class="chartjs" height="70rem"></canvas>
+                                <canvas id="precompression_graph" class="chartjs" height="80rem"></canvas>
                             </div>
                         
                             <!--Main Compression Graph LHS-->
