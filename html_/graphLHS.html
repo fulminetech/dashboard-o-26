@@ -153,7 +153,7 @@
             </div>
 
             <!-- Mode -->
-            <div class="w-1 w-full">
+            <!-- <div class="w-1 w-full">
                 <div
                     class="border-2 border-gray-900 border-dashed  rounded px-3 py-3 m-2 md:mx-10 md:my-6">
                     <div class="flex flex-col text-center">
@@ -163,7 +163,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- RPM -->
             <div class="w-1 w-full">
@@ -752,12 +752,12 @@
                     document.getElementById("rpm_metric").innerHTML = payload.stats.turret.RPM;
                     document.getElementById("rotation_number_metric").innerHTML = payload.rotation_no;
 
-                    if (mode == true) {
-                        document.getElementById("mode_metric").innerHTML = "BI-LAYER";
-                    } 
-                    else if (mode == false) {
-                        document.getElementById("mode_metric").innerHTML = "MONO";
-                    }
+                    // if (mode == true) {
+                    //     document.getElementById("mode_metric").innerHTML = "BI-LAYER";
+                    // } 
+                    // else if (mode == false) {
+                    //     document.getElementById("mode_metric").innerHTML = "MONO";
+                    // }
 
                 })
                 .catch(function (error) {
