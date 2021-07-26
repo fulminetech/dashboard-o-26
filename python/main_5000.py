@@ -38,18 +38,8 @@ PREC_L_ADDR = 2000
 MAIN_L_ADDR = 2200
 EJNC_L_ADDR = 2400
 AVGC_ADDR = 3204 # LPRE-3204, LMAIN-3208, LEJN-3212
-
 LIMIT_ADDR = 6010 # PREUP-6010 PRELOW-6011 MAINUP-6012 MAINLOW-6013 EJNUP-6014 EJNLOW-6015
-REG5000_ADDR = 5000
-REG6000_ADDR = 6000
-SETUP_ADDR = 7000
-
 STUS_ADDR = 540
-BUTTON_ADDR = 410 
-MAINTAINENCE_ADDR = 7900
-INPUT_ADDR = 24576
-OUTPUT_ADDR = 40960
-ALARM_ADDR = 469
 
 # Data format: Dictonary
 payload = {
@@ -59,15 +49,7 @@ payload = {
     'eLHS_data': [],
     'avg': [],
     'limit': [],
-    'register_5000': [],
-    'register_6000': [],
-    'setup': [],
     'pstatus': [],
-    'button': [],
-    'maintainence': [],
-    'input': [],
-    'output': [],
-    'alarms': []
 }
 
 global x
@@ -152,58 +134,16 @@ def avg():
 
 def limit():
     # PLHS_UL, PLHS_LL, MLHS_UL, MLHS_LL, ELHS_UL, ELHS_LL, PRHS_UL, PRHS_LL, MRHS_UL, MRHS_LL, ERHS_UL, ERHS_LL + Force line LHS PME, RHS PME + AWC LHS: UP-LP, UM-LM 
-    regs = c.read_holding_registers(LIMIT_ADDR, 6)
+    regs = c.read_holding_registers(LIMIT_ADDR, 26)
     global x
     if regs:
         # limit = [ x/100 for x in regs]
         # payload['limit'] = limit
         # logging.debug('Success!: limit')
         payload['limit'] = regs
-        x = 'register_5000'
-    else:
-        logging.error("limit Read Failed")
-        x = 'register_5000'
-
-def register_5000():
-    # PLHS_UL, PLHS_LL, MLHS_UL, MLHS_LL, ELHS_UL, ELHS_LL, PRHS_UL, PRHS_LL, MRHS_UL, MRHS_LL, ERHS_UL, ERHS_LL + Force line LHS PME, RHS PME + AWC LHS: UP-LP, UM-LM
-    regs = c.read_holding_registers(REG5000_ADDR, 6)
-    global x
-    if regs:
-        # limit = [ x/100 for x in regs]
-        # payload['limit'] = limit
-        # logging.debug('Success!: limit')
-        payload['register_5000'] = regs
-        x = 'register_6000'
-    else:
-        logging.error("register_5000 Read Failed")
-        x = 'register_6000'
-
-def register_6000():
-    # PLHS_UL, PLHS_LL, MLHS_UL, MLHS_LL, ELHS_UL, ELHS_LL, PRHS_UL, PRHS_LL, MRHS_UL, MRHS_LL, ERHS_UL, ERHS_LL + Force line LHS PME, RHS PME + AWC LHS: UP-LP, UM-LM
-    regs = c.read_holding_registers(REG6000_ADDR, 6)
-    global x
-    if regs:
-        # limit = [ x/100 for x in regs]
-        # payload['limit'] = limit
-        # logging.debug('Success!: limit')
-        payload['register_6000'] = regs
-        x = 'setup'
-    else:
-        logging.error("register_6000 Read Failed")
-        x = 'setup'
-
-def setup():
-    # PLHS_UL, PLHS_LL, MLHS_UL, MLHS_LL, ELHS_UL, ELHS_LL, PRHS_UL, PRHS_LL, MRHS_UL, MRHS_LL, ERHS_UL, ERHS_LL + Force line LHS PME, RHS PME + AWC LHS: UP-LP, UM-LM 
-    regs = c.read_holding_registers(SETUP_ADDR, 50)
-    global x
-    if regs:
-        # limit = [ x/100 for x in regs]
-        # payload['limit'] = limit
-        # logging.debug('Success!: limit')
-        payload['setup'] = regs
         x = 'pstatus'
     else:
-        logging.error("setup Read Failed")
+        logging.error("limit Read Failed")
         x = 'pstatus'
 
 def pstatus():
@@ -212,64 +152,9 @@ def pstatus():
     if regs:
         # logging.debug('Success!: pstatus')
         payload['pstatus'] = regs
-        x = 'button'
-    else:
-        logging.error("pstatus Read Failed")
-        x = 'button'
-
-def button():
-    regs = c.read_coils(BUTTON_ADDR, 26)
-    global x
-    if regs:
-        # logging.debug('Success!: pstatus')
-        payload['button'] = regs
-        x = 'maintainence'
-    else:
-        logging.error("button Read Failed")
-        x = 'maintainence'
-
-def maintainence():
-    regs = c.read_coils(MAINTAINENCE_ADDR, 26)
-    global x
-    if regs:
-        # logging.debug('Success!: pstatus')
-        payload['maintainence'] = regs
-        x = 'input'
-    else:
-        logging.error("maintainence Read Failed")
-        x = 'input'
-
-def input():
-    regs = c.read_coils(INPUT_ADDR, 26)
-    global x
-    if regs:
-        # logging.debug('Success!: pstatus')
-        payload['input'] = regs
-        x = 'output'
-    else:
-        logging.error("input Read Failed")
-        x = 'output'
-
-def output():
-    regs = c.read_coils(OUTPUT_ADDR, 26)
-    global x
-    if regs:
-        # logging.debug('Success!: pstatus')
-        payload['output'] = regs
-        x = 'alarms'
-    else:
-        logging.error("button Read Failed")
-        x = 'alarms'
-
-def alarms():
-    regs = c.read_coils(ALARM_ADDR, 26)
-    global x
-    if regs:
-        # logging.debug('Success!: pstatus')
-        payload['alarms'] = regs
         x = 'pLHS'
     else:
-        logging.error("alarms Read Failed")
+        logging.error("pstatus Read Failed")
         x = 'pLHS'
 
 def end():
@@ -289,15 +174,8 @@ def xyz(name):
         eLHS()
         avg()
         limit()
-        register_5000()
-        register_6000()
-        setup()
         pstatus()
-        button()
-        maintainence()
-        input()
-        output()
-        alarms()
+        
         time.sleep(0.1)
         # end()
 

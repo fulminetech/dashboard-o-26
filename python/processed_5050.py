@@ -56,7 +56,11 @@ def processor():
     regs7 = response["limit"]
     limit = [x / 100 for x in regs7]
     # PREUP-6010 PRELOW-6011 MAINUP-6012 MAINLOW-6013 EJNUP-6014 EJNLOW-6015
-    limit_new = [ limit[0], limit[1], limit[2], limit[3], limit[4], limit[5]]
+    # limit_new = [ limit[0], limit[1], limit[2], limit[3], limit[4], limit[5]]
+
+    # MLHS_LL, MLHS_UL, MRHS_LL, MRHS_UL, PLHS_LL, PLHS_UL, PRHS_LL, PRHS_UL, ELHS_LL, ELHS_UL, ERHS_LL, ERHS_UL
+    limit_new = [ limit[3], limit[2], limit[9], limit[8], limit[1], limit[0], limit[7], limit[6], limit[5], limit[4], limit[11], limit[10],  limit[12], limit[13],limit[14],limit[15], limit[16], limit[17], limit[18], limit[19], limit[20], limit[21], limit[22], limit[23], limit[24], limit[25] ]
+
 
     payload['connection'] = True
     payload['pLHS_data'] = pLHS 
@@ -76,9 +80,9 @@ def processor():
     
 
     # MLHS_LL, MLHS_UL, MRHS_LL, MRHS_UL, PLHS_LL, PLHS_UL, PRHS_LL, PRHS_UL, ELHS_LL, ELHS_UL, ERHS_LL, ERHS_UL
-    payload['mLHS_processed'] = process(mLHS_data, limit_new[3], limit_new[2])
-    payload['pLHS_processed'] = process(pLHS_data, limit_new[1], limit_new[0])
-    payload['eLHS_processed'] = process(eLHS_data, limit_new[5], limit_new[4])
+    payload['mLHS_processed'] = process(mLHS_data, limit_new[0], limit_new[1])
+    payload['pLHS_processed'] = process(pLHS_data, limit_new[4], limit_new[5])
+    payload['eLHS_processed'] = process(eLHS_data, limit_new[8], limit_new[9])
     
 # print(payload)
 
