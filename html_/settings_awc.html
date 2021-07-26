@@ -491,10 +491,10 @@
                 .then(function (data) {
                     payload = data
 
-                    document.getElementById("LHS_actual").innerHTML = payload.stats.awc.actual_LHS
+                    // document.getElementById("LHS_actual").innerHTML = payload.stats.awc.actual_LHS
                     document.getElementById("RHS_actual").innerHTML = payload.stats.awc.actual_RHS
 
-                    document.getElementById("dozerLHS").value = payload.machine.LHS.dozer_position
+                    // document.getElementById("dozerLHS").value = payload.machine.LHS.dozer_position
                     document.getElementById("dozerRHS").value = payload.machine.RHS.dozer_position
 
                     document.getElementById("avg_rtn").value = payload.stats.awc.AVG_RTN
@@ -514,19 +514,19 @@
                     .then((resp) => resp.json()) // Transform the data into json
                     .then(function (data) {
                         payload = data
-                        document.getElementById("LHS_actual").innerHTML = payload.stats.awc.actual_LHS
+                        // document.getElementById("LHS_actual").innerHTML = payload.stats.awc.actual_LHS
                         document.getElementById("RHS_actual").innerHTML = payload.stats.awc.actual_RHS
 
                         document.getElementById("mainFL").innerHTML = payload.stats.awc.MONO_MAIN_FORCE
-                        document.getElementById("preLHSfl").innerHTML = payload.stats.awc.BI_PRE_FORCE
-                        document.getElementById("preRHSfl").innerHTML = payload.stats.awc.BI_MAIN_FORCE
+                        // document.getElementById("preLHSfl").innerHTML = payload.stats.awc.BI_PRE_FORCE
+                        // document.getElementById("preRHSfl").innerHTML = payload.stats.awc.BI_MAIN_FORCE
 
                         document.getElementById("awc_high").innerHTML = payload.stats.awc.L_maincompression_upperlimit
                         document.getElementById("awc_low").innerHTML = payload.stats.awc.L_maincompression_lowerlimit
-                        document.getElementById("awc_high_LHS").innerHTML = payload.stats.awc.L_precompression_upperlimit
-                        document.getElementById("awc_high_RHS").innerHTML = payload.stats.awc.R_precompression_upperlimit
-                        document.getElementById("awc_low_LHS").innerHTML = payload.stats.awc.L_precompression_lowerlimit
-                        document.getElementById("awc_low_RHS").innerHTML = payload.stats.awc.R_precompression_lowerlimit
+                        // document.getElementById("awc_high_LHS").innerHTML = payload.stats.awc.L_precompression_upperlimit
+                        // document.getElementById("awc_high_RHS").innerHTML = payload.stats.awc.R_precompression_upperlimit
+                        // document.getElementById("awc_low_LHS").innerHTML = payload.stats.awc.L_precompression_lowerlimit
+                        // document.getElementById("awc_low_RHS").innerHTML = payload.stats.awc.R_precompression_lowerlimit
                     })
                     .catch(function (error) {
                         // If there is any error you will catch them here
