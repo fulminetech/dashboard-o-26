@@ -3,7 +3,7 @@ const express = require("express");
 const { exec } = require('child_process');
 const { fail } = require("assert");
 
-const restart1Command = "./restart.sh"
+const restart1Command = "/opt/dashboard-o-26/restart.sh"
 
 // const restart1Command = "pm2 reload stats_3128 && pm2 reload main_5000 && pm2 reload compression_3129"
 // const restart1Command = "pm2 restart stats_3128"
