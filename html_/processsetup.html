@@ -692,20 +692,20 @@
                     
                     document.getElementById("SF_UL").innerText = payload.machine.set_force_mono_upper
                     document.getElementById("SF_LL").innerText = payload.machine.set_force_mono_lower
-                    document.getElementById("LSF_UL").innerText =payload.machine.set_force_LHS_upper
-                    document.getElementById("LSF_LL").innerText =payload.machine.set_force_LHS_lower
-                    document.getElementById("RSF_UL").innerText =payload.machine.set_force_RHS_upper
-                    document.getElementById("RSF_LL").innerText =payload.machine.set_force_RHS_lower
+                    // document.getElementById("LSF_UL").innerText =payload.machine.set_force_LHS_upper
+                    // document.getElementById("LSF_LL").innerText =payload.machine.set_force_LHS_lower
+                    // document.getElementById("RSF_UL").innerText =payload.machine.set_force_RHS_upper
+                    // document.getElementById("RSF_LL").innerText =payload.machine.set_force_RHS_lower
                     
                     // document.getElementById("roller_freq").value = payload.stats.roller.frequency
                     // document.getElementById("roller_mode").value = payload.stats.roller.motor
 
                     document.getElementById("awc_high").innerText = payload.stats.awc.L_maincompression_upperlimit
                     document.getElementById("awc_low").innerText = payload.stats.awc.L_maincompression_lowerlimit
-                    document.getElementById("awc_high_LHS").innerText = payload.stats.awc.L_precompression_upperlimit
-                    document.getElementById("awc_high_RHS").innerText = payload.stats.awc.R_precompression_upperlimit
-                    document.getElementById("awc_low_LHS").innerText = payload.stats.awc.L_precompression_lowerlimit
-                    document.getElementById("awc_low_RHS").innerText = payload.stats.awc.R_precompression_lowerlimit
+                    // document.getElementById("awc_high_LHS").innerText = payload.stats.awc.L_precompression_upperlimit
+                    // document.getElementById("awc_high_RHS").innerText = payload.stats.awc.R_precompression_upperlimit
+                    // document.getElementById("awc_low_LHS").innerText = payload.stats.awc.L_precompression_lowerlimit
+                    // document.getElementById("awc_low_RHS").innerText = payload.stats.awc.R_precompression_lowerlimit
 
                     if (payload.button.WITH_DOOR__BYPASS == true) {
                         document.getElementById("punch1").checked = true;
@@ -785,53 +785,53 @@
                         document.getElementById("mainLOW").value = payload.machine.LHS.maincompression_lowerlimit
                         document.getElementById("mainFL").value = payload.stats.awc.MONO_MAIN_FORCE
     
-                        document.getElementById("preLHSup").value = payload.machine.LHS.precompression_upperlimit
-                        document.getElementById("preRHSup").value = payload.machine.RHS.precompression_upperlimit
-                        document.getElementById("preLHSlow").value = payload.machine.LHS.precompression_lowerlimit
-                        document.getElementById("preRHSlow").value = payload.machine.RHS.precompression_lowerlimit
+                        // document.getElementById("preLHSup").value = payload.machine.LHS.precompression_upperlimit
+                        // document.getElementById("preRHSup").value = payload.machine.RHS.precompression_upperlimit
+                        // document.getElementById("preLHSlow").value = payload.machine.LHS.precompression_lowerlimit
+                        // document.getElementById("preRHSlow").value = payload.machine.RHS.precompression_lowerlimit
     
-                        document.getElementById("preLHSfl").value = payload.stats.awc.BI_PRE_FORCE
-                        document.getElementById("preRHSfl").value = payload.stats.awc.BI_MAIN_FORCE
+                        // document.getElementById("preLHSfl").value = payload.stats.awc.BI_PRE_FORCE
+                        // document.getElementById("preRHSfl").value = payload.stats.awc.BI_MAIN_FORCE
     
                         document.getElementById("SAFETY_MULTIPLICATION_FACTOR").value = payload.stats.SAFETY_MULTIPLICATION_FACTOR
                         document.getElementById("MACHINE_STOP_DELAY").value = payload.stats.MACHINE_STOP_DELAY
 
-                        if (payload.button.LHS_PRE_DISABLE == true) {
-                            document.getElementById("l_pre_mm_dis").innerHTML = "LHS PRE ROLLER MM DISABLE";
-                            const div1 = document.getElementById("l_pre_mm_dis").classList.remove('bg-red-300');
-                            const div2 = document.getElementById("l_pre_mm_dis").classList.add('bg-green-300');
-                        } else {
-                            document.getElementById("l_pre_mm_dis").innerHTML = "LHS PRE ROLLER MM ENABLE";
-                            const div1 = document.getElementById("l_pre_mm_dis").classList.add('bg-red-300');
-                            const div2 = document.getElementById("l_pre_mm_dis").classList.remove('bg-green-300');
-                        }
-                        if (payload.button.LHS_MAIN_DISABLE == true) {
-                            document.getElementById("l_main_mm_dis").innerHTML = "LHS MAIN ROLLER MM DISABLE";
-                            const div1 = document.getElementById("l_main_mm_dis").classList.remove('bg-red-300');
-                            const div2 = document.getElementById("l_main_mm_dis").classList.add('bg-green-300');
-                        } else {
-                            document.getElementById("l_main_mm_dis").innerHTML = "LHS MAIN ROLLER MM ENABLE";
-                            const div1 = document.getElementById("l_main_mm_dis").classList.add('bg-red-300');
-                            const div2 = document.getElementById("l_main_mm_dis").classList.remove('bg-green-300');
-                        }
-                        if (payload.button.RHS_PRE_DISABLE == true) {
-                            document.getElementById("r_pre_mm_dis").innerHTML = "RHS PRE ROLLER MM DISABLE";
-                            const div1 = document.getElementById("r_pre_mm_dis").classList.remove('bg-red-300');
-                            const div2 = document.getElementById("r_pre_mm_dis").classList.add('bg-green-300');
-                        } else {
-                            document.getElementById("r_pre_mm_dis").innerHTML = "RHS PRE ROLLER MM ENABLE";
-                            const div1 = document.getElementById("r_pre_mm_dis").classList.add('bg-red-300');
-                            const div2 = document.getElementById("r_pre_mm_dis").classList.remove('bg-green-300');
-                        }
-                        if (payload.button.RHS_MAIN_DISABLE == true) {
-                            document.getElementById("r_main_mm_dis").innerHTML = "RHS MAIN ROLLER MM DISABLE";
-                            const div1 = document.getElementById("r_main_mm_dis").classList.remove('bg-red-300');
-                            const div2 = document.getElementById("r_main_mm_dis").classList.add('bg-green-300');
-                        } else {
-                            document.getElementById("r_main_mm_dis").innerHTML = "RHS MAIN ROLLER MM ENABLE";
-                            const div1 = document.getElementById("r_main_mm_dis").classList.add('bg-red-300');
-                            const div2 = document.getElementById("r_main_mm_dis").classList.remove('bg-green-300');
-                        }
+                        // if (payload.button.LHS_PRE_DISABLE == true) {
+                        //     document.getElementById("l_pre_mm_dis").innerHTML = "LHS PRE ROLLER MM DISABLE";
+                        //     const div1 = document.getElementById("l_pre_mm_dis").classList.remove('bg-red-300');
+                        //     const div2 = document.getElementById("l_pre_mm_dis").classList.add('bg-green-300');
+                        // } else {
+                        //     document.getElementById("l_pre_mm_dis").innerHTML = "LHS PRE ROLLER MM ENABLE";
+                        //     const div1 = document.getElementById("l_pre_mm_dis").classList.add('bg-red-300');
+                        //     const div2 = document.getElementById("l_pre_mm_dis").classList.remove('bg-green-300');
+                        // }
+                        // if (payload.button.LHS_MAIN_DISABLE == true) {
+                        //     document.getElementById("l_main_mm_dis").innerHTML = "LHS MAIN ROLLER MM DISABLE";
+                        //     const div1 = document.getElementById("l_main_mm_dis").classList.remove('bg-red-300');
+                        //     const div2 = document.getElementById("l_main_mm_dis").classList.add('bg-green-300');
+                        // } else {
+                        //     document.getElementById("l_main_mm_dis").innerHTML = "LHS MAIN ROLLER MM ENABLE";
+                        //     const div1 = document.getElementById("l_main_mm_dis").classList.add('bg-red-300');
+                        //     const div2 = document.getElementById("l_main_mm_dis").classList.remove('bg-green-300');
+                        // }
+                        // if (payload.button.RHS_PRE_DISABLE == true) {
+                        //     document.getElementById("r_pre_mm_dis").innerHTML = "RHS PRE ROLLER MM DISABLE";
+                        //     const div1 = document.getElementById("r_pre_mm_dis").classList.remove('bg-red-300');
+                        //     const div2 = document.getElementById("r_pre_mm_dis").classList.add('bg-green-300');
+                        // } else {
+                        //     document.getElementById("r_pre_mm_dis").innerHTML = "RHS PRE ROLLER MM ENABLE";
+                        //     const div1 = document.getElementById("r_pre_mm_dis").classList.add('bg-red-300');
+                        //     const div2 = document.getElementById("r_pre_mm_dis").classList.remove('bg-green-300');
+                        // }
+                        // if (payload.button.RHS_MAIN_DISABLE == true) {
+                        //     document.getElementById("r_main_mm_dis").innerHTML = "RHS MAIN ROLLER MM DISABLE";
+                        //     const div1 = document.getElementById("r_main_mm_dis").classList.remove('bg-red-300');
+                        //     const div2 = document.getElementById("r_main_mm_dis").classList.add('bg-green-300');
+                        // } else {
+                        //     document.getElementById("r_main_mm_dis").innerHTML = "RHS MAIN ROLLER MM ENABLE";
+                        //     const div1 = document.getElementById("r_main_mm_dis").classList.add('bg-red-300');
+                        //     const div2 = document.getElementById("r_main_mm_dis").classList.remove('bg-green-300');
+                        // }
                     })
                     .catch(function (error) {
                         // If there is any error you will catch them here
