@@ -435,22 +435,22 @@
                     // Here you get the data to modify as you please
                     payload = data
 
-                    document.getElementById("home1_LHS").value = payload.stats.awc.LHS_HOME_OFFSET_1
+                    // document.getElementById("home1_LHS").value = payload.stats.awc.LHS_HOME_OFFSET_1
                     document.getElementById("home1_RHS").value = payload.stats.awc.RHS_HOME_OFFSET_1
                     
-                    document.getElementById("home2_LHS").value = payload.stats.awc.LHS_HOME_OFFSET_2
+                    // document.getElementById("home2_LHS").value = payload.stats.awc.LHS_HOME_OFFSET_2
                     document.getElementById("home2_RHS").value = payload.stats.awc.RHS_HOME_OFFSET_2
                     
                     document.getElementById("upper_RHS").value = payload.stats.SERVO_RHS_UPPERLIMIT
-                    document.getElementById("upper_LHS").value = payload.stats.SERVO_LHS_UPPERLIMIT
+                    // document.getElementById("upper_LHS").value = payload.stats.SERVO_LHS_UPPERLIMIT
                     
                     document.getElementById("lower_RHS").value = payload.stats.SERVO_RHS_LOWERLIMIT
-                    document.getElementById("lower_LHS").value = payload.stats.SERVO_LHS_LOWERLIMIT
+                    // document.getElementById("lower_LHS").value = payload.stats.SERVO_LHS_LOWERLIMIT
 
                     document.getElementById("RHS_FILL_DEPTH_MAX").value = payload.stats.RHSdepth.depth_max
                     document.getElementById("RHS_FILL_DEPTH_MIN").value = payload.stats.RHSdepth.depth_min
-                    document.getElementById("LHS_FILL_DEPTH_MAX").value = payload.stats.LHSdepth.depth_max
-                    document.getElementById("LHS_FILL_DEPTH_MIN").value = payload.stats.LHSdepth.depth_min
+                    // document.getElementById("LHS_FILL_DEPTH_MAX").value = payload.stats.LHSdepth.depth_max
+                    // document.getElementById("LHS_FILL_DEPTH_MIN").value = payload.stats.LHSdepth.depth_min
                 })
                 .catch(function (error) {
                     // If there is any error you will catch them here
@@ -465,16 +465,16 @@
                     // Here you get the data to modify as you please
                     payload = data
 
-                    servo_LHS = payload.button.LHS_SERVO_ON
-                    if (servo_LHS == true) {
-                        document.getElementById("servoLHS").innerHTML = "SERVO OFF"
-                        const div1 = document.getElementById("servoLHS").classList.remove('bg-red-300');
-                        const div2 = document.getElementById("servoLHS").classList.add('bg-green-300');
-                    } else {
-                        document.getElementById("servoLHS").innerHTML = "SERVO ON"
-                        const div2 = document.getElementById("servoLHS").classList.remove('bg-green-300');
-                        const div1 = document.getElementById("servoLHS").classList.add('bg-red-300');
-                    }
+                    // servo_LHS = payload.button.LHS_SERVO_ON
+                    // if (servo_LHS == true) {
+                    //     document.getElementById("servoLHS").innerHTML = "SERVO OFF"
+                    //     const div1 = document.getElementById("servoLHS").classList.remove('bg-red-300');
+                    //     const div2 = document.getElementById("servoLHS").classList.add('bg-green-300');
+                    // } else {
+                    //     document.getElementById("servoLHS").innerHTML = "SERVO ON"
+                    //     const div2 = document.getElementById("servoLHS").classList.remove('bg-green-300');
+                    //     const div1 = document.getElementById("servoLHS").classList.add('bg-red-300');
+                    // }
                     
                     servo_RHS = payload.button.RHS_SERVO_ON
                     if (servo_RHS == true) {
@@ -496,13 +496,13 @@
                         const div1 = document.getElementById("CALIB").classList.add('bg-red-300');
                     }
                     
-                    document.getElementById("single_LHS").innerHTML = payload.stats.home.LHS.single_turn
+                    // document.getElementById("single_LHS").innerHTML = payload.stats.home.LHS.single_turn
                     document.getElementById("single_RHS").innerHTML = payload.stats.home.RHS.single_turn
 
-                    document.getElementById("multi_LHS").innerHTML = payload.stats.home.LHS.multi_turn
+                    // document.getElementById("multi_LHS").innerHTML = payload.stats.home.LHS.multi_turn
                     document.getElementById("multi_RHS").innerHTML = payload.stats.home.RHS.multi_turn
 
-                    document.getElementById("encoder_LHS").innerHTML = payload.stats.home.LHS.encoder_ppr
+                    // document.getElementById("encoder_LHS").innerHTML = payload.stats.home.LHS.encoder_ppr
                     document.getElementById("encoder_RHS").innerHTML = payload.stats.home.RHS.encoder_ppr
                     
                 })
