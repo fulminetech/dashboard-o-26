@@ -1246,14 +1246,14 @@
                 minValue: 0,
                 maxValue: 360,
                 majorTicks: [
-                    "3600",
-                    "450",
+                    "7200",
                     "900",
-                    "1350",
                     "1800",
-                    "2250",
                     "2700",
-                    "3150",
+                    "3600",
+                    "4500",
+                    "5400",
+                    "6300",
                     ""
                 ],
                 minorTicks: 10,
@@ -1317,7 +1317,7 @@
         setInterval(() => {
             setTimeout(() => {
                 // console.log(value)
-                gauge.value = value;
+                gauge.value = value*2;
             }, 20);    
         }, 500);
         
