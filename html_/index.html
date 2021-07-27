@@ -2582,11 +2582,11 @@
                         alarm_status = false
                     }
 
-                    if (payload.alarm[16] === true) {
+                    if (payload.alarm[7] === true) {
                         if (guard_status === false) {
                             guard_active()
                         }
-                    } else if (payload.alarm[16] === false) {
+                    } else if (payload.alarm[7] === false) {
                         const div1 = document.getElementById("guard_page").classList.add('hidden');
                         clearInterval(guard);
                         guard_status = false
