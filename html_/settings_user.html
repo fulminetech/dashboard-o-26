@@ -101,6 +101,7 @@
                                         <option value="1" onclick="level()">Operator</option>
                                         <option value="2" onclick="level()">Maintainence</option>
                                         <option value="3" onclick="level()">Supervisor</option>
+                                        <option value="4" onclick="level()">Admin</option>
                                     </select>
                                 </div>
                             </div>
@@ -230,8 +231,9 @@
                                     <div class="py-3">
                                         <select class="form-select w-full block text-lg border-black text-gray-700" name="userlevel" id="userlevel">
                                             <option value="1">Operator</option>
-                                            <option value="2">Maintainence</option>
+                                            <option value="2">Maintenance</option>
                                             <option value="3">Supervisor</option>
+                                            <option value="4">Admin</option>
                                         </select>
                                     </div>
                                 </div>
@@ -552,7 +554,7 @@
                                     </tr>
                                     <tr>
                                         <td class="text-center border-b border-gray-400 uppercase py-2 font-bold text-blue-900">
-                                            Maintainence
+                                            Maintenance
                                         </td>
                                         <td class="border-b text-center text-3xl border-gray-400">
                                             <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400" id="op9" name="op9" value="op9">
@@ -721,6 +723,8 @@
                         ulevel = 'Maintainence'
                     } else if (dataa.userlevel == 3) {
                         ulevel = 'Supervisor'
+                    } else if (dataa.userlevel == 4) {
+                        ulevel = 'Admin'
                     }
                     // console.log(dataa.id)
                     batchHTML += `<tr><td class="border border-gray-400 px-4 py-2">${ulevel}</td><td class="border border-gray-400 px-4 py-2">${dataa.username}</td><td class="border border-gray-400 px-4 py-2">${dataa.name}</td><td class="border border-gray-400 px-4 py-2">${dataa.attempts}</td><td class="border border-gray-400 px-4 py-2">${dataa.expiry}</td></tr>`
