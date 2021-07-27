@@ -348,39 +348,39 @@
                                     </tr>
                                     <tr>
                                         <td class="text-center  py-2 uppercase text-xl text-blue-900">Max Depth (mm)</td>
-                                        <!-- <td id="preRHS_fl" class=" pb-5 px-3 text-center">
+                                        <td id="preRHS_fl" class=" pb-5 px-3 text-center">
                                             <div class="flex flex-row">
                                                 <input id="LHS_FILL_DEPTH_MAX"
                                                 class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
                                                 type="number" placeholder="Value" onkeydown="if (event.keyCode == 13) LHS_FILL_DEPTH_MAX()">
                                             </div>
-                                        </td> -->
-                                        <td id="mainRHS_fl" class=" pb-5 px-3 text-center">
+                                        </td>
+                                        <!-- <td id="mainRHS_fl" class=" pb-5 px-3 text-center">
                                             <div class="flex flex-row">
                                                 <input id="RHS_FILL_DEPTH_MAX"
                                                     class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
                                                     type="number" placeholder="Value" onkeydown="if (event.keyCode == 13) RHS_FILL_DEPTH_MAX()">
                                                 
                                             </div>
-                                        </td>
+                                        </td> -->
                                     </tr>
                                     <tr>
                                         <td class="text-center  py-2 uppercase text-xl text-blue-900">Min Depth (mm)</td>
-                                        <!-- <td id="preRHS_fl" class=" pb-5 px-3 text-center">
+                                        <td id="preRHS_fl" class=" pb-5 px-3 text-center">
                                             <div class="flex flex-row">
                                                 <input id="LHS_FILL_DEPTH_MIN"
                                                 class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
                                                 type="number" placeholder="Value" onkeydown="if (event.keyCode == 13) LHS_FILL_DEPTH_MIN()">
                                             </div>
-                                        </td> -->
-                                        <td id="mainRHS_fl" class=" pb-5 px-3 text-center">
+                                        </td>
+                                        <!-- <td id="mainRHS_fl" class=" pb-5 px-3 text-center">
                                             <div class="flex flex-row">
                                                 <input id="RHS_FILL_DEPTH_MIN"
                                                     class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
                                                     type="number" placeholder="Value" onkeydown="if (event.keyCode == 13) RHS_FILL_DEPTH_MIN()">
                                                 
                                             </div>
-                                        </td>
+                                        </td> -->
                                     </tr>
                                 </tbody>
                             </table>
@@ -447,10 +447,10 @@
                     document.getElementById("lower_RHS").value = payload.stats.SERVO_RHS_LOWERLIMIT
                     // document.getElementById("lower_LHS").value = payload.stats.SERVO_LHS_LOWERLIMIT
 
-                    document.getElementById("RHS_FILL_DEPTH_MAX").value = payload.stats.RHSdepth.depth_max
-                    document.getElementById("RHS_FILL_DEPTH_MIN").value = payload.stats.RHSdepth.depth_min
-                    // document.getElementById("LHS_FILL_DEPTH_MAX").value = payload.stats.LHSdepth.depth_max
-                    // document.getElementById("LHS_FILL_DEPTH_MIN").value = payload.stats.LHSdepth.depth_min
+                    // document.getElementById("RHS_FILL_DEPTH_MAX").value = payload.stats.RHSdepth.depth_max
+                    // document.getElementById("RHS_FILL_DEPTH_MIN").value = payload.stats.RHSdepth.depth_min
+                    document.getElementById("LHS_FILL_DEPTH_MAX").value = payload.stats.LHSdepth.depth_max
+                    document.getElementById("LHS_FILL_DEPTH_MIN").value = payload.stats.LHSdepth.depth_min
                 })
                 .catch(function (error) {
                     // If there is any error you will catch them here
@@ -538,7 +538,7 @@
         
         clearRHS_.addEventListener('touchstart', clearRHS_process_touchstart, false);
         clearRHS_.addEventListener('touchend',   clearRHS_process_touchend, false);
-        
+
         clearLHS_.addEventListener('touchstart', clearLHS_process_touchstart, false);
         clearLHS_.addEventListener('touchend',   clearLHS_process_touchend, false);
         
@@ -683,7 +683,7 @@
         async function LHS_FILL_DEPTH_MAX() {
             var a = document.getElementById("LHS_FILL_DEPTH_MAX").value;
             // console.log(a)
-            let submiturl = `${seturl}/RHS_FILL_DEPTH_MAX/${a}`
+            let submiturl = `${seturl}/RHS_FILL_DEPTH_MAX_DEPTH/${a}`
             if (a <= 25 && a >= 0) {
                 await fetch(submiturl)
                     .then(console.log("[ UPDATED! ] "))
@@ -697,7 +697,7 @@
         async function LHS_FILL_DEPTH_MIN() {
             var a = document.getElementById("LHS_FILL_DEPTH_MIN").value;
             // console.log(a)
-            let submiturl = `${seturl}/RHS_FILL_DEPTH_MIN/${a}`
+            let submiturl = `${seturl}/RHS_FILL_DEPTH_MIN_DEPTH/${a}`
             if (a <= 25 && a >= 0) {
                 await fetch(submiturl)
                     .then(console.log("[ UPDATED! ] "))
