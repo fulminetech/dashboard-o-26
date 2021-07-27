@@ -822,21 +822,21 @@
                                 <tbody>
                                     <tr>
                                         <!-- <td class="text-center  text-2xl border-gray-700"><a href="/settings_awc">LHS</a></td> -->
-                                        <td id="RHS_depth_metric" class="text-center  text-3xl border  border-gray-700">0
-                                            <div id="RHS_depth_metric_l"  class="flex-shrink p-3">
-                                                <div id="dozer_lhs" class="rounded p-2"></div>
+                                        <td id="LHS_depth_metric" class="text-center  text-3xl border  border-gray-700">0
+                                            <div id="LHS_depth_metric_l"  class="flex-shrink p-3">
+                                                <div id="dozer_rhs" class="rounded p-2"></div>
                                             </div>
                                         </td>
                                         <td class="text-center text-2xl  border-gray-700">
                                             <!-- <h3 class="font-bold text-lg">ACTUAL: <a id="pressure_act_metric">0</a></h3> -->
-                                            <button id="Lweight_dec"
+                                            <button id="Rweight_dec"
                                                 class="bg-blue-600 uppercase text-2xl text-white font-semibold  px-6  py-5 border border-blue-500 hover:border-transparent rounded"
-                                                onmousedown="Lweight_dec()" onmouseup="Lweight_decx()">
+                                                onmousedown="Rweight_dec()" onmouseup="Rweight_decx()">
                                                 <i class="fas fa-chevron-up fa-fw text-3xl text-white"></i>
                                             </button>
-                                            <button id="Lweight_inc"
+                                            <button id="Rweight_inc"
                                                 class="bg-blue-600 uppercase mt-2 text-2xl text-white font-semibold  px-6 py-5 border border-blue-500 hover:border-transparent rounded"
-                                                onmousedown="Lweight_inc()" onmouseup="Lweight_incx()">
+                                                onmousedown="Rweight_inc()" onmouseup="Rweight_incx()">
                                                 <i class="fas fa-chevron-down  fa-fw text-3xl text-white"></i>
                                             </button>
                                         </td>
@@ -2295,8 +2295,8 @@
                     // document.getElementById("pressure_metric").value = payload.stats.pressure.pressure_set
                     // document.getElementById("lube_metric").value = payload.stats.lubrication.set_delay_min;
 
-                    // document.getElementById("LHS_depth_metric").innerHTML = payload.stats.awc.actual_RHS
-                    document.getElementById("RHS_depth_metric").innerHTML = payload.stats.awc.actual_LHS
+                    document.getElementById("LHS_depth_metric").innerHTML = payload.stats.awc.actual_RHS
+                    // document.getElementById("RHS_depth_metric").innerHTML = payload.stats.awc.actual_LHS
                     
                     // document.getElementById("pressure_act_metric").innerHTML = payload.stats.pressure.value;
                     // document.getElementById("lube_act_metric").innerHTML = payload.stats.lubrication.remaining_time;
@@ -3854,7 +3854,7 @@
                     , ticks: {
                         beginAtZero: true,
                         fontSize: 20,
-                        max: 100,
+                        max: 20,
                     }
                 }],
                 xAxes: [{
@@ -4009,7 +4009,7 @@
                     ticks: {
                         beginAtZero: true,
                         fontSize: 20,
-                        max: 100,
+                        max: 65,
                     }
                 }],
                 xAxes: [{
@@ -4279,7 +4279,7 @@
                     , ticks: {
                         beginAtZero: true,
                         fontSize: 20,
-                        max: 100,
+                        max: 20,
                     }
                 }],
                 xAxes: [{
@@ -4434,7 +4434,7 @@
                     ticks: {
                         beginAtZero: true,
                         fontSize: 20,
-                        max: 100,
+                        max: 65,
                     }
                 }],
                 xAxes: [{

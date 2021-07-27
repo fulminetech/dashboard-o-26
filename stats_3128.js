@@ -715,55 +715,55 @@ var read_coils = function () {
             if (batchinfo.name !== '') {
             
                 if (stats_data.data[0] === true && payload.alarm.EMERGENCY_STOP_PRESSED === '') {
-                    writealarm("EMERGENCY BUTTON", true)
+                    writealarm("EMERGENCY STOP PRESSED", true)
                     payload.alarm.EMERGENCY_STOP_PRESSED = 'ACTIVE'
                 }
                 if (stats_data.data[1] === true && payload.alarm.MAIN_MOTOR_TRIPPED === '') {
-                    writealarm("MAIN MOTOR", true)
+                    writealarm("MAIN MOTOR TRIPPED", true)
                     payload.alarm.MAIN_MOTOR_TRIPPED = 'ACTIVE'
                 }
                 if (stats_data.data[2] === true && payload.alarm.LHS_FORCE_FEEDER_MOTOR_TRIPPED == '') {
-                    writealarm("LHS FORCE FEEDER MOTOR", true)
+                    writealarm("FORCE FEEDER MOTOR TRIPPED", true)
                     payload.alarm.LHS_FORCE_FEEDER_MOTOR_TRIPPED = 'ACTIVE'
                 }
                 if (stats_data.data[3] === true && payload.alarm.RHS_FORCE_FEEDER_MOTOR_TRIPPED == '') {
                     payload.alarm.RHS_FORCE_FEEDER_MOTOR_TRIPPED = 'ACTIVE'
-                    writealarm("RHS FORCE FEEDER MOTOR", true)
+                    writealarm("LUB OIL LEVEL LOW", true)
                 }
                 if (stats_data.data[4] === true && payload.alarm.POWER_PACK_TRIP === '' ) {
                     payload.alarm.POWER_PACK_TRIP = 'ACTIVE'
-                    writealarm("POWER PACK", true)
+                    writealarm("AWC SERVO TRIP", true)
                 }
                 if (stats_data.data[5] === true && payload.alarm.LUBOIL_LEVEL_LOW == '' ) {
-                    writealarm("LUBRICATION OIL LOW LEVEL", true)
+                    writealarm("SINGLE PHASE FAILURE", true)
                     payload.alarm.LUBOIL_LEVEL_LOW = 'ACTIVE'
                 }
-                if (stats_data.data[8] === true && payload.alarm.LHS_MCM_ABOVE_TOL_LIMIT == '') {
-                    writealarm("LHS MAIN COMP ABOVE TOL", true)
+                if (stats_data.data[6] === true && payload.alarm.LHS_MCM_ABOVE_TOL_LIMIT == '') {
+                    writealarm("SET FORCE OUT OF RANGE", true)
                     payload.alarm.LHS_MCM_ABOVE_TOL_LIMIT = 'ACTIVE'
                 }
-                if (stats_data.data[9] === true && payload.alarm.LHS_MCM_BELOW_TOL_LIMIT == '') {
-                    writealarm("LHS MAIN COMP BELOW TOL", true)
+                if (stats_data.data[7] === true && payload.alarm.LHS_MCM_BELOW_TOL_LIMIT == '') {
+                    writealarm("SYSTEM OVERLOAD", true)
                     payload.alarm.LHS_MCM_BELOW_TOL_LIMIT = 'ACTIVE'
                 }
-                if (stats_data.data[12] === true && payload.alarm.RHS_MCM_ABOVE_TOL_LIMIT == '') {
-                    writealarm("RHS MAIN COMP ABOVE TOL", true)
+                if (stats_data.data[8] === true && payload.alarm.RHS_MCM_ABOVE_TOL_LIMIT == '') {
+                    writealarm("SAFETY GUARD OPEN", true)
                     payload.alarm.RHS_MCM_ABOVE_TOL_LIMIT = 'ACTIVE'
                 }
-                if (stats_data.data[13] === true && payload.alarm.RHS_MCM_BELOW_TOL_LIMIT == '') {
-                    writealarm("RHS MAIN COMP BELOW TOL", true)
+                if (stats_data.data[9] === true && payload.alarm.RHS_MCM_BELOW_TOL_LIMIT == '') {
+                    writealarm("POWDER LEVEL LOW", true)
                     payload.alarm.RHS_MCM_BELOW_TOL_LIMIT = 'ACTIVE'
                 }
-                if (stats_data.data[14] === true && payload.alarm.SYSTEM_OVERLOAD == '') {
-                    writealarm("SYSTEM OVERLOAD", true)
+                if (stats_data.data[10] === true && payload.alarm.SYSTEM_OVERLOAD == '') {
+                    writealarm("LUB PUMP FAILS", true)
                     payload.alarm.SYSTEM_OVERLOAD = 'ACTIVE'
                 }
-                if (stats_data.data[15] === true && payload.alarm.SAFETY_GUARD_OPEN == '') {
-                    writealarm("SAFETY GUARD OPEN", true)
+                if (stats_data.data[11] === true && payload.alarm.SAFETY_GUARD_OPEN == '') {
+                    writealarm("AWC MAXIMUM CORRECTION OVER LIMIT", true)
                     payload.alarm.SAFETY_GUARD_OPEN = 'ACTIVE'
                 }
-                if (stats_data.data[16] === true && payload.alarm.HYDRAULIC_HIGH_PRESSURE == '') {
-                    writealarm("HYDRAULIC HIGH PRESSURE", true)
+                if (stats_data.data[12] === true && payload.alarm.HYDRAULIC_HIGH_PRESSURE == '') {
+                    writealarm("MAX TABLET REJECTED", true)
                     payload.alarm.HYDRAULIC_HIGH_PRESSURE = 'ACTIVE'
                 }
                 if (stats_data.data[17] === true && payload.alarm.LHS_POWDER_LEVEL_LOW == '') {
@@ -815,65 +815,65 @@ var read_coils = function () {
                     payload.alarm.DOZER_RHS = 'ACTIVE'
                     R_pre_correction = payload.machine.RHS.dozer_position
                 }
-                if (stats_data.data[7] === true && payload.alarm.set_force_LHS_overlimit === '') {
-                    writealarm("Set Force Pre Out of range", true)
-                    payload.alarm.set_force_LHS_overlimit = 'ACTIVE' // pre
-                }
-                if (stats_data.data[8] === true && payload.alarm.set_force_RHS_overlimit === '') {
-                    writealarm("Set Force Main Out of range", true)
-                    payload.alarm.set_force_RHS_overlimit = 'ACTIVE' // Main
-                }
+                // if (stats_data.data[7] === true && payload.alarm.set_force_LHS_overlimit === '') {
+                //     writealarm("Set Force Pre Out of range", true)
+                //     payload.alarm.set_force_LHS_overlimit = 'ACTIVE' // pre
+                // }
+                // if (stats_data.data[8] === true && payload.alarm.set_force_RHS_overlimit === '') {
+                //     writealarm("Set Force Main Out of range", true)
+                //     payload.alarm.set_force_RHS_overlimit = 'ACTIVE' // Main
+                // }
                 
                 if (stats_data.data[0] === false && payload.alarm.EMERGENCY_STOP_PRESSED === 'ACTIVE') {
                     writealarm("EMERGENCY BUTTON", false)
                     payload.alarm.EMERGENCY_STOP_PRESSED = ''
                 }
                 if (stats_data.data[1] === false && payload.alarm.MAIN_MOTOR_TRIPPED == 'ACTIVE') {
-                    writealarm("MAIN MOTOR", false)
+                    writealarm("MAIN MOTOR TRIPPED", false)
                     payload.alarm.MAIN_MOTOR_TRIPPED = ''
                 }
                 if (stats_data.data[2] === false && payload.alarm.LHS_FORCE_FEEDER_MOTOR_TRIPPED == 'ACTIVE') {
-                    writealarm("LHS FORCE FEEDER MOTOR", false)
+                    writealarm("FORCE FEEDER MOTOR TRIPPED", false)
                     payload.alarm.LHS_FORCE_FEEDER_MOTOR_TRIPPED = ''
                 }
                 if (stats_data.data[3] === false && payload.alarm.RHS_FORCE_FEEDER_MOTOR_TRIPPED == 'ACTIVE') {
-                    writealarm("RHS FORCE FEEDER MOTOR", false)
+                    writealarm("LUB OIL LEVEL LOW", false)
                     payload.alarm.RHS_FORCE_FEEDER_MOTOR_TRIPPED = ''
                 }
                 if (stats_data.data[4] === false && payload.alarm.POWER_PACK_TRIP == 'ACTIVE') {
-                    writealarm("POWER PACK", false)
+                    writealarm("AWC SERVO TRIP", false)
                     payload.alarm.POWER_PACK_TRIP = ''
                 }
                 if (stats_data.data[5] === false && payload.alarm.LUBOIL_LEVEL_LOW == 'ACTIVE' ) {
-                    writealarm("LUBRICATION OIL LOW LEVEL", false)
+                    writealarm("SINGLE PHASE FAILURE", false)
                     payload.alarm.LUBOIL_LEVEL_LOW = ''
                 }
-                if (stats_data.data[8] === false && payload.alarm.LHS_MCM_ABOVE_TOL_LIMIT == 'ACTIVE') {
-                    writealarm("LHS MAIN COMP ABOVE TOL", false)
+                if (stats_data.data[6] === false && payload.alarm.LHS_MCM_ABOVE_TOL_LIMIT == 'ACTIVE') {
+                    writealarm("SET FORCE OUT OF RANGE", false)
                     payload.alarm.LHS_MCM_ABOVE_TOL_LIMIT = ''
                 }
-                if (stats_data.data[9] === false && payload.alarm.LHS_MCM_BELOW_TOL_LIMIT == 'ACTIVE') {
-                    writealarm("LHS MAIN COMP BELOW TOL", false)
+                if (stats_data.data[7] === false && payload.alarm.LHS_MCM_BELOW_TOL_LIMIT == 'ACTIVE') {
+                    writealarm("SYSTEM OVERLOAD", false)
                     payload.alarm.LHS_MCM_BELOW_TOL_LIMIT = ''
                 }
-                if (stats_data.data[12] === false && payload.alarm.RHS_MCM_ABOVE_TOL_LIMIT == 'ACTIVE') {
-                    writealarm("RHS MAIN COMP ABOVE TOL", false)
+                if (stats_data.data[8] === false && payload.alarm.RHS_MCM_ABOVE_TOL_LIMIT == 'ACTIVE') {
+                    writealarm("SAFETY GUARD OPEN", false)
                     payload.alarm.RHS_MCM_ABOVE_TOL_LIMIT = ''
                 }
-                if (stats_data.data[13] === false && payload.alarm.RHS_MCM_BELOW_TOL_LIMIT == 'ACTIVE') {
-                    writealarm("RHS MAIN COMP BELOW TOL", false)
+                if (stats_data.data[9] === false && payload.alarm.RHS_MCM_BELOW_TOL_LIMIT == 'ACTIVE') {
+                    writealarm("POWDER LEVEL LOW", false)
                     payload.alarm.RHS_MCM_BELOW_TOL_LIMIT = ''
                 }
-                if (stats_data.data[14] === false && payload.alarm.SYSTEM_OVERLOAD == 'ACTIVE') {
-                    writealarm("SYSTEM OVERLOAD", false)
+                if (stats_data.data[10] === false && payload.alarm.SYSTEM_OVERLOAD == 'ACTIVE') {
+                    writealarm("LUB PUMP FAILS", false)
                     payload.alarm.SYSTEM_OVERLOAD = ''
                 }
-                if (stats_data.data[15] === false && payload.alarm.SAFETY_GUARD_OPEN == 'ACTIVE') {
-                    writealarm("SAFETY GUARD OPEN", false)
+                if (stats_data.data[11] === false && payload.alarm.SAFETY_GUARD_OPEN == 'ACTIVE') {
+                    writealarm("AWC MAXIMUM CORRECTION OVER LIMIT", false)
                     payload.alarm.SAFETY_GUARD_OPEN = ''
                 }
-                if (stats_data.data[16] === false && payload.alarm.HYDRAULIC_HIGH_PRESSURE == 'ACTIVE') {
-                    writealarm("HYDRAULIC HIGH PRESSURE", false)
+                if (stats_data.data[12] === false && payload.alarm.HYDRAULIC_HIGH_PRESSURE == 'ACTIVE') {
+                    writealarm("MAX TABLET REJECTED", false)
                     payload.alarm.HYDRAULIC_HIGH_PRESSURE = ''
                 }
                 if (stats_data.data[17] === false && payload.alarm.LHS_POWDER_LEVEL_LOW == 'ACTIVE') {
@@ -926,14 +926,14 @@ var read_coils = function () {
                     R_post_correction = payload.machine.RHS.dozer_position
                     writecorrection("DOZER RHS CORRECTION", R_pre_correction, R_post_correction)
                 }
-                if (stats_data.data[6] === false && payload.alarm.set_force_LHS_overlimit === 'ACTIVE') {
-                    writealarm("Set Force Pre Out of range", false)
-                    payload.alarm.set_force_LHS_overlimit = '' // Pre 
-                }
-                if (stats_data.data[7] === false && payload.alarm.set_force_RHS_overlimit === 'ACTIVE') {
-                    writealarm("Set Force Main Out of range", false)
-                    payload.alarm.set_force_RHS_overlimit = '' // Main
-                }
+                // if (stats_data.data[6] === false && payload.alarm.set_force_LHS_overlimit === 'ACTIVE') {
+                //     writealarm("Set Force Pre Out of range", false)
+                //     payload.alarm.set_force_LHS_overlimit = '' // Pre 
+                // }
+                // if (stats_data.data[7] === false && payload.alarm.set_force_RHS_overlimit === 'ACTIVE') {
+                //     writealarm("Set Force Main Out of range", false)
+                //     payload.alarm.set_force_RHS_overlimit = '' // Main
+                // }
 
             }
             
@@ -1480,6 +1480,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     } 
     else if (a == "LHS_FEEDER_RPM_CHANGE") {
+         a = "FEEDER RPM CHANGE"
         reg_offset_6000 = 2
         reg_write_value = b
         c = payload.stats.RHS_FF.RPM
@@ -1557,7 +1558,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     } 
     else if (a == "MONO_REJN_HIGH") {
-        a = "MONO LAYER REJCTION HIGH"
+        a = "REJCTION HIGH"
         reg_offset_6000 = 12
         reg_write_value = b * 100
         c = payload.machine.LHS.maincompression_upperlimit
@@ -1565,7 +1566,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     } 
     else if (a == "MONO_REJN_LOW") {
-        a = "MONO LAYER REJCTION LOW"
+        a = "REJCTION LOW"
         reg_offset_6000 = 13
         reg_write_value = b * 100
         c = payload.machine.LHS.maincompression_lowerlimit
@@ -1673,7 +1674,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     } 
     else if (a == "MONO_MAIN_FORCE") {
-        a = "MONO LAYER SET FORCE"
+        a = "SET FORCE"
         reg_offset_6000 = 36
         reg_write_value = Math.round(b * 100);
         c = payload.stats.awc.MONO_MAIN_FORCE
@@ -2328,7 +2329,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "RHS_WEIGHT_INC" && b == "true") {
-        a = "RHS_DOZZER_DOWN"
+        a = "DOZZER DOWN"
         coil_offset_410 = 113
         set_button = true
         c = payload.button.RHS_WEIGHT_INC
@@ -2337,7 +2338,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "RHS_WEIGHT_INC" && b == "false") {
-        a = "RHS_DOZZER_DOWN"
+        a = "DOZZER DOWN"
         coil_offset_410 = 113
         set_button = false
         c = payload.button.RHS_WEIGHT_INC
@@ -2346,7 +2347,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "RHS_WEIGHT_DEC" && b == "true") {
-        a = "RHS_DOZZER_UP"
+        a = "DOZZER UP"
         coil_offset_410 = 114
         set_button = true
         c = payload.button.RHS_WEIGHT_DEC
@@ -2355,7 +2356,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "RHS_WEIGHT_DEC" && b == "false") {
-        a = "RHS_DOZZER_UP"
+        a = "DOZZER UP"
         coil_offset_410 = 114
         set_button = false
         c = payload.button.RHS_WEIGHT_DEC
@@ -2364,7 +2365,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "LHS_WEIGHT_INC" && b == "true") {
-        a = "LHS_DOZZER_DOWN"
+        a = "DOZZER DOWN"
         coil_offset_410 = 115
         set_button = true
         c = payload.button.LHS_WEIGHT_INC
@@ -2373,7 +2374,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "LHS_WEIGHT_INC" && b == "false") {
-        a = "LHS_DOZZER_DOWN"
+        a = "DOZZER DOWN"
         coil_offset_410 = 115
         set_button = false
         c = payload.button.LHS_WEIGHT_INC
@@ -2382,7 +2383,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "LHS_WEIGHT_DEC" && b == "true") {
-        a = "LHS_DOZZER_UP"
+        a = "DOZZER UP"
         coil_offset_410 = 116
         set_button = true
         c = payload.button.LHS_WEIGHT_DEC
@@ -2391,7 +2392,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "LHS_WEIGHT_DEC" && b == "false") {
-        a = "LHS_DOZZER_UP"
+        a = "DOZZER UP"
         coil_offset_410 = 116
         set_button = false
         c = payload.button.LHS_WEIGHT_DEC
@@ -2675,7 +2676,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         
     }
     else if (a == "Y0_1" && b == "true") {
-        a = "RHS FORCE FEEDER VFD"
+        a = "FORCE FEEDER VFD"
         coil_offset_410 = 7491
         set_button = true
         c = 'false'
@@ -2693,7 +2694,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         
     }
     else if (a == "Y0_2" && b == "true") {
-        a = "LHS FORCE FEEDER VFD"
+        a = "LUBRICATION PUMP"
         coil_offset_410 = 7492
         set_button = true
         c = 'false'
@@ -2702,7 +2703,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         
     }
     else if (a == "Y0_2" && b == "false") {
-        a = "LHS FORCE FEEDER VFD"
+        a = "LUBRICATION PUMP"
         coil_offset_410 = 7492
         set_button = false
         c = 'false'
@@ -2711,7 +2712,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         
     }
     else if (a == "Y0_3" && b == "true") {
-        a = "LUBRICATION PUMP"
+        a = "SAMPLING TABLET"
         coil_offset_410 = 7493
         set_button = true
         
@@ -2720,7 +2721,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         
     }
     else if (a == "Y0_3" && b == "false") {
-        a = "LUBRICATION PUMP"
+        a = "SAMPLING TABLET"
         coil_offset_410 = 7493
         set_button = false
         c = 'false'
@@ -2729,7 +2730,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         
     }
     else if (a == "Y0_4" && b == "true") {
-        a = "POWER PACK MOTOR"
+        a = "REJECTION BY FLAP"
         coil_offset_410 = 7494
         set_button = true
         
@@ -2738,7 +2739,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         
     }
     else if (a == "Y0_4" && b == "false") {
-        a = "POWER PACK MOTOR"
+        a = "REJECTION BY FLAP"
         coil_offset_410 = 7494
         set_button = false
         c = 'false'
@@ -2747,7 +2748,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         
     }
     else if (a == "Y0_5" && b == "true") {
-        a = "DRAIN VALVE"
+        a = "REJECTION BY AIR"
         coil_offset_410 = 7495
         set_button = true
         c = 'false'
@@ -2756,7 +2757,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         
     }
     else if (a == "Y0_5" && b == "false") {
-        a = "DRAIN VALVE"
+        a = "REJECTION BY AIR"
         coil_offset_410 = 7495
         set_button = false
         c = 'false'
@@ -2794,6 +2795,24 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     else if (a == "Y0_7" && b == "false") {
         a = "PANEL FAN"
         coil_offset_410 = 7497
+        set_button = false
+        c = 'false'
+        write_coil_410()
+        writelog()
+        
+    }
+    else if (a == "Y0_10" && b == "true") {
+        a = "PANEL FAN"
+        coil_offset_410 = 7500
+        set_button = true
+        c = 'false'
+        write_coil_410()
+        writelog()
+        
+    }
+    else if (a == "Y0_10" && b == "false") {
+        a = "PANEL FAN"
+        coil_offset_410 = 7500
         set_button = false
         c = 'false'
         write_coil_410()
@@ -3054,7 +3073,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     
     
     else if (a == "LHS_PRE_MAX") {
-        a = "LHS PRE MAX COMP LIMIT"
+        a = "PRE MAX COMP LIMIT"
         reg_offset_6000 = 1000
         reg_write_value = Math.round(b * 100);
         c = payload.machine.LHS.precompression_max
@@ -3062,7 +3081,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "LHS_MAIN_MAX") {
-        a = "LHS MAIN MAX COMP LIMIT"
+        a = "MAIN MAX COMP LIMIT"
         reg_offset_6000 = 1001
         reg_write_value = Math.round(b * 100);
         c = payload.machine.LHS.maincompression_max
@@ -3070,7 +3089,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "LHS_EJN_MAX") {
-        a = "LHS EJN MAX COMP LIMIT"
+        a = "EJN MAX COMP LIMIT"
         reg_offset_6000 = 1002
         reg_write_value = b*10
         c = payload.machine.LHS.ejection_max
@@ -3387,7 +3406,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "LHS_FORCE_FEEDER_MAX_RPM") {
-        a = "LHS FEEDER MAX RPM"
+        a = "FEEDER MAX RPM"
         reg_offset_6000 = 1044
         reg_write_value = b
         c = payload.stats.RHS_FF.max_rpm
@@ -3396,7 +3415,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "LHS_FORCE_FEEDER_MAX_FREQ") {
-        a = "LHS FEEDER MAX ANALOG VALUE"
+        a = "FEEDER MAX ANALOG VALUE"
         reg_offset_6000 = 1045
         // reg_write_value = Math.round(b * 100);
         reg_write_value = b;
@@ -3406,7 +3425,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "LHS_PRE_OFFSET") {
-        a = "LHS PCM PUNCH OFFSET"
+        a = "PCM PUNCH OFFSET"
         reg_offset_6000 = 1046
         reg_write_value = b
         c = payload.stats.punch_offset_position.L_PRE
@@ -3415,7 +3434,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "LHS_MAIN_OFFSET") {
-        a = "LHS MCM PUNCH OFFSET"
+        a = "MCM PUNCH OFFSET"
         reg_offset_6000 = 1047
         reg_write_value = b
         c = payload.stats.punch_offset_position.L_MAIN
@@ -3424,7 +3443,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "LHS_EJN_OFFSET") {
-        a = "LHS EJECTION PUNCH OFFSET"
+        a = "EJECTION PUNCH OFFSET"
         reg_offset_6000 = 1048
         reg_write_value = b
         c = payload.stats.punch_offset_position.L_EJN
@@ -3469,7 +3488,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "L_AIR_MONO") {
-        a = "MONOLAYER LHS AIR REJECTION PUNCH OFFSET"
+        a = "AIR REJECTION PUNCH OFFSET"
         reg_offset_6000 = 1053
         reg_write_value = b
         c = payload.stats.punch_offset_position.L_AIR_MONO
@@ -3477,7 +3496,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "L_FLAP_MONO") {
-        a = "MONOLAYER LHS FLAP REJECTION PUNCH OFFSET"
+        a = "FLAP REJECTION PUNCH OFFSET"
         reg_offset_6000 = 1054
         reg_write_value = b
         c = payload.stats.punch_offset_position.L_FLAP_MONO
@@ -3533,7 +3552,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "L_AIR_ON") {
-        a = " LHS AIR REJECTION ON PULSE"
+        a = "AIR REJECTION ON PULSE"
         reg_offset_6000 = 1061
         reg_write_value = b
         c = payload.stats.rejection.pulse.L_AIR_ON
@@ -3541,7 +3560,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "L_AIR_OFF") {
-        a = " LHS AIR REJECTION OFF PULSE"
+        a = "AIR REJECTION OFF PULSE"
         reg_offset_6000 = 1062
         reg_write_value = b
         c = payload.stats.rejection.pulse.L_AIR_OFF
@@ -3549,7 +3568,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "L_FLAP_ON") {
-        a = " LHS FLAP REJECTION ON PULSE"
+        a = "FLAP REJECTION ON PULSE"
         reg_offset_6000 = 1063
         reg_write_value = b
         c = payload.stats.rejection.pulse.L_FLAP_ON
@@ -3557,7 +3576,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "L_FLAP_OFF") {
-        a = " LHS FLAP REJECTION OFF PULSE"
+        a = "FLAP REJECTION OFF PULSE"
         reg_offset_6000 = 1064
         reg_write_value = b
         c = payload.stats.rejection.pulse.L_FLAP_OFF
