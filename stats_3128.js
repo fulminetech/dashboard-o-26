@@ -1188,19 +1188,21 @@ var read_regs = function () {
             payload.stats.awc.MAXIMUM_REJECT_TABLET = data.data[73]
             payload.stats.awc.RTN_1_MM = data.data[74] /100;
             
-            payload.stats.awc.RTN_1_PPR = signedDecToDec(_2x16bitTo32bit(data.data[76], data.data[77]))
+            payload.stats.awc.RTN_1_PPR = _2x16bitTo32bit(data.data[76], data.data[77])
             
             payload.stats.awc.RHS_HOME_OFFSET_1 = signedDecToDec(_2x16bitTo32bit(data.data[78], data.data[79]))
             payload.stats.awc.RHS_HOME_OFFSET_2 = signedDecToDec(_2x16bitTo32bit(data.data[80], data.data[81]))
             payload.stats.awc.LHS_HOME_OFFSET_1 = signedDecToDec(_2x16bitTo32bit(data.data[82], data.data[83]))
             payload.stats.awc.LHS_HOME_OFFSET_2 = signedDecToDec(_2x16bitTo32bit(data.data[84], data.data[85]))
             
-            payload.stats.Z_PHASE_COUNTER = data.data[86];
+            // payload.stats.Z_PHASE_COUNTER = data.data[86];
             payload.stats.Z_PHASE_COUNT = data.data[87];
             
             payload.stats.SERVO_RHS_UPPERLIMIT = signedDecToDec(_2x16bitTo32bit(data.data[89], data.data[90]))
             payload.stats.SERVO_RHS_LOWERLIMIT = signedDecToDec(_2x16bitTo32bit(data.data[91], data.data[92]))
-            payload.stats.SERVO_LHS_UPPERLIMIT = signedDecToDec(_2x16bitTo32bit(data.data[93], data.data[94]))
+
+            payload.stats.Z_PHASE_COUNTER = signedDecToDec(_2x16bitTo32bit(data.data[93], data.data[94]))
+            // payload.stats.SERVO_LHS_UPPERLIMIT = signedDecToDec(_2x16bitTo32bit(data.data[93], data.data[94]))
             payload.stats.SERVO_LHS_LOWERLIMIT = signedDecToDec(_2x16bitTo32bit(data.data[95], data.data[96]))
             
             payload.stats.TABLET_MULTIPLICATION_FACTOR = data.data[97]
