@@ -216,14 +216,14 @@
                 })
                 .then(setTimeout(() => {
                     location.href = "/dashboard"
-                }, 100))
+                }, 300))
                 .catch(console.error);
 
             // .then(location.href = "/dashboard")
         }
 
         async function resetcounter() {
-            let submiturl = `${seturl}/COUNT_RESET/1`
+            let submiturl = `${seturl}/RESET_COUNT/1`
             await fetch(submiturl)
                 .catch(console.error);
         }
