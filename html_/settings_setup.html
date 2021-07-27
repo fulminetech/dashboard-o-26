@@ -942,7 +942,7 @@
                     
                     <div class="flex grid grid-cols-4 p-3 ">
 
-                        <div class="flex flex-col">
+                        <!-- <div class="flex flex-col">
                             <h3> AIR REJECTION PUNCH OFFSET </h3>
                             <div class="flex flex-row">
                                 <div class="py-3">
@@ -952,7 +952,7 @@
                                 </div>
                         
                             </div>
-                        </div>
+                        </div> -->
                         
                         <div class="flex flex-col">
                             <h3> FLAP REJECTION PUNCH OFFSET </h3>
@@ -966,7 +966,7 @@
                             </div>
                         </div>
                     
-                        <div class="flex flex-col">
+                        <!-- <div class="flex flex-col">
                             <h3>  AIR REJECTION ON PULSE </h3>
                             <div class="flex flex-row">
                                 <div class="py-3">
@@ -976,9 +976,9 @@
                                 </div>
                                 
                             </div>
-                        </div>
+                        </div> -->
                     
-                        <div class="flex flex-col">
+                        <!-- <div class="flex flex-col">
                             <h3>  AIR REJECTION OFF PULSE </h3>
                             <div class="flex flex-row">
                                 <div class="py-3">
@@ -988,7 +988,7 @@
                                 </div>
                                 
                             </div>
-                        </div>
+                        </div> -->
                     
                         <div class="flex flex-col">
                             <h3>  FLAP REJECTION ON PULSE </h3>
@@ -1446,7 +1446,7 @@
                     // document.getElementById("RHS_MAIN_OFFSET").value = payload.stats.punch_offset_position.R_MAIN
                     // document.getElementById("RHS_EJN_OFFSET").value = payload.stats.punch_offset_position.R_EJN 
                     // document.getElementById("HYDRAULIC_PRESSURE_MAX").value = payload.stats.hydraulic.max_pressure
-                    document.getElementById("L_AIR_MONO").value =   payload.stats.punch_offset_position.L_AIR_MONO 
+                    // document.getElementById("L_AIR_MONO").value =   payload.stats.punch_offset_position.L_AIR_MONO 
                     document.getElementById("L_FLAP_MONO").value = payload.stats.punch_offset_position.R_AIR_MONO 
                     // document.getElementById("R_AIR_MONO").value = payload.stats.punch_offset_position.L_FLAP_MONO
                     // document.getElementById("R_FLAP_MONO").value = payload.stats.punch_offset_position.R_FLAP_MONO
@@ -1454,8 +1454,8 @@
                     // document.getElementById("L_FLAP_BI").value = payload.stats.punch_offset_position.R_AIR_BI 
                     // document.getElementById("R_AIR_BI").value = payload.stats.punch_offset_position.L_FLAP_BI
                     // document.getElementById("R_FLAP_BI").value = payload.stats.punch_offset_position.R_FLAP_BI
-                    document.getElementById("L_AIR_ON").value =   payload.stats.rejection.pulse.L_AIR_ON 
-                    document.getElementById("L_AIR_OFF").value = payload.stats.rejection.pulse.L_AIR_OFF 
+                    // document.getElementById("L_AIR_ON").value =   payload.stats.rejection.pulse.L_AIR_ON 
+                    // document.getElementById("L_AIR_OFF").value = payload.stats.rejection.pulse.L_AIR_OFF 
                     document.getElementById("L_FLAP_ON").value = payload.stats.rejection.pulse.L_FLAP_ON 
                     document.getElementById("L_FLAP_OFF").value = payload.stats.rejection.pulse.L_FLAP_OFF 
                     // document.getElementById("R_AIR_ON").value = payload.stats.rejection.pulse.R_AIR_ON 
