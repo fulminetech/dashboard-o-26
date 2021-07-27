@@ -3176,6 +3176,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "RHS_FILL_DEPTH_MAX_DEPTH") {
+        a = "FILL DEPTH MAX MM"
         reg_offset_6000 = 1018
         reg_write_value = Math.round(b * 100);
         c = payload.stats.LHSdepth.depth_max
@@ -3184,6 +3185,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "RHS_FILL_DEPTH_MIN_DEPTH") {
+        a = "FILL DEPTH MIN MM"
         reg_offset_6000 = 1019
         reg_write_value = Math.round(b * 100);
         c = payload.stats.LHSdepth.depth_min
