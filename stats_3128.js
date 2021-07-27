@@ -1188,7 +1188,7 @@ var read_regs = function () {
             payload.stats.awc.MAXIMUM_REJECT_TABLET = data.data[73]
             payload.stats.awc.RTN_1_MM = data.data[74] /100;
             
-            payload.stats.awc.RTN_1_PPR = _2x16bitTo32bit(data.data[76], data.data[77])
+            payload.stats.awc.RTN_1_PPR = signedDecToDec(_2x16bitTo32bit(data.data[76], data.data[77]))
             
             payload.stats.awc.RHS_HOME_OFFSET_1 = signedDecToDec(_2x16bitTo32bit(data.data[78], data.data[79]))
             payload.stats.awc.RHS_HOME_OFFSET_2 = signedDecToDec(_2x16bitTo32bit(data.data[80], data.data[81]))
