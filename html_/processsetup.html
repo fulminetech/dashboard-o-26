@@ -318,7 +318,7 @@
                                         <td id="preLHS_upper" class="border-b  text-center pb-5 px-3 ">
                                             <input id="mainUP"
                                                 class="bg-white border-gray-500 shadow text-center focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                                type="number" placeholder="MAIN LHS + RHS Upper"
+                                                type="number" placeholder="Input"
                                                 onkeydown="if (event.keyCode == 13) updatelimits_MLU()">
                                         </td>
                                     </tr>
@@ -327,7 +327,7 @@
                                         <td id="preLHS_lower" class="border-b  pb-5 px-3 text-center">
                                             <input id="mainLOW"
                                                 class="bg-white border-gray-500 shadow text-center focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                                type="number" placeholder="Main LHS + RHS Low" onkeydown="if (event.keyCode == 13) updatelimits_MLL()">
+                                                type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) updatelimits_MLL()">
                                         </td>
                                     </tr>
                                     <tr>
@@ -335,7 +335,7 @@
                                         <td id="preLHS_fl" class=" pb-5 px-3 text-center">
                                             <input id="mainFL"
                                                 class="bg-white border-gray-500 shadow text-center focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                                type="number" placeholder="Main LHS + RHS Force Line"
+                                                type="number" placeholder="Input"
                                                 onkeydown="if (event.keyCode == 13) updatelimits_MLFL()">
                                         </td>
                                     </tr>
@@ -975,7 +975,7 @@
         function updatelimits_MLU() {
             var mainLHSup = document.getElementById("mainUP").value;
 
-            submitt(parseInt(mainLHSup))
+            submitt(mainLHSup)
 
             async function submitt(mainLHSup) {
                 // let submiturl = `${seturl}/LHS_MAIN_TOLERANCE_UPPER/${mainLHSup}`
@@ -991,7 +991,7 @@
         function updatelimits_MLL() {
                 var mainLHSlow = document.getElementById("mainLOW").value;
 
-                submitt(parseInt(mainLHSlow))
+                submitt(mainLHSlow)
 
                 async function submitt(mainLHSlow) {
                     // let submiturl = `${seturl}/LHS_MAIN_TOLERANCE_LOWER/${mainLHSlow}`
@@ -1007,7 +1007,7 @@
         function updatelimits_MLFL() {
                 var mainLHSfl = document.getElementById("mainFL").value;
 
-                submitt(parseInt(mainLHSfl))
+                submitt(mainLHSfl)
                 async function submitt(mainLHSfl) {
                     let submiturl = `${seturl}/MONO_MAIN_FORCE/${mainLHSfl}`
 

@@ -61,6 +61,7 @@ def connect():
         if not c.open():
             payload['connection'] = "Error"
             logging.error("unable to connect to "+SERVER_HOST+":"+str(SERVER_PORT))
+            exit()
         else:
             payload['connection'] = True
             # if open() is ok, read register (modbus function 0x03)
