@@ -2568,12 +2568,12 @@
                         const div1 = document.getElementById("RHS_depth_metric").classList.remove('bg-red-300');
                     }
 
-                    if (payload.alarm[31] === true) {
+                    if (payload.alarm[30] === true) {
                         const div1 = document.getElementById("alarm_icon").classList.remove('hidden');
                         if (alarm_status === false) {
                             alarm_active()
                         }
-                    } else if (payload.alarm[31] === false) {
+                    } else if (payload.alarm[30] === false) {
                         const div2 = document.getElementById("alarm_icon").classList.add('hidden');
                         const div1 = document.getElementById("alarm_page").classList.add('hidden');
                         clearInterval(alarm);
