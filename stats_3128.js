@@ -55,7 +55,10 @@ var PASS_REGS_WRITE = "PASS_REGS_WRITE";
 var FAIL_REGS_WRITE = "FAIL_REGS_WRITE";
 
 let readfailed = 0;
-let failrestart = 50;
+let failcounter = 15;
+
+let connectfailed = 0
+let connectcounter = 3
 
 let timecheck = 3;
 let timetemp = 0;
@@ -523,7 +526,17 @@ var connectClient = function () {
             payload.connection = false
             mbsState = FAILED_CONNECT;
             console.log(`[ FAILED TO CONNECT ]`)
-            console.log(e);
+            
+            connectfailed++
+
+            if (connectfailed > connectcounter) {
+                restartprodmodbus()
+                connectfailed = 0
+            }
+
+            setTimeout(() => {
+                connectClient()
+            }, 500);
         });
 }
 
@@ -599,10 +612,11 @@ var runModbus = function () {
     // console.log(mbsState);
     // console.log(nextAction);
   
-    if (readfailed > failrestart) {
-            payload.mbstatus = false;
-        } else {
-            payload.mbstatus = true;
+    if (readfailed > failcounter) {
+        payload.connection = false;
+        readfailed = 0
+        client.close();
+        restartprodmodbus()
     }
 
     if (nextAction !== undefined) {
@@ -3760,6 +3774,11 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     return res.json({ message: `[ UPDATED ${a} to ${b} ]` });
 });
+
+function restartprodmodbus() {
+    // console.log(`[ RESTARTING: ${restart1Command} ]`);
+    process.exit(1)
+}
 
 app.get("/api/set/batchinfo/:batch/:operator", (req, res) => {
     const a = req.params.batch

@@ -848,40 +848,38 @@
                         </div>
 
                         <div class="w-3/4 mt-2">
-
-                            <div class=" px-3">
                             
-                                <a href="/io_alarm">
-                                    <div class="py-1">
-                                        <button id="cycle_page"
-                                            class="bg-green-600 uppercase text-md text-gray-100 font-semibold w-full py-2 border border-blue-500 rounded hidden">
-                                            Hydraulic Cycle ON
-                                        </button>
-                                    </div>
-                                </a>
-                            </div>
-
                             <div class=" px-3">
                             
                                 <a href="/io_alarm">
                                     <div class="py-1">
                                         <button id="alarm_page"
                                             class="bg-red-600 uppercase text-md text-gray-100 font-semibold w-full py-2 border border-blue-500 rounded hidden">
-                                            FAULT ALARM
+                                            FAULT ACTIVE
                                         </button>
                                     </div>
                                 </a>
                             </div>
 
+                            <div class=" px-3">
                             
-                            
+                                <a href="/io_alarm">
+                                    <div class="py-1">
+                                        <button id="cycle_page"
+                                            class="bg-red-600 uppercase text-md text-gray-100 font-semibold w-full py-2 border border-blue-500 rounded hidden">
+                                            Main Motor Trip
+                                        </button>
+                                    </div>
+                                </a>
+                            </div>
+
                             <div class=" px-3">
                             
                                 <a href="/io_alarm">
                                     <div class="py-1">
                                         <button id="guard_page"
                                             class="bg-red-600 uppercase text-md text-gray-100 font-semibold w-full py-2 border border-blue-500 rounded hidden">
-                                            GUARD OPEN
+                                            Force Feeder Trip
                                         </button>
                                     </div>
                                 </a>
@@ -893,7 +891,7 @@
                                     <div class="py-1">
                                         <button id="hyd_page"
                                             class="bg-red-600 uppercase text-md text-gray-100 font-semibold w-full py-2 border border-blue-500 rounded hidden">
-                                            Hyd high pressure 
+                                            AWC Servo Trip 
                                         </button>
                                     </div>
                                 </a>
@@ -1915,7 +1913,7 @@
         function cycle_active() {
             cycle_status = true
             cycle = setInterval(() => {
-                // const div1 = document.getElementById("cycle_page").classList.remove('hidden');
+                const div1 = document.getElementById("cycle_page").classList.toggle('hidden');
             }, 1000);
         }
     </script>
@@ -2570,47 +2568,47 @@
                         const div1 = document.getElementById("RHS_depth_metric").classList.remove('bg-red-300');
                     }
 
-                    if (payload.alarm[30] === true) {
+                    if (payload.alarm[31] === true) {
                         const div1 = document.getElementById("alarm_icon").classList.remove('hidden');
                         if (alarm_status === false) {
                             alarm_active()
                         }
-                    } else if (payload.alarm[30] === false) {
+                    } else if (payload.alarm[31] === false) {
                         const div2 = document.getElementById("alarm_icon").classList.add('hidden');
                         const div1 = document.getElementById("alarm_page").classList.add('hidden');
                         clearInterval(alarm);
                         alarm_status = false
                     }
 
-                    if (payload.alarm[7] === true) {
+                    if (payload.alarm[3] === true) {
                         if (guard_status === false) {
                             guard_active()
                         }
-                    } else if (payload.alarm[7] === false) {
+                    } else if (payload.alarm[3] === false) {
                         const div1 = document.getElementById("guard_page").classList.add('hidden');
                         clearInterval(guard);
                         guard_status = false
                     }
                     
-                    if (payload.alarm[17] === true) {
+                    if (payload.alarm[5] === true) {
                         if (hyd_status === false) {
                             hyd_active()
                         }
-                    } else if (payload.alarm[17] === false) {
+                    } else if (payload.alarm[5] === false) {
                         const div1 = document.getElementById("hyd_page").classList.add('hidden');
                         clearInterval(hyd);
                         hyd_status = false
                     }
                     
-                    if (payload.alarm[27] === true) {
-                        const div1 = document.getElementById("cycle_page").classList.remove('hidden');
-                        // if (cycle_status === true) {
-                        //     cycle_active()
-                        // }
-                    } else if (payload.alarm[27] === false) {
+                    if (payload.alarm[2] === true) {
+                        // const div1 = document.getElementById("cycle_page").classList.remove('hidden');
+                        if (cycle_status === true) {
+                            cycle_active()
+                        }
+                    } else if (payload.alarm[2] === false) {
                         const div1 = document.getElementById("cycle_page").classList.add('hidden');
-                        // clearInterval(cycle);
-                        // cycle_status = false
+                        clearInterval(cycle);
+                        cycle_status = false
                     }
 
                     // console.log("23" ,payload.output[23])

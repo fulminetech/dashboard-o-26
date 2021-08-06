@@ -1423,9 +1423,11 @@ var readalarm = function () {
 
 function restartprodmodbus() {
     console.log(`[ RESTARTING: ${restart1Command} ]`);
-    exec(restart1Command, (err, stdout, stderr) => {
-        console.log(`${stdout}`);
-    });
+    // process.kill(process.pid, 'SIGTERM')
+    process.exit(1)
+    // exec(restart1Command, (err, stdout, stderr) => {
+    //     console.log(`${stdout}`);
+    // });
     // console.log(`[ RESTARTING: ${restart2Command} ]`);
     // exec(restart2Command, (err, stdout, stderr) => {
     //     console.log(`${stdout}`);
