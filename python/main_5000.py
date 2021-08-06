@@ -53,6 +53,11 @@ payload = {
 }
 
 global x
+global FAIL_COUNTER
+global FAIL_LIMIT 
+
+FAIL_COUNTER=0
+FAIL_LIMIT=10
 
 def connect():
     global x
@@ -74,16 +79,19 @@ def connect():
 def ptime():
     regs = c.read_holding_registers(TIME_ADDR, 6)
     global x
+    global FAIL_COUNTER
     if regs:
         logging.debug('Success!: Time')
         x = 'pLHS'
     else:
         logging.error("Time Read Failed")
         x = 'pLHS'
+        FAIL_COUNTER+=1
 
 def pLHS():
     regs = c.read_holding_registers(PREC_L_ADDR, 26)
     global x
+    global FAIL_COUNTER
     if regs:
         # pLHS = [ x/100 for x in regs]
         # payload['pLHS_data'] = pLHS
@@ -93,10 +101,12 @@ def pLHS():
     else:
         logging.error("pLHS Read Failed")
         x = 'mLHS'
+        FAIL_COUNTER += 1
 
 def mLHS():
     regs = c.read_holding_registers(MAIN_L_ADDR, 26)
     global x
+    global FAIL_COUNTER
     if regs:
         # mLHS = [ x/100 for x in regs]
         # payload['mLHS_data'] = mLHS
@@ -106,10 +116,12 @@ def mLHS():
     else:
         logging.error("mLHS Read Failed")
         x = 'eLHS'
+        FAIL_COUNTER += 1
 
 def eLHS():
     regs = c.read_holding_registers(EJNC_L_ADDR, 26)
     global x
+    global FAIL_COUNTER
     if regs:
         # eLHS = [ x/100 for x in regs]
         # payload['eLHS_data'] = eLHS
@@ -119,10 +131,12 @@ def eLHS():
     else:
         logging.error("eLHS Read Failed")
         x = 'avg'
+        FAIL_COUNTER += 1
 
 def avg():
     regs = c.read_holding_registers(AVGC_ADDR, 10)
     global x
+    global FAIL_COUNTER
     if regs:
         # avg = [ x/100 for x in regs]
         # payload['avg'] = avg
@@ -132,11 +146,13 @@ def avg():
     else:
         logging.error("avg Read Failed")
         x = 'limit'
+        FAIL_COUNTER += 1
 
 def limit():
     # PLHS_UL, PLHS_LL, MLHS_UL, MLHS_LL, ELHS_UL, ELHS_LL, PRHS_UL, PRHS_LL, MRHS_UL, MRHS_LL, ERHS_UL, ERHS_LL + Force line LHS PME, RHS PME + AWC LHS: UP-LP, UM-LM 
     regs = c.read_holding_registers(LIMIT_ADDR, 26)
     global x
+    global FAIL_COUNTER
     if regs:
         # limit = [ x/100 for x in regs]
         # payload['limit'] = limit
@@ -146,10 +162,12 @@ def limit():
     else:
         logging.error("limit Read Failed")
         x = 'pstatus'
+        FAIL_COUNTER += 1
 
 def pstatus():
     regs = c.read_coils(STUS_ADDR, 26)
     global x
+    global FAIL_COUNTER
     if regs:
         # logging.debug('Success!: pstatus')
         payload['pstatus'] = regs
@@ -157,6 +175,7 @@ def pstatus():
     else:
         logging.error("pstatus Read Failed")
         x = 'pLHS'
+        FAIL_COUNTER += 1
 
 def end():
     print("End")
@@ -167,6 +186,8 @@ def start():
     # print("Start: ",+int(time.time_ns() // 1000000 - ms))
 
 def xyz(name):
+    global FAIL_COUNTER
+    global FAIL_LIMIT
     logging.info("Thread %s: starting", name)
     while True: 
         # start()
@@ -176,7 +197,9 @@ def xyz(name):
         avg()
         limit()
         pstatus()
-        
+        if FAIL_COUNTER > FAIL_LIMIT:
+            logging.error("Connection failed restarting!!")
+            exit()
         time.sleep(0.1)
         # end()
 
