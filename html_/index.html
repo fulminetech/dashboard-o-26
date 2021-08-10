@@ -759,13 +759,13 @@
                                     <thead>
                                         <tr>
                                             <!-- <th class="text-center w-1/6 ">(kN)</th> -->
-                                            <th class="text-center w-1/6 py-3 align-top uppercase ">Safety High</th>
-                                            <th class="text-center w-1/6 py-3 align-top uppercase ">Rejection High</th>
-                                            <th class="text-center w-1/6 py-3 align-top uppercase ">AWC High</th>
-                                            <th class="text-center w-1/6 py-3 align-top uppercase ">Set Force</th>
-                                            <th class="text-center w-1/6 py-3 align-top uppercase ">AWC Low</th>
-                                            <th class="text-center w-1/6 py-3 align-top uppercase ">Rejection Low</th>
-                                            <th class="text-center w-1/6 py-3 align-top uppercase ">Safety Low</th>
+                                            <th class="text-center w-1/6 py-3 align-top uppercase ">Safety High (kN)</th>
+                                            <th class="text-center w-1/6 py-3 align-top uppercase ">Rejection High (kN)</th>
+                                            <th class="text-center w-1/6 py-3 align-top uppercase ">AWC High (kN)</th>
+                                            <th class="text-center w-1/6 py-3 align-top uppercase ">Set Force (kN)</th>
+                                            <th class="text-center w-1/6 py-3 align-top uppercase ">AWC Low (kN)</th>
+                                            <th class="text-center w-1/6 py-3 align-top uppercase ">Rejection Low (kN)</th>
+                                            <th class="text-center w-1/6 py-3 align-top uppercase ">Safety Low (kN)</th>
                             
                                         </tr>
                                     </thead>
@@ -825,7 +825,7 @@
                                     <tr>
                                         <!-- <td class="text-center  text-2xl border-gray-700"><a href="/settings_awc">LHS</a></td> -->
                                         <td id="LHS_depth_metric" class="text-center  text-3xl border  border-gray-700">0
-                                            <a> mm</a>
+                                            <span> mm</span>
                                             <div id="LHS_depth_metric_l"  class="flex-shrink p-3">
                                                 <div id="dozer_rhs" class="rounded p-2"></div>
                                             </div>
@@ -2289,7 +2289,7 @@
                     document.getElementById("production_per_hour_metric").innerHTML = payload.stats.tablets_per_hour;
                     // document.getElementById("rpm_metric").value = payload.stats.turret.RPM;
                     document.getElementById("turret_amp_metric").innerHTML = payload.stats.turret.A;
-                    document.getElementById("feederRHS_metric").value = payload.stats.LHS_FF.RPM;
+                    // document.getElementById("feederRHS_metric").value = payload.stats.LHS_FF.RPM;
                     document.getElementById("feederRHS_amp_metric").innerHTML = payload.stats.LHS_FF.A;
                     // document.getElementById("feederLHS_metric").value = payload.stats.LHS_FF.RPM;
                     // document.getElementById("feederLHS_amp_metric").innerHTML = payload.stats.LHS_FF.A;
