@@ -286,7 +286,7 @@
                                 </div>
 
                                 <div class="flex flex-col">
-                                    <h3> Fill Depth LHS </h3>
+                                    <h3> Fill Depth </h3>
                                     <div class="flex flex-row">
                                         <div class="py-3">
                                             <input id="depthL"
@@ -296,7 +296,7 @@
                                     </div>
                                 </div>
                                 
-                                <div class="flex flex-col">
+                                <!-- <div class="flex flex-col">
                                     <h3> Fill Depth RHS </h3>
                                     <div class="flex flex-row">
                                         <div class="py-3 pr-2">
@@ -305,10 +305,10 @@
                                                 type="text" placeholder="">
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <div class="flex flex-col">
-                                    <h3> Comp Force LHS </h3>
+                                    <h3> PRE Comp Force </h3>
                                     <div class="flex flex-row">
                                         <div class="py-3">
                                             <input id="forceL"
@@ -319,7 +319,7 @@
                                 </div>
 
                                 <div class="flex flex-col">
-                                    <h3> Comp Force RHS </h3>
+                                    <h3> Main Comp Force </h3>
                                     <div class="flex flex-row">
                                         <div class="py-3">
                                             <input id="forceR"
@@ -329,7 +329,7 @@
                                     </div>
                                 </div>
 
-                                <div class="flex flex-col">
+                                <!-- <div class="flex flex-col">
                                     <h3> Roller Position Pre LHS </h3>
                                     <div class="flex flex-row">
                                         <div class="py-3 pr-2">
@@ -372,7 +372,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <div id="formedit" class="flex grid grid-cols-4 hidden">
 
@@ -487,14 +487,14 @@
                                                     <th class="text-center border-b py-3">Thickness Range</th>
                                                     <th class="text-center border-b py-3">Weight Range</th>
                                                     <th class="text-center border-b py-3">Tablet Hardness</th>
-                                                    <th class="text-center border-b py-3">Fill Depth LHS</th>
-                                                    <th class="text-center border-b py-3">Fill Depth RHS</th>
-                                                    <th class="text-center border-b py-3">Comp Force LHS</th>
-                                                    <th class="text-center border-b py-3">Comp Force RHS</th>
-                                                    <th class="text-center border-b py-3">Roller Position Pre LHS</th>
-                                                    <th class="text-center border-b py-3">Roller Position Pre RHS</th>
-                                                    <th class="text-center border-b py-3">Roller Position Main LHS</th>
-                                                    <th class="text-center border-b py-3">Roller Position Main RHS</th>
+                                                    <th class="text-center border-b py-3">Fill Depth</th>
+                                                    <!-- <th class="text-center border-b py-3">Fill Depth RHS</th> -->
+                                                    <th class="text-center border-b py-3">PRE Comp Force</th>
+                                                    <th class="text-center border-b py-3">Main Comp Force</th>
+                                                    <!-- <th class="text-center border-b py-3">Roller Position Pre LHS</th> -->
+                                                    <!-- <th class="text-center border-b py-3">Roller Position Pre RHS</th> -->
+                                                    <!-- <th class="text-center border-b py-3">Roller Position Main LHS</th> -->
+                                                    <!-- <th class="text-center border-b py-3">Roller Position Main RHS</th> -->
                                                 </tr>
                                             </thead>
 
@@ -558,7 +558,8 @@
                 for (let batchh of batchlistt) {
                     dataa = batchlistt[i]
                     // console.log(dataa.id)
-                    batchHTML += `<tr><td class="border border-gray-400 px-4 py-2">${i+1}</td><td class="border border-gray-400 px-4 py-2">${dataa.recn}</td><td class="border border-gray-400 px-4 py-2">${dataa.pname}</td><td class="border border-gray-400 px-4 py-2">${dataa.tooldrg}</td><td class="border border-gray-400 px-4 py-2">${dataa.size}</td><td class="border border-gray-400 px-4 py-2">${dataa.thickness}</td><td class="border border-gray-400 px-4 py-2">${dataa.weight}</td><td class="border border-gray-400 px-4 py-2">${dataa.hardness}</td><td class="border border-gray-400 px-4 py-2">${dataa.depthL}</td><td class="border border-gray-400 px-4 py-2">${dataa.depthR}</td><td class="border border-gray-400 px-4 py-2">${dataa.forceL}</td><td class="border border-gray-400 px-4 py-2">${dataa.forceR}</td><td class="border border-gray-400 px-4 py-2">${dataa.preL}</td><td class="border border-gray-400 px-4 py-2">${dataa.preR}</td><td class="border border-gray-400 px-4 py-2">${dataa.mainL}</td><td class="border border-gray-400 px-4 py-2">${dataa.mainR}</td></tr>`
+                    // batchHTML += `<tr><td class="border border-gray-400 px-4 py-2">${i+1}</td><td class="border border-gray-400 px-4 py-2">${dataa.recn}</td><td class="border border-gray-400 px-4 py-2">${dataa.pname}</td><td class="border border-gray-400 px-4 py-2">${dataa.tooldrg}</td><td class="border border-gray-400 px-4 py-2">${dataa.size}</td><td class="border border-gray-400 px-4 py-2">${dataa.thickness}</td><td class="border border-gray-400 px-4 py-2">${dataa.weight}</td><td class="border border-gray-400 px-4 py-2">${dataa.hardness}</td><td class="border border-gray-400 px-4 py-2">${dataa.depthL}</td><td class="border border-gray-400 px-4 py-2">${dataa.depthR}</td><td class="border border-gray-400 px-4 py-2">${dataa.forceL}</td><td class="border border-gray-400 px-4 py-2">${dataa.forceR}</td><td class="border border-gray-400 px-4 py-2">${dataa.preL}</td><td class="border border-gray-400 px-4 py-2">${dataa.preR}</td><td class="border border-gray-400 px-4 py-2">${dataa.mainL}</td><td class="border border-gray-400 px-4 py-2">${dataa.mainR}</td></tr>`
+                    batchHTML += `<tr><td class="border border-gray-400 px-4 py-2">${i+1}</td><td class="border border-gray-400 px-4 py-2">${dataa.recn}</td><td class="border border-gray-400 px-4 py-2">${dataa.pname}</td><td class="border border-gray-400 px-4 py-2">${dataa.tooldrg}</td><td class="border border-gray-400 px-4 py-2">${dataa.size}</td><td class="border border-gray-400 px-4 py-2">${dataa.thickness}</td><td class="border border-gray-400 px-4 py-2">${dataa.weight}</td><td class="border border-gray-400 px-4 py-2">${dataa.hardness}</td><td class="border border-gray-400 px-4 py-2">${dataa.depthL}</td><td class="border border-gray-400 px-4 py-2">${dataa.forceL}</td><td class="border border-gray-400 px-4 py-2">${dataa.forceR}</td></tr>`
                     i++
                 }
 
@@ -599,13 +600,13 @@
                         udata.weight = document.getElementById("weight").value
                         udata.hardness = document.getElementById("hardness").value
                         udata.depthL = document.getElementById("depthL").value
-                        udata.depthR = document.getElementById("depthR").value
+                        // udata.depthR = document.getElementById("depthR").value
                         udata.forceL = document.getElementById("forceL").value
                         udata.forceR = document.getElementById("forceR").value
-                        udata.preL = document.getElementById("preL").value
-                        udata.preR = document.getElementById("preR").value
-                        udata.mainL = document.getElementById("mainL").value
-                        udata.mainR = document.getElementById("mainR").value
+                        // udata.preL = document.getElementById("preL").value
+                        // udata.preR = document.getElementById("preR").value
+                        // udata.mainL = document.getElementById("mainL").value
+                        // udata.mainR = document.getElementById("mainR").value
 
                         let url = `http://localhost:3000/recipies`
 
@@ -667,13 +668,13 @@
                         document.getElementById("weight").value = data[0].weight
                         document.getElementById("hardness").value = data[0].hardness
                         document.getElementById("depthL").value = data[0].depthL
-                        document.getElementById("depthR").value = data[0].depthR
+                        // document.getElementById("depthR").value = data[0].depthR
                         document.getElementById("forceL").value = data[0].forceL
                         document.getElementById("forceR").value = data[0].forceR
-                        document.getElementById("preL").value = data[0].preL
-                        document.getElementById("preR").value = data[0].preR
-                        document.getElementById("mainL").value = data[0].mainL
-                        document.getElementById("mainR").value = data[0].mainR
+                        // document.getElementById("preL").value = data[0].preL
+                        // document.getElementById("preR").value = data[0].preR
+                        // document.getElementById("mainL").value = data[0].mainL
+                        // document.getElementById("mainR").value = data[0].mainR
                     } else if (isEmpty(data) == true) {
                         alert("Recipe does not exist.")
                     }
@@ -704,13 +705,13 @@
             udata.weight = document.getElementById("weight").value
             udata.hardness = document.getElementById("hardness").value
             udata.depthL = document.getElementById("depthL").value
-            udata.depthR = document.getElementById("depthR").value
+            // udata.depthR = document.getElementById("depthR").value
             udata.forceL = document.getElementById("forceL").value
             udata.forceR = document.getElementById("forceR").value
-            udata.preL = document.getElementById("preL").value
-            udata.preR = document.getElementById("preR").value
-            udata.mainL = document.getElementById("mainL").value
-            udata.mainR = document.getElementById("mainR").value
+            // udata.preL = document.getElementById("preL").value
+            // udata.preR = document.getElementById("preR").value
+            // udata.mainL = document.getElementById("mainL").value
+            // udata.mainR = document.getElementById("mainR").value
 
             let submiturl = `http://localhost:3000/recipies/${searchid}`
 

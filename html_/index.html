@@ -773,13 +773,13 @@
                                     <tbody>
                                         <tr>
                                             <!-- <td class="text-center border  text-xl border-gray-700">LHS</td> -->
-                                            <td id="safety_high_LHS" class="text-center border py-3 bg-white text-xl border-gray-700">0</td>
-                                            <td id="rejn_high_LHS" class="text-center border   py-3 bg-white text-xl border-gray-700">0</td>
-                                            <td id="awc_high_LHS" class="text-center border    py-3 bg-white text-xl border-gray-700">0</td>
-                                            <td id="set_force_LHS" class="text-center border   py-3 bg-white text-xl border-gray-700">0</td>
-                                            <td id="awc_low_LHS" class="text-center border     py-3 bg-white text-xl border-gray-700">0</td>
-                                            <td id="rej_low_LHS" class="text-center border     py-3 bg-white text-xl border-gray-700">0</td>
-                                            <td id="safety_low_LHS" class="text-center border  py-3 bg-white text-xl border-gray-700">0</td>
+                                            <td id="safety_high_LHS" class="text-center border py-3 bg-white text-xl border-gray-700">0<a> kN</a></td>
+                                            <td id="rejn_high_LHS" class="text-center border   py-3 bg-white text-xl border-gray-700">0<a> kN</a></td>
+                                            <td id="awc_high_LHS" class="text-center border    py-3 bg-white text-xl border-gray-700">0<a> kN</a></td>
+                                            <td id="set_force_LHS" class="text-center border   py-3 bg-white text-xl border-gray-700">0<a> kN</a></td>
+                                            <td id="awc_low_LHS" class="text-center border     py-3 bg-white text-xl border-gray-700">0<a> kN</a></td>
+                                            <td id="rej_low_LHS" class="text-center border     py-3 bg-white text-xl border-gray-700">0<a> kN</a></td>
+                                            <td id="safety_low_LHS" class="text-center border  py-3 bg-white text-xl border-gray-700">0<a> kN</a></td>
                                             
                                         </tr>
                                         <!-- <tr>
@@ -799,6 +799,8 @@
                         </div>
                     </a>
 
+                    <a href="/settings_awc"></a>
+                    
                     <div class="flex p-2">    
                         <div class="w-1/4 p-2 my-1 mt-2 border border-blue-500 bg-purple-200 rounded shadow">
                             <!-- <div class="flex">
@@ -823,6 +825,7 @@
                                     <tr>
                                         <!-- <td class="text-center  text-2xl border-gray-700"><a href="/settings_awc">LHS</a></td> -->
                                         <td id="LHS_depth_metric" class="text-center  text-3xl border  border-gray-700">0
+                                            <a> mm</a>
                                             <div id="LHS_depth_metric_l"  class="flex-shrink p-3">
                                                 <div id="dozer_rhs" class="rounded p-2"></div>
                                             </div>
@@ -846,6 +849,7 @@
                                 </tbody>
                             </table>
                         </div>
+                    </a>
 
                         <div class="w-3/4 mt-2">
                             
@@ -2285,8 +2289,8 @@
                     document.getElementById("production_per_hour_metric").innerHTML = payload.stats.tablets_per_hour;
                     // document.getElementById("rpm_metric").value = payload.stats.turret.RPM;
                     document.getElementById("turret_amp_metric").innerHTML = payload.stats.turret.A;
-                    // document.getElementById("feederRHS_metric").value = payload.stats.RHS_FF.RPM;
-                    document.getElementById("feederRHS_amp_metric").innerHTML = payload.stats.RHS_FF.A;
+                    document.getElementById("feederRHS_metric").value = payload.stats.LHS_FF.RPM;
+                    document.getElementById("feederRHS_amp_metric").innerHTML = payload.stats.LHS_FF.A;
                     // document.getElementById("feederLHS_metric").value = payload.stats.LHS_FF.RPM;
                     // document.getElementById("feederLHS_amp_metric").innerHTML = payload.stats.LHS_FF.A;
                     document.getElementById("dwell_metric").innerHTML = payload.stats.dwell;
@@ -2634,7 +2638,7 @@
                         var payload = data
                         // document.getElementById("roller_freq_").innerHTML = payload.stats.roller.frequency
                         document.getElementById("rpm_metric").value = payload.stats.turret.RPM;
-                        document.getElementById("feederRHS_metric").value = payload.stats.RHS_FF.RPM;
+                        document.getElementById("feederRHS_metric").value = payload.stats.LHS_FF.RPM;
                         // document.getElementById("feederLHS_metric").value = payload.stats.LHS_FF.RPM;
                         // document.getElementById("pressure_metric").value = payload.stats.pressure.pressure_set
                         document.getElementById("lube_metric").value = payload.stats.lubrication.set_delay_min;
@@ -3079,7 +3083,7 @@
             
             submitt(parseInt(rpmFeederRHS))
             async function submitt(rpmFeederRHS) {
-                let submiturl = `${seturl}/LHS_FEEDER_RPM_CHANGE/${rpmFeederRHS}`
+                let submiturl = `${seturl}/RHS_FEEDER_RPM_CHANGE/${rpmFeederRHS}`
 
                 console.log(submiturl)
 

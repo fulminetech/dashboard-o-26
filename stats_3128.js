@@ -1489,6 +1489,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "RHS_FEEDER_RPM_CHANGE") {
+        a = "FEEDER RPM CHANGE"
         reg_offset_6000 = 1
         reg_write_value = b
         c = payload.stats.LHS_FF.RPM
@@ -1496,7 +1497,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     } 
     else if (a == "LHS_FEEDER_RPM_CHANGE") {
-         a = "FEEDER RPM CHANGE"
+        
         reg_offset_6000 = 2
         reg_write_value = b
         c = payload.stats.RHS_FF.RPM
@@ -1884,6 +1885,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "PRESSURE_ACK_BUTTON" && b == "true") {
+        a = "ALARM ACKNOWLEDGE"
         coil_offset_410 = 2
         set_button = true
         c = payload.button.PRESSURE_ACK_BUTTON

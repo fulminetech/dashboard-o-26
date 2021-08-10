@@ -375,6 +375,7 @@
                                                 <th class="text-center border-b py-3">Name</th>
                                                 <th class="text-center border-b py-3">Login Attempts</th>
                                                 <th class="text-center border-b py-3">Password Expiry (days)</th>
+                                                <th class="text-center border-b py-3">Status</th>
                                             </tr>
                                         </thead>
 
@@ -435,7 +436,7 @@
                                     </tr>
                                     <tr>
                                         <td class="text-center border-b border-gray-400 uppercase py-2 font-bold text-blue-900">
-                                            Graph LHS
+                                            Graph 
                                         </td>
                                         <td class="border-b text-center text-3xl border-gray-400">
                                             <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400" id="op2" name="op2" value="op2">
@@ -450,7 +451,7 @@
                                             <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400 " checked=checked id="admin2" name="admin2" value="">
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <!-- <tr>
                                         <td class="text-center border-b border-gray-400 uppercase py-2 font-bold text-blue-900">
                                             Graph RHS
                                         </td>
@@ -466,7 +467,7 @@
                                         <td class="border-b text-center text-3xl border-gray-400">
                                             <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400 " checked=checked id="admin3" name="admin3" value="">
                                         </td>
-                                    </tr>
+                                    </tr> -->
                                     <tr>
                                         <td class="text-center border-b border-gray-400 uppercase py-2 font-bold text-blue-900">
                                             History
@@ -726,8 +727,15 @@
                     } else if (dataa.userlevel == 4) {
                         ulevel = 'Admin'
                     }
+
+                    var status = "ACTIVE"
+                    if (dataa.attempts == 0 || dataa.expiry == 0) {
+                        status = "BLOCKED"
+                        // batchHTML += `<tr><td class="border border-gray-400 px-4 py-2">${ulevel}</td><td class="border border-gray-400 px-4 py-2">${dataa.username}</td><td class="border border-gray-400 px-4 py-2">${dataa.name}</td><td class="border border-gray-400 px-4 py-2">${dataa.attempts}</td><td class="border border-gray-400 px-4 py-2">${status}</td><td class="border border-gray-400 px-4 py-2">${dataa.expiry}</td></tr>`
+                    }
+        
+                    batchHTML += `<tr><td class="border border-gray-400 px-4 py-2">${ulevel}</td><td class="border border-gray-400 px-4 py-2">${dataa.username}</td><td class="border border-gray-400 px-4 py-2">${dataa.name}</td><td class="border border-gray-400 px-4 py-2">${dataa.attempts}</td><td class="border border-gray-400 px-4 py-2">${dataa.expiry}</td><td class="border border-gray-400 px-4 py-2">${status}</td></tr>`
                     // console.log(dataa.id)
-                    batchHTML += `<tr><td class="border border-gray-400 px-4 py-2">${ulevel}</td><td class="border border-gray-400 px-4 py-2">${dataa.username}</td><td class="border border-gray-400 px-4 py-2">${dataa.name}</td><td class="border border-gray-400 px-4 py-2">${dataa.attempts}</td><td class="border border-gray-400 px-4 py-2">${dataa.expiry}</td></tr>`
                     i++
                 }
 
@@ -993,7 +1001,7 @@
                     
                     op1.checked  = data[0].overview
                     op2.checked  = data[0].graphlhs
-                    op3.checked  = data[0].graphrhs
+                    // op3.checked  = data[0].graphrhs
                     op4.checked  = data[0].history
                     op5.checked  = data[0].dido
                     op6.checked  = data[0].alarm
@@ -1005,7 +1013,7 @@
                     
                     sup1.checked  = data[1].overview
                     sup2.checked  = data[1].graphlhs
-                    sup3.checked  = data[1].graphrhs
+                    // sup3.checked  = data[1].graphrhs
                     sup4.checked  = data[1].history
                     sup5.checked  = data[1].dido
                     sup6.checked  = data[1].alarm
@@ -1017,7 +1025,7 @@
                     
                     main1.checked  = data[2].overview
                     main2.checked  = data[2].graphlhs
-                    main3.checked  = data[2].graphrhs
+                    // main3.checked  = data[2].graphrhs
                     main4.checked  = data[2].history
                     main5.checked  = data[2].dido
                     main6.checked  = data[2].alarm
@@ -1029,7 +1037,7 @@
                     
                     admin1.checked  = data[3].overview
                     admin2.checked  = data[3].graphlhs
-                    admin3.checked  = data[3].graphrhs
+                    // admin3.checked  = data[3].graphrhs
                     admin4.checked  = data[3].history
                     admin5.checked  = data[3].dido
                     admin6.checked  = data[3].alarm
@@ -1115,7 +1123,7 @@
         function readpermission() {
             data[0].overview = op1.checked
             data[0].graphlhs = op2.checked
-            data[0].graphrhs = op3.checked
+            // data[0].graphrhs = op3.checked
             data[0].history = op4.checked
             data[0].dido = op5.checked
             data[0].alarm = op6.checked
@@ -1127,7 +1135,7 @@
 
             data[1].overview = sup1.checked
             data[1].graphlhs = sup2.checked
-            data[1].graphrhs = sup3.checked
+            // data[1].graphrhs = sup3.checked
             data[1].history = sup4.checked
             data[1].dido = sup5.checked
             data[1].alarm = sup6.checked
@@ -1139,7 +1147,7 @@
 
             data[2].overview = main1.checked
             data[2].graphlhs = main2.checked
-            data[2].graphrhs = main3.checked
+            // data[2].graphrhs = main3.checked
             data[2].history = main4.checked
             data[2].dido = main5.checked
             data[2].alarm = main6.checked
@@ -1151,7 +1159,7 @@
 
             data[3].overview = admin1.checked
             data[3].graphlhs = admin2.checked
-            data[3].graphrhs = admin3.checked
+            // data[3].graphrhs = admin3.checked
             data[3].history = admin4.checked
             data[3].dido = admin5.checked
             data[3].alarm = admin6.checked
