@@ -1893,6 +1893,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "PRESSURE_ACK_BUTTON" && b == "false") {
+        a = "ALARM ACKNOWLEDGE"
         coil_offset_410 = 2
         set_button = false
         c = payload.button.PRESSURE_ACK_BUTTON
