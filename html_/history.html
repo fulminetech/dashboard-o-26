@@ -717,32 +717,6 @@
 
         };
 
-        function updatetolerancepreRHS(){
-            if (payload[csvdata.indexOf("mode")] == true) {
-                
-                pregraph.data.datasets[2].data = Array(45).fill(payload[csvdata.indexOf("bi_R_rjn_high")])
-                pregraph.data.datasets[3].data = Array(45).fill(payload[csvdata.indexOf("bi_R_rjn_low")])
-                pregraph.data.datasets[4].data = Array(45).fill(payload[csvdata.indexOf("bi_R_force_line")])
-                pregraph.update();
-
-            }
-            else if (payload[csvdata.indexOf("mode")] == false) {
-                
-            }
-        }
-
-        function updatetolerancepreRHS(){
-            if (payload[csvdata.indexOf("mode")] == true) {
-                pregraph.data.datasets[2].data = Array(45).fill(payload[csvdata.indexOf("bi_L_rjn_high")])
-                pregraph.data.datasets[3].data = Array(45).fill(payload[csvdata.indexOf("bi_L_rjn_low")])
-                pregraph.data.datasets[4].data = Array(45).fill(payload[csvdata.indexOf("bi_L_force_line")])
-                pregraph.update();
-            }
-            else if (payload[csvdata.indexOf("mode")] == false) {
-                
-            }
-        }
-
         var payload
         var csvdata
 
@@ -755,7 +729,7 @@
             const searchResponse = await fetch(requesturl);
             preLH = await searchResponse.json();
             preLHS = preLH.data[0]
-            // console.log(preLHS);
+            console.log(preLHS);
             
             // let requesturl1 = `${hostname}/api/csv/preLHS/${currentBatch}/${input_rotation}/${input_rotation}`
             // const searchResponse1 = await fetch(requesturl1);
@@ -767,7 +741,7 @@
             const searchResponse2 = await fetch(requesturl2);
             mainLH = await searchResponse2.json();
             mainLHS = mainLH.data[0]
-            // console.log(mainLHS);
+            console.log(mainLHS);
             
             // let requesturl3 = `${hostname}/api/csv/mainRHS/${currentBatch}/${input_rotation}/${input_rotation}`
             // const searchResponse3 = await fetch(requesturl3);
@@ -779,7 +753,7 @@
             const searchResponse4 = await fetch(requesturl4);
             ejnLH = await searchResponse4.json();
             ejnLHS = ejnLH.data[0]
-            // console.log(mainLHS);
+            console.log(ejnLHS);
             
             // let requesturl5 = `${hostname}/api/csv/ejnRHS/${currentBatch}/${input_rotation}/${input_rotation}`
             // const searchResponse5 = await fetch(requesturl5);
@@ -791,7 +765,7 @@
             const searchResponse6 = await fetch(requesturl6);
             inf = await searchResponse6.json();
             info = inf.data[0]
-            // console.log(info);
+            console.log(info);
 
             document.getElementById("M_R_upper").innerHTML = info[1];
             document.getElementById("M_R_lower").innerHTML = info[2];
