@@ -537,7 +537,7 @@
                     ticks: {
                         beginAtZero: true,
                         fontSize: 20,
-                        max: 65,
+                        // max: 65,
                     }
                 }],
                 xAxes: [{
@@ -805,7 +805,7 @@
                     payload = data
                     
                     MLHS_LL = Array(26).fill(payload.limit[0])
-                    MLHS_UL = Array(26).fill(payload.limit[1]+15)
+                    MLHS_UL = Array(26).fill(payload.limit[1])
                     PLHS_LL = Array(26).fill(payload.limit[4])
                     PLHS_UL = Array(26).fill(payload.limit[5])
                     ELHS_LL = Array(26).fill(payload.limit[8])
@@ -819,6 +819,8 @@
                     AWC_PLHS_LL = Array(26).fill(payload.limit[19])
                     AWC_MLHS_UL = Array(26).fill(payload.limit[20])
                     AWC_MLHS_LL = Array(26).fill(payload.limit[21])
+
+                    maingraph.options.scales.yAxes.ticks.max = payload.limit[13]+15
 
                     const mode1 = mode
 
