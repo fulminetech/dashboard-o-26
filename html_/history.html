@@ -239,7 +239,7 @@
                         <div class="border-b p-3">
                             <h5 class="font-bold text-black">Pre Compression:</h5>
                         </div>
-                        <div class="p-5 my-3 border border-blue-500 bg-purple-300 rounded shadow">
+                        <!-- <div class="p-5 my-3 border border-blue-500 bg-purple-300 rounded shadow">
                             <table class="w-full table-fixed p-5 text-gray-700">
                                 <thead>
                                     <tr>
@@ -257,7 +257,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>
+                        </div> -->
                         <div class="p-3">
                             <canvas id="precompression_graph" class="chartjs" height="120rem"></canvas>
                         </div>
@@ -291,7 +291,7 @@
                         
                         <!--Ejection Compression Card-->
                         <div class="border-b p-3">
-                            <h5 class="font-bold text-black">Ejection Compression:</h5>
+                            <h5 class="font-bold text-black">Ejection:</h5>
                         </div>
                         <div class="p-3">
                             <canvas id="ejncompression_graph" class="chartjs" height="120rem"></canvas>
@@ -543,7 +543,7 @@
                         data: [ ],
                     },
                     {
-                        label: "Ejection Compression Average ",
+                        label: "Ejection Average ",
                         yAxisID: 'A',
                         fill: false,
                         lineTension: 0.1,
@@ -694,12 +694,12 @@
                         // console.log(`RTN:${avgdataa[8]},PRELHS:${avgdataa[6]},PRERHS:${avgdataa[7]},MAINLHS:${avgdataa[4]},MAINRHS:${avgdataa[5]},EJNLHS:${avgdataa[2]},MAINRHS:${avgdataa[3]}`);
 
                         graph3.data.labels[k] = avgdataa[10];
-                        graph3.data.datasets[0].data[k] = avgdataa[8];
-                        graph3.data.datasets[1].data[k] = avgdataa[9];
-                        graph3.data.datasets[2].data[k] = avgdataa[6];
-                        graph3.data.datasets[3].data[k] = avgdataa[7];
-                        graph3.data.datasets[4].data[k] = avgdataa[4];
-                        graph3.data.datasets[5].data[k] = avgdataa[5];
+                        graph3.data.datasets[0].data[k] = avgdataa[5];
+                        graph3.data.datasets[1].data[k] = avgdataa[4];
+                        graph3.data.datasets[2].data[k] = avgdataa[3];
+                        // graph3.data.datasets[3].data[k] = avgdataa[7];
+                        // graph3.data.datasets[4].data[k] = avgdataa[4];
+                        // graph3.data.datasets[5].data[k] = avgdataa[5];
 
                         graph3.update();
                         k++;
@@ -793,47 +793,9 @@
             info = inf.data[0]
             // console.log(info);
 
-            csvdata = ['time', 'bi_L_force_line', 'bi_L_rjn_high', 'bi_L_rjn_low', 'bi_R_force_line', 'bi_R_rjn_high', 'bi_R_rjn_low', 'mode', 'mono_force_line', 'mono_rjn_high', 'mono_rjn_low', 'p10LHSejn', 'p10LHSmain', 'p10LHSpre', 'p10RHSejn', 'p10RHSmain', 'p10RHSpre', 'p11LHSejn', 'p11LHSmain', 'p11LHSpre', 'p11RHSejn', 'p11RHSmain', 'p11RHSpre', 'p12LHSejn', 'p12LHSmain', 'p12LHSpre', 'p12RHSejn', 'p12RHSmain', 'p12RHSpre', 'p13LHSejn', 'p13LHSmain', 'p13LHSpre', 'p13RHSejn', 'p13RHSmain', 'p13RHSpre', 'p14LHSejn', 'p14LHSmain', 'p14LHSpre', 'p14RHSejn', 'p14RHSmain', 'p14RHSpre', 'p15LHSejn', 'p15LHSmain', 'p15LHSpre', 'p15RHSejn', 'p15RHSmain', 'p15RHSpre', 'p16LHSejn', 'p16LHSmain', 'p16LHSpre', 'p16RHSejn', 'p16RHSmain', 'p16RHSpre', 'p17LHSejn', 'p17LHSmain', 'p17LHSpre', 'p17RHSejn', 'p17RHSmain', 'p17RHSpre', 'p18LHSejn', 'p18LHSmain', 'p18LHSpre', 'p18RHSejn', 'p18RHSmain', 'p18RHSpre', 'p19LHSejn', 'p19LHSmain', 'p19LHSpre', 'p19RHSejn', 'p19RHSmain', 'p19RHSpre', 'p1LHSejn', 'p1LHSmain', 'p1LHSpre', 'p1RHSejn', 'p1RHSmain', 'p1RHSpre', 'p20LHSejn', 'p20LHSmain', 'p20LHSpre', 'p20RHSejn', 'p20RHSmain', 'p20RHSpre', 'p21LHSejn', 'p21LHSmain', 'p21LHSpre', 'p21RHSejn', 'p21RHSmain', 'p21RHSpre', 'p22LHSejn', 'p22LHSmain', 'p22LHSpre', 'p22RHSejn', 'p22RHSmain', 'p22RHSpre', 'p23LHSejn', 'p23LHSmain', 'p23LHSpre', 'p23RHSejn', 'p23RHSmain', 'p23RHSpre', 'p24LHSejn', 'p24LHSmain', 'p24LHSpre', 'p24RHSejn', 'p24RHSmain', 'p24RHSpre', 'p25LHSejn', 'p25LHSmain', 'p25LHSpre', 'p25RHSejn', 'p25RHSmain', 'p25RHSpre', 'p26LHSejn', 'p26LHSmain', 'p26LHSpre', 'p26RHSejn', 'p26RHSmain', 'p26RHSpre', 'p27LHSejn', 'p27LHSmain', 'p27LHSpre', 'p27RHSejn', 'p27RHSmain', 'p27RHSpre', 'p28LHSejn', 'p28LHSmain', 'p28LHSpre', 'p28RHSejn', 'p28RHSmain', 'p28RHSpre', 'p29LHSejn', 'p29LHSmain', 'p29LHSpre', 'p29RHSejn', 'p29RHSmain', 'p29RHSpre', 'p2LHSejn', 'p2LHSmain', 'p2LHSpre', 'p2RHSejn', 'p2RHSmain', 'p2RHSpre', 'p30LHSejn', 'p30LHSmain', 'p30LHSpre', 'p30RHSejn', 'p30RHSmain', 'p30RHSpre', 'p31LHSejn', 'p31LHSmain', 'p31LHSpre', 'p31RHSejn', 'p31RHSmain', 'p31RHSpre', 'p32LHSejn', 'p32LHSmain', 'p32LHSpre', 'p32RHSejn', 'p32RHSmain', 'p32RHSpre', 'p33LHSejn', 'p33LHSmain', 'p33LHSpre', 'p33RHSejn', 'p33RHSmain', 'p33RHSpre', 'p34LHSejn', 'p34LHSmain', 'p34LHSpre', 'p34RHSejn', 'p34RHSmain', 'p34RHSpre', 'p35LHSejn', 'p35LHSmain', 'p35LHSpre', 'p35RHSejn', 'p35RHSmain', 'p35RHSpre', 'p36LHSejn', 'p36LHSmain', 'p36LHSpre', 'p36RHSejn', 'p36RHSmain', 'p36RHSpre', 'p37LHSejn', 'p37LHSmain', 'p37LHSpre', 'p37RHSejn', 'p37RHSmain', 'p37RHSpre', 'p38LHSejn', 'p38LHSmain', 'p38LHSpre', 'p38RHSejn', 'p38RHSmain', 'p38RHSpre', 'p39LHSejn', 'p39LHSmain', 'p39LHSpre', 'p39RHSejn', 'p39RHSmain', 'p39RHSpre', 'p3LHSejn', 'p3LHSmain', 'p3LHSpre', 'p3RHSejn', 'p3RHSmain', 'p3RHSpre', 'p40LHSejn', 'p40LHSmain', 'p40LHSpre', 'p40RHSejn', 'p40RHSmain', 'p40RHSpre', 'p41LHSejn', 'p41LHSmain', 'p41LHSpre', 'p41RHSejn', 'p41RHSmain', 'p41RHSpre', 'p42LHSejn', 'p42LHSmain', 'p42LHSpre', 'p42RHSejn', 'p42RHSmain', 'p42RHSpre', 'p43LHSejn', 'p43LHSmain', 'p43LHSpre', 'p43RHSejn', 'p43RHSmain', 'p43RHSpre', 'p44LHSejn', 'p44LHSmain', 'p44LHSpre', 'p44RHSejn', 'p44RHSmain', 'p44RHSpre', 'p45LHSejn', 'p45LHSmain', 'p45LHSpre', 'p45RHSejn', 'p45RHSmain', 'p45RHSpre', 'p4LHSejn', 'p4LHSmain', 'p4LHSpre', 'p4RHSejn', 'p4RHSmain', 'p4RHSpre', 'p5LHSejn', 'p5LHSmain', 'p5LHSpre', 'p5RHSejn', 'p5RHSmain', 'p5RHSpre', 'p6LHSejn', 'p6LHSmain', 'p6LHSpre', 'p6RHSejn', 'p6RHSmain', 'p6RHSpre', 'p7LHSejn', 'p7LHSmain', 'p7LHSpre', 'p7RHSejn', 'p7RHSmain', 'p7RHSpre', 'p8LHSejn', 'p8LHSmain', 'p8LHSpre', 'p8RHSejn', 'p8RHSmain', 'p8RHSpre', 'p9LHSejn', 'p9LHSmain', 'p9LHSpre', 'p9RHSejn', 'p9RHSmain', 'p9RHSpre', 'rotation']
-            
-            if (info[csvdata.indexOf("mode")] == true) {
-                document.getElementById("mode_metric").innerHTML = "BI-LAYER";
-
-                // document.getElementById("P_R_upper").innerHTML = info[csvdata.indexOf("bi_R_rjn_high")];
-                // document.getElementById("P_R_lower").innerHTML = info[csvdata.indexOf("bi_R_rjn_low")];
-                // document.getElementById("P_R_Force").innerHTML = info[csvdata.indexOf("bi_R_force_line")];
-                document.getElementById("P_L_upper").innerHTML = info[csvdata.indexOf("bi_L_rjn_high")];
-                document.getElementById("P_L_lower").innerHTML = info[csvdata.indexOf("bi_L_rjn_low")];                
-                document.getElementById("P_L_Force").innerHTML = info[csvdata.indexOf("bi_L_force_line")];
-
-                // document.getElementById("M_R_upper").innerHTML = "-"
-                // document.getElementById("M_R_lower").innerHTML = "-"
-                // document.getElementById("M_R_Force").innerHTML = "-"
-                document.getElementById("M_L_upper").innerHTML = "-"
-                document.getElementById("M_L_lower").innerHTML = "-"
-                document.getElementById("M_L_Force").innerHTML = "-"
-            }
-            else if (info[csvdata.indexOf("mode")] == false) {
-                document.getElementById("mode_metric").innerHTML = "MONO";
-
-                document.getElementById("P_R_upper").innerHTML = "-"
-                document.getElementById("P_R_lower").innerHTML = "-"
-                document.getElementById("P_R_Force").innerHTML = "-"
-                document.getElementById("P_L_upper").innerHTML = "-"
-                document.getElementById("P_L_lower").innerHTML = "-"
-                document.getElementById("P_L_Force").innerHTML = "-"
-
-                document.getElementById("M_R_upper").innerHTML = info[csvdata.indexOf("mono_rjn_high")];
-                document.getElementById("M_R_lower").innerHTML = info[csvdata.indexOf("mono_rjn_low")];
-                document.getElementById("M_R_Force").innerHTML = info[csvdata.indexOf("mono_force_line")];
-                document.getElementById("M_L_upper").innerHTML = info[csvdata.indexOf("mono_rjn_high")];
-                document.getElementById("M_L_lower").innerHTML = info[csvdata.indexOf("mono_rjn_low")];
-                document.getElementById("M_L_Force").innerHTML = info[csvdata.indexOf("mono_force_line")];
-
-                // maingraph.data.datasets[2].data = Array(45).fill(info[csvdata.indexOf("mono_rjn_high")])
-                // maingraph.data.datasets[3].data = Array(45).fill(info[csvdata.indexOf("mono_rjn_low")])
-                // maingraph.data.datasets[4].data = Array(45).fill(info[csvdata.indexOf("mono_force_line")])
-
-            }
+            document.getElementById("M_R_upper").innerHTML = info[1];
+            document.getElementById("M_R_lower").innerHTML = info[2];
+            document.getElementById("M_R_Force").innerHTML = info[3];
 
             // console.log(preLHS[0])
             pregraph.data.datasets[0].data[0] = preLHS[2]
@@ -863,24 +825,24 @@
             pregraph.data.datasets[0].data[24] = preLHS[26]
             pregraph.data.datasets[0].data[25] = preLHS[27]
             pregraph.data.datasets[0].data[26] = preLHS[28]
-            pregraph.data.datasets[0].data[27] = preLHS[29]
-            pregraph.data.datasets[0].data[28] = preLHS[30]
-            pregraph.data.datasets[0].data[29] = preLHS[31]
-            pregraph.data.datasets[0].data[30] = preLHS[32]
-            pregraph.data.datasets[0].data[31] = preLHS[33]
-            pregraph.data.datasets[0].data[32] = preLHS[34]
-            pregraph.data.datasets[0].data[33] = preLHS[35]
-            pregraph.data.datasets[0].data[34] = preLHS[36]
-            pregraph.data.datasets[0].data[35] = preLHS[37]
-            pregraph.data.datasets[0].data[36] = preLHS[38]
-            pregraph.data.datasets[0].data[37] = preLHS[39]
-            pregraph.data.datasets[0].data[38] = preLHS[40]
-            pregraph.data.datasets[0].data[39] = preLHS[41]
-            pregraph.data.datasets[0].data[40] = preLHS[42]
-            pregraph.data.datasets[0].data[41] = preLHS[43]
-            pregraph.data.datasets[0].data[42] = preLHS[44]
-            pregraph.data.datasets[0].data[43] = preLHS[45]
-            pregraph.data.datasets[0].data[44] = preLHS[46]
+            // pregraph.data.datasets[0].data[27] = preLHS[29]
+            // pregraph.data.datasets[0].data[28] = preLHS[30]
+            // pregraph.data.datasets[0].data[29] = preLHS[31]
+            // pregraph.data.datasets[0].data[30] = preLHS[32]
+            // pregraph.data.datasets[0].data[31] = preLHS[33]
+            // pregraph.data.datasets[0].data[32] = preLHS[34]
+            // pregraph.data.datasets[0].data[33] = preLHS[35]
+            // pregraph.data.datasets[0].data[34] = preLHS[36]
+            // pregraph.data.datasets[0].data[35] = preLHS[37]
+            // pregraph.data.datasets[0].data[36] = preLHS[38]
+            // pregraph.data.datasets[0].data[37] = preLHS[39]
+            // pregraph.data.datasets[0].data[38] = preLHS[40]
+            // pregraph.data.datasets[0].data[39] = preLHS[41]
+            // pregraph.data.datasets[0].data[40] = preLHS[42]
+            // pregraph.data.datasets[0].data[41] = preLHS[43]
+            // pregraph.data.datasets[0].data[42] = preLHS[44]
+            // pregraph.data.datasets[0].data[43] = preLHS[45]
+            // pregraph.data.datasets[0].data[44] = preLHS[46]
             
             maingraph.data.datasets[0].data[0] = mainLHS[2]
             maingraph.data.datasets[0].data[1] = mainLHS[3]
@@ -907,26 +869,26 @@
             maingraph.data.datasets[0].data[22] = mainLHS[24]
             maingraph.data.datasets[0].data[23] = mainLHS[25]
             maingraph.data.datasets[0].data[24] = mainLHS[26]
-            maingraph.data.datasets[0].data[25] = mainLHS[27]
-            maingraph.data.datasets[0].data[26] = mainLHS[28]
-            maingraph.data.datasets[0].data[27] = mainLHS[29]
-            maingraph.data.datasets[0].data[28] = mainLHS[30]
-            maingraph.data.datasets[0].data[29] = mainLHS[31]
-            maingraph.data.datasets[0].data[30] = mainLHS[32]
-            maingraph.data.datasets[0].data[31] = mainLHS[33]
-            maingraph.data.datasets[0].data[32] = mainLHS[34]
-            maingraph.data.datasets[0].data[33] = mainLHS[35]
-            maingraph.data.datasets[0].data[34] = mainLHS[36]
-            maingraph.data.datasets[0].data[35] = mainLHS[37]
-            maingraph.data.datasets[0].data[36] = mainLHS[38]
-            maingraph.data.datasets[0].data[37] = mainLHS[39]
-            maingraph.data.datasets[0].data[38] = mainLHS[40]
-            maingraph.data.datasets[0].data[39] = mainLHS[41]
-            maingraph.data.datasets[0].data[40] = mainLHS[42]
-            maingraph.data.datasets[0].data[41] = mainLHS[43]
-            maingraph.data.datasets[0].data[42] = mainLHS[44]
-            maingraph.data.datasets[0].data[43] = mainLHS[45]
-            maingraph.data.datasets[0].data[44] = mainLHS[46]
+            // maingraph.data.datasets[0].data[25] = mainLHS[27]
+            // maingraph.data.datasets[0].data[26] = mainLHS[28]
+            // maingraph.data.datasets[0].data[27] = mainLHS[29]
+            // maingraph.data.datasets[0].data[28] = mainLHS[30]
+            // maingraph.data.datasets[0].data[29] = mainLHS[31]
+            // maingraph.data.datasets[0].data[30] = mainLHS[32]
+            // maingraph.data.datasets[0].data[31] = mainLHS[33]
+            // maingraph.data.datasets[0].data[32] = mainLHS[34]
+            // maingraph.data.datasets[0].data[33] = mainLHS[35]
+            // maingraph.data.datasets[0].data[34] = mainLHS[36]
+            // maingraph.data.datasets[0].data[35] = mainLHS[37]
+            // maingraph.data.datasets[0].data[36] = mainLHS[38]
+            // maingraph.data.datasets[0].data[37] = mainLHS[39]
+            // maingraph.data.datasets[0].data[38] = mainLHS[40]
+            // maingraph.data.datasets[0].data[39] = mainLHS[41]
+            // maingraph.data.datasets[0].data[40] = mainLHS[42]
+            // maingraph.data.datasets[0].data[41] = mainLHS[43]
+            // maingraph.data.datasets[0].data[42] = mainLHS[44]
+            // maingraph.data.datasets[0].data[43] = mainLHS[45]
+            // maingraph.data.datasets[0].data[44] = mainLHS[46]
 
             ejngraph.data.datasets[0].data[0] = ejnLHS[2]
             ejngraph.data.datasets[0].data[1] = ejnLHS[3]
@@ -955,24 +917,24 @@
             ejngraph.data.datasets[0].data[24] = ejnLHS[26]
             ejngraph.data.datasets[0].data[25] = ejnLHS[27]
             ejngraph.data.datasets[0].data[26] = ejnLHS[28]
-            ejngraph.data.datasets[0].data[27] = ejnLHS[29]
-            ejngraph.data.datasets[0].data[28] = ejnLHS[30]
-            ejngraph.data.datasets[0].data[29] = ejnLHS[31]
-            ejngraph.data.datasets[0].data[30] = ejnLHS[32]
-            ejngraph.data.datasets[0].data[31] = ejnLHS[33]
-            ejngraph.data.datasets[0].data[32] = ejnLHS[34]
-            ejngraph.data.datasets[0].data[33] = ejnLHS[35]
-            ejngraph.data.datasets[0].data[34] = ejnLHS[36]
-            ejngraph.data.datasets[0].data[35] = ejnLHS[37]
-            ejngraph.data.datasets[0].data[36] = ejnLHS[38]
-            ejngraph.data.datasets[0].data[37] = ejnLHS[39]
-            ejngraph.data.datasets[0].data[38] = ejnLHS[40]
-            ejngraph.data.datasets[0].data[39] = ejnLHS[41]
-            ejngraph.data.datasets[0].data[40] = ejnLHS[42]
-            ejngraph.data.datasets[0].data[41] = ejnLHS[43]
-            ejngraph.data.datasets[0].data[42] = ejnLHS[44]
-            ejngraph.data.datasets[0].data[43] = ejnLHS[45]
-            ejngraph.data.datasets[0].data[44] = ejnLHS[46]
+            // ejngraph.data.datasets[0].data[27] = ejnLHS[29]
+            // ejngraph.data.datasets[0].data[28] = ejnLHS[30]
+            // ejngraph.data.datasets[0].data[29] = ejnLHS[31]
+            // ejngraph.data.datasets[0].data[30] = ejnLHS[32]
+            // ejngraph.data.datasets[0].data[31] = ejnLHS[33]
+            // ejngraph.data.datasets[0].data[32] = ejnLHS[34]
+            // ejngraph.data.datasets[0].data[33] = ejnLHS[35]
+            // ejngraph.data.datasets[0].data[34] = ejnLHS[36]
+            // ejngraph.data.datasets[0].data[35] = ejnLHS[37]
+            // ejngraph.data.datasets[0].data[36] = ejnLHS[38]
+            // ejngraph.data.datasets[0].data[37] = ejnLHS[39]
+            // ejngraph.data.datasets[0].data[38] = ejnLHS[40]
+            // ejngraph.data.datasets[0].data[39] = ejnLHS[41]
+            // ejngraph.data.datasets[0].data[40] = ejnLHS[42]
+            // ejngraph.data.datasets[0].data[41] = ejnLHS[43]
+            // ejngraph.data.datasets[0].data[42] = ejnLHS[44]
+            // ejngraph.data.datasets[0].data[43] = ejnLHS[45]
+            // ejngraph.data.datasets[0].data[44] = ejnLHS[46]
 
             pregraph.update();
             maingraph.update();
