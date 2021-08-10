@@ -217,7 +217,7 @@
                         <h5 class="font-bold text-black">Pre Compression :</h5>
                     </div>
                     <div class="p-3">
-                        <canvas id="precompression_graph" class="chartjs" height="100rem"></canvas>
+                        <canvas id="precompression_graph" class="chartjs" height="70rem"></canvas>
                     </div>
             
                     <!--Main Compression Graph LHS-->
@@ -225,7 +225,7 @@
                         <h5 class="font-bold text-black">Main Compression :</h5>
                     </div>
                     <div class="p-3">
-                        <canvas id="maincompression_graph" class="chartjs" height="100rem"></canvas>
+                        <canvas id="maincompression_graph" class="chartjs" height="70rem"></canvas>
                     </div>
             
                     <!--Ejection Compression Graph LHS-->
@@ -233,7 +233,7 @@
                         <h5 class="font-bold text-black">Ejection :</h5>
                     </div>
                     <div class="p-3">
-                        <canvas id="ejncompression_graph" class="chartjs" height="100rem"></canvas>
+                        <canvas id="ejncompression_graph" class="chartjs" height="70rem"></canvas>
                     </div>
             
                 </div>
@@ -805,7 +805,7 @@
                     payload = data
                     
                     MLHS_LL = Array(26).fill(payload.limit[0])
-                    MLHS_UL = Array(26).fill(payload.limit[1])
+                    MLHS_UL = Array(26).fill(payload.limit[1]+15)
                     PLHS_LL = Array(26).fill(payload.limit[4])
                     PLHS_UL = Array(26).fill(payload.limit[5])
                     ELHS_LL = Array(26).fill(payload.limit[8])
