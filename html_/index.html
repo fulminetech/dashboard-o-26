@@ -825,7 +825,6 @@
                                     <tr>
                                         <!-- <td class="text-center  text-2xl border-gray-700"><a href="/settings_awc">LHS</a></td> -->
                                         <td id="LHS_depth_metric" class="text-center  text-3xl border  border-gray-700">0
-                                            <span> mm</span>
                                             <div id="LHS_depth_metric_l"  class="flex-shrink p-3">
                                                 <div id="dozer_rhs" class="rounded p-2"></div>
                                             </div>
@@ -2297,7 +2296,7 @@
                     // document.getElementById("pressure_metric").value = payload.stats.pressure.pressure_set
                     // document.getElementById("lube_metric").value = payload.stats.lubrication.set_delay_min;
 
-                    document.getElementById("LHS_depth_metric").innerHTML = payload.stats.awc.actual_RHS
+                    document.getElementById("LHS_depth_metric").innerHTML = `${payload.stats.awc.actual_RHS} mm`
                     // document.getElementById("RHS_depth_metric").innerHTML = payload.stats.awc.actual_LHS
                     
                     // document.getElementById("pressure_act_metric").innerHTML = payload.stats.pressure.value;
