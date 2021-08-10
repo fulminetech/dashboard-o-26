@@ -570,7 +570,7 @@ app.get("/api/csv/:param/:batch/:from/:to", (req, res) => {
 
     if (param == "preLHS") {
         
-        _new.queryRaw(`select "rotation", "p1LHSpre", "p2LHSpre", "p3LHSpre", "p4LHSpre", "p5LHSpre", "p6LHSpre", "p7LHSpre", "p8LHSpre", "p9LHSpre", "p10LHSpre", "p11LHSpre", "p12LHSpre", "p13LHSpre", "p14LHSpre", "p15LHSpre", "p16LHSpre", "p17LHSpre", "p18LHSpre", "p19LHSpre", "p20LHSpre", "p21LHSpre", "p22LHSpre", "p23LHSpre", "p24LHSpre", "p25LHSpre", "p26LHSpre", "p27LHSpre", "p28LHSpre", "p29LHSpre", "p30LHSpre", "p31LHSpre", "p32LHSpre", "p33LHSpre", "p34LHSpre", "p35LHSpre", "p36LHSpre", "p37LHSpre", "p38LHSpre", "p39LHSpre", "p40LHSpre", "p41LHSpre", "p42LHSpre", "p43LHSpre", "p44LHSpre", "p45LHSpre", "dwelltime", "turretrpm", "dozerLHS" from "${batch}.history" WHERE "rotation" <= ${to} AND "rotation" >= ${from}`)
+        _new.queryRaw(`select "rotation", "p1LHSpre", "p2LHSpre", "p3LHSpre", "p4LHSpre", "p5LHSpre", "p6LHSpre", "p7LHSpre", "p8LHSpre", "p9LHSpre", "p10LHSpre", "p11LHSpre", "p12LHSpre", "p13LHSpre", "p14LHSpre", "p15LHSpre", "p16LHSpre", "p17LHSpre", "p18LHSpre", "p19LHSpre", "p20LHSpre", "p21LHSpre", "p22LHSpre", "p23LHSpre", "p24LHSpre", "p25LHSpre", "p26LHSpre", "dwelltime", "turretrpm", "dozerLHS" from "${batch}.history" WHERE "rotation" <= ${to} AND "rotation" >= ${from}`)
             .then(data => {
                 var response = data.results[0].series[0].values
                 var _data = {
@@ -597,7 +597,7 @@ app.get("/api/csv/:param/:batch/:from/:to", (req, res) => {
 
 
     } else if (param == "mainLHS") {
-        _new.queryRaw(`select "rotation", "p1LHSmain", "p2LHSmain", "p3LHSmain", "p4LHSmain", "p5LHSmain", "p6LHSmain", "p7LHSmain", "p8LHSmain", "p9LHSmain", "p10LHSmain", "p11LHSmain", "p12LHSmain", "p13LHSmain", "p14LHSmain", "p15LHSmain", "p16LHSmain", "p17LHSmain", "p18LHSmain", "p19LHSmain", "p20LHSmain", "p21LHSmain", "p22LHSmain", "p23LHSmain", "p24LHSmain", "p25LHSmain", "p26LHSmain", "p27LHSmain", "p28LHSmain", "p29LHSmain", "p30LHSmain", "p31LHSmain", "p32LHSmain", "p33LHSmain", "p34LHSmain", "p35LHSmain", "p36LHSmain", "p37LHSmain", "p38LHSmain", "p39LHSmain", "p40LHSmain", "p41LHSmain", "p42LHSmain", "p43LHSmain", "p44LHSmain", "p45LHSmain", "dwelltime", "turretrpm", "dozerLHS" from "${batch}.history" WHERE "rotation" <= ${to} AND "rotation" >= ${from}`)
+        _new.queryRaw(`select "rotation", "p1LHSmain", "p2LHSmain", "p3LHSmain", "p4LHSmain", "p5LHSmain", "p6LHSmain", "p7LHSmain", "p8LHSmain", "p9LHSmain", "p10LHSmain", "p11LHSmain", "p12LHSmain", "p13LHSmain", "p14LHSmain", "p15LHSmain", "p16LHSmain", "p17LHSmain", "p18LHSmain", "p19LHSmain", "p20LHSmain", "p21LHSmain", "p22LHSmain", "p23LHSmain", "p24LHSmain", "p25LHSmain", "p26LHSmain", "dwelltime", "turretrpm", "dozerLHS" from "${batch}.history" WHERE "rotation" <= ${to} AND "rotation" >= ${from}`)
             .then(data => {
                 var response = data.results[0].series[0].values
                 var _data = {
@@ -623,7 +623,7 @@ app.get("/api/csv/:param/:batch/:from/:to", (req, res) => {
             .catch(console.error);
 
     } else if (param == "ejnLHS") {
-        _new.queryRaw(`select "rotation", "p1LHSejn", "p2LHSejn", "p3LHSejn", "p4LHSejn", "p5LHSejn", "p6LHSejn", "p7LHSejn", "p8LHSejn", "p9LHSejn", "p10LHSejn", "p11LHSejn", "p12LHSejn", "p13LHSejn", "p14LHSejn", "p15LHSejn", "p16LHSejn", "p17LHSejn", "p18LHSejn", "p19LHSejn", "p20LHSejn", "p21LHSejn", "p22LHSejn", "p23LHSejn", "p24LHSejn", "p25LHSejn", "p26LHSejn", "p27LHSejn", "p28LHSejn", "p29LHSejn", "p30LHSejn", "p31LHSejn", "p32LHSejn", "p33LHSejn", "p34LHSejn", "p35LHSejn", "p36LHSejn", "p37LHSejn", "p38LHSejn", "p39LHSejn", "p40LHSejn", "p41LHSejn", "p42LHSejn", "p43LHSejn", "p44LHSejn", "p45LHSejn", "dwelltime", "turretrpm", "dozerLHS" from "${batch}.history" WHERE "rotation" <= ${to} AND "rotation" >= ${from}`)
+        _new.queryRaw(`select "rotation", "p1LHSejn", "p2LHSejn", "p3LHSejn", "p4LHSejn", "p5LHSejn", "p6LHSejn", "p7LHSejn", "p8LHSejn", "p9LHSejn", "p10LHSejn", "p11LHSejn", "p12LHSejn", "p13LHSejn", "p14LHSejn", "p15LHSejn", "p16LHSejn", "p17LHSejn", "p18LHSejn", "p19LHSejn", "p20LHSejn", "p21LHSejn", "p22LHSejn", "p23LHSejn", "p24LHSejn", "p25LHSejn", "p26LHSejn", "dwelltime", "turretrpm", "dozerLHS" from "${batch}.history" WHERE "rotation" <= ${to} AND "rotation" >= ${from}`)
             .then(data => {
                 var response = data.results[0].series[0].values
                 var _data = {
