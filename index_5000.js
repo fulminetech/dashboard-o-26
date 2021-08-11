@@ -15,8 +15,8 @@ const { exec } = require('child_process');
 const restartstats = "pm2 restart stats_3128"
 const restartcompression = "pm2 restart compression_3129"
 const restartraw = "pm2 restart main_5000"
-const shutdown = "gnome-session-quit --power-off"
-const reboot = "gnome-session-quit --reboot"
+const shutdown = "sudo -E -u sysconautomation gnome-session-quit --power-off"
+const reboot = "sudo -E -u sysconautomation gnome-session-quit --reboot"
 const fetch = require('cross-fetch');
 var ks = require('node-key-sender');
 
