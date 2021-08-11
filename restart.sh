@@ -1,1 +1,1 @@
-pm2 restart main_5000
+gnome-session-quit --reboot
