@@ -19,9 +19,6 @@ function restartserver(arg) {
 
 app.get("/restart/:param", (req, res) => {
     const a = req.params.param;
-    a == "stats" ? restartserver(restartstats) : restartstats
-    a == "compression" ? restartserver(restartcompression) : restartcompression
-    a == "raw" ? restartserver(restartraw) : restartraw
     a == "reboot" ? restartserver(reboot) : reboot
     a == "shutdown" ? restartserver(shutdown) : shutdown
 });
