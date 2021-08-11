@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const { exec } = require('child_process');
 var cors = require('cors')
+var path = require('path');
 var ks = require('node-key-sender');
 
 app.use(cors({ origin: "*" }));
