@@ -66,10 +66,8 @@ const logsURL = `${hostname}/api/search/logs/`
 var opbatch
 const oplogs = `http://localhost:8086/query?pretty=true&db=new&q=select%20*%20from%20%22operationlogs%22%20where%20%22batch%22%20=%20%27${opbatch}%27`
 
-
-// compression
-
-
-// Reports
-
+// Restart 
+const shutdowngnome = "http://localhost:3001/restart/shutdown";
+const restartgnome = "http://localhost:3001/restart/reboot";
+const gotodesk = "http://localhost:3001/desktop";
 

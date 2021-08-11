@@ -175,7 +175,7 @@
     <script>
         async function shutdown() {
             // console.log("sd")
-            let submiturl = `${restartURL}/shutdown`
+            let submiturl = `${shutdowngnome}`
             await fetch(submiturl)
                 .then((resp) => resp.json())
                 .then(function (data) {
@@ -185,7 +185,7 @@
         
         async function reboot() {
             // console.log("reboot")
-            let submiturl = `${restartURL}/reboot`
+            let submiturl = `${restartgnome}`
             await fetch(submiturl)
                 .then((resp) => resp.json())
                 .then(function (data) {
