@@ -2,6 +2,7 @@ var ModbusRTU = require("modbus-serial");
 const express = require("express");
 const { exec } = require('child_process');
 const { fail } = require("assert");
+const fetch = require('cross-fetch');
 
 const restart1Command = "/opt/dashboard-o-26/restart.sh"
 
@@ -1424,9 +1425,13 @@ var readalarm = function () {
 function restartprodmodbus() {
     console.log(`[ RESTARTING: ${restart1Command} ]`);
     // process.kill(process.pid, 'SIGTERM')
-    exec(restart1Command, (err, stdout, stderr) => {
-        console.log(`${stdout}`);
-    });
+    // exec(restart1Command, (err, stdout, stderr) => {
+    //     console.log(`${stdout}`);
+    // });
+
+    var seturl = `http://localhost:3001/restart/main_5000`
+    fetch(seturl)
+        .catch(function (error) { console.log("[ PAYLOAD FETCH ERROR ]", error) });
     
     process.exit(1)
     // console.log(`[ RESTARTING: ${restart2Command} ]`);
