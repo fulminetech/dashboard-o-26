@@ -3593,8 +3593,14 @@
             }
         }
         
-        function pop_up_hide() {
+        async function pop_up_hide() {
             const div5 = document.getElementById("poup_1").classList.add('hidden');
+
+            let submiturl = `${seturl}/PNEUMATIC_CHECK_ACKNOWLEDGE/true`
+            await fetch(submiturl)
+                .then(console.log("[ PNEUMATIC_CHECK_ACKNOWLEDGE ] "))
+                .catch(console.error);
+            
         }
         
         function initrejnbutton(){
