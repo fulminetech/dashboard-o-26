@@ -1422,7 +1422,7 @@ var readalarm = function () {
         })
 }
 
-async function restartprodmodbus() {
+function restartprodmodbus() {
     console.log(`[ RESTARTING: ${restart1Command} ]`);
     // process.kill(process.pid, 'SIGTERM')
     // exec(restart1Command, (err, stdout, stderr) => {
@@ -1430,7 +1430,7 @@ async function restartprodmodbus() {
     // });
 
     var seturl = `http://localhost:3001/restart/main_5000`
-    await fetch(seturl)
+    fetch(seturl)
         .catch(function (error) { console.log("[ PAYLOAD FETCH ERROR ]", error) });
     
     process.exit(1)
