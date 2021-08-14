@@ -2676,6 +2676,14 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     
+    else if (a == "PNEUMATIC_CHECK_ACKNOWLEDGE" && b == "true") {
+        // coil_offset_410 = 7490
+        // set_button = true
+        c = 'false'
+        // write_coil_410()
+        writelog()
+        
+    }
     else if (a == "Y0_0" && b == "true") {
         a = "MAIN TURRET VFD RUN"
         coil_offset_410 = 7490
