@@ -11,7 +11,10 @@ app.use(cors({ origin: "*" }));
 
 const shutdown = "gnome-session-quit --power-off"
 const reboot = "gnome-session-quit --reboot"
+const shutdown_force = "gnome-session-quit --power-off --force"
 const killchrome = "ps aux | grep -i chromium | awk {'print $2'} | xargs kill -9"
+
+var count
 
 function restartserver(arg) {
     exec(arg, (err, stdout, stderr) => {
@@ -22,10 +25,16 @@ function restartserver(arg) {
 }
 
 app.get("/restart/:param", (req, res) => {
+
+    console.log(count)
+    if(count > 300) {
+        restartserver(shutdown_force)
+    }
+
     const a = req.params.param;
     a == "reboot" ? restartserver(reboot) : reboot
     a == "shutdown" ? restartserver(shutdown) : shutdown
-    a == "main_5000" ? restartprodmodbus() : shutdown
+    a == "main_5000" ? count++ && restartprodmodbus() : shutdown
 });
 
 function restartprodmodbus() {
