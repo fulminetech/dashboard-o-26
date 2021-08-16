@@ -12,7 +12,7 @@ app.use(cors({ origin: "*" }));
 const shutdown = "gnome-session-quit --power-off"
 const reboot = "gnome-session-quit --reboot"
 const shutdown_force = "gnome-session-quit --power-off --force"
-const killchrome = "ps aux | grep -i chromium | awk {'print $2'} | xargs kill -9"
+const killchrome = "killall chromium-browser"
 
 var count
 
@@ -46,13 +46,9 @@ function restartprodmodbus() {
 }
 
 app.get("/desktop", (req, res) => {
-    // ks.sendCombination(['control', 'shift', 'v']);
-    // ks.sendCombination(['alt', 'tab']);
-    // ks.sendCombination(['control','d']);
-    ks.sendCombination(['control', 'alt', 'down']);
-    // ks.sendCombination(['control','alt', 'down']);
-    // ks.sendCombination(['control','alt', 'down']);
-    res.sendFile(path.join(__dirname + "/html_/login.html"));
+    exec(killchrome, (err, stdout, stderr) => {
+        console.log(`${stdout}`);
+    });
 });
 
 const server = app.listen(3001, () => console.log('Server ready'))
