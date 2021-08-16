@@ -3568,10 +3568,10 @@
         async function rejnbutton(){
             var rejn = document.getElementById("rejn_dsbl").innerHTML
 
-            const div6 = document.getElementById("poup_1").classList.remove('hidden');
-
+            
             // console.log(rejn)
             if (rejn  === "REJECTION OFF" ) {
+                const div6 = document.getElementById("poup_1").classList.remove('hidden');
                 button4()
             } else {
                 button4x()
@@ -3581,12 +3581,12 @@
         async function samp(){
             console.log()
 
-            const div6 = document.getElementById("poup_1").classList.remove('hidden');
             
             var rejn = document.getElementById("samp").innerHTML
             
             // console.log(rejn)
             if (rejn  === "AUTO SAMPLING OFF" ) {
+                const div6 = document.getElementById("poup_1").classList.remove('hidden');
                 button6()
             } else {
                 button6x()
@@ -3605,12 +3605,12 @@
         
         function initrejnbutton(){
             
-            const div6 = document.getElementById("poup_1").classList.remove('hidden');
             console.log(maindata.button.INITIAL_REJECTION)
-
+            
             if (maindata.button.INITIAL_REJECTION  === true ) {
                 button9x()
             } else {
+                const div6 = document.getElementById("poup_1").classList.remove('hidden');
                 button9()
             }
         }
