@@ -162,7 +162,7 @@
                 </a>
             </li>
             <li class="my-2 md:my-0">
-                <a id="desktop" href="http://localhost:3001/desktop" class="hidden block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
+                <a id="desktop" onclick="exit()" class="hidden block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
                     <i class="fa fa-minus-square  mr-3 text-2xl text-gray-600"></i> Desktop
                 </a>
             </li>
@@ -3791,6 +3791,12 @@
                 const div1 = document.getElementById("Lweight_dec").classList.remove('bg-blue-900');
                 const div2 = document.getElementById("Lweight_dec").classList.add('bg-blue-600');
                 let submiturl = `${seturl}/LHS_WEIGHT_DEC/false`
+                await fetch(submiturl)
+                    .catch(console.error);
+            }
+
+            async function exit() {
+                let submiturl = `http://localhost:3001/desktop`
                 await fetch(submiturl)
                     .catch(console.error);
             }
