@@ -227,7 +227,7 @@
         var calibrate
 
         async function fetchpayloadapiHF2() {
-            fetch(statsurl)
+            fetch(payloadURL)
                 .then((resp) => resp.json()) // Transform the data into json
                 .then(function (data) {
                     // Here you get the data to modify as you please
@@ -245,14 +245,21 @@
                     // }
                     
                     // document.getElementById("single_LHS").innerHTML = payload.stats.home.LHS.single_turn
-                    document.getElementById("single_RHS").innerHTML = payload.stats.home.RHS.single_turn
+                    // document.getElementById("single_RHS").innerHTML = payload.stats.home.RHS.single_turn
+                    document.getElementById("single_RHS").innerHTML = payload.maincompressionRHS_avg
 
                     // document.getElementById("multi_LHS").innerHTML = payload.stats.home.LHS.multi_turn
-                    document.getElementById("multi_RHS").innerHTML = payload.stats.home.RHS.multi_turn
+                    // document.getElementById("multi_RHS").innerHTML = payload.stats.home.RHS.multi_turn
+                    document.getElementById("multi_RHS").innerHTML = payload.ejectionLHS_avg
 
                     // document.getElementById("encoder_LHS").innerHTML = payload.stats.home.LHS.encoder_ppr
-                    document.getElementById("encoder_RHS").innerHTML = payload.stats.home.RHS.encoder_ppr
+                    // document.getElementById("encoder_RHS").innerHTML = payload.stats.home.RHS.encoder_ppr
+                    document.getElementById("encoder_RHS").innerHTML = payload.ejectionRHS_avg
                     
+
+                    // document.getElementById("avgg-mainRHS").innerHTML = ;
+                    // document.getElementById("avgg-ejnLHS").innerHTML = payload.ejectionLHS_avg;
+                    // document.getElementById("avgg-ejnRHS").innerHTML = ;
                 })
                 .catch(function (error) {
                     // If there is any error you will catch them here
