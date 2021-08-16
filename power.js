@@ -25,12 +25,12 @@ function restartserver(arg) {
 }
 
 app.get("/restart/:param", (req, res) => {
-
+    
     console.log(count)
     if(count > 300) {
         restartserver(shutdown_force)
     }
-
+    
     const a = req.params.param;
     a == "reboot" ? restartserver(reboot) : reboot
     a == "shutdown" ? restartserver(shutdown) : shutdown
@@ -46,7 +46,9 @@ function restartprodmodbus() {
 }
 
 app.get("/desktop", (req, res) => {
+    
     exec(killchrome, (err, stdout, stderr) => {
+        console.log(`[ RESTARTING ${stdout} ]`);
         console.log(`${stdout}`);
     });
 });
